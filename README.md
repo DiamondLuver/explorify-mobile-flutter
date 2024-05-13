@@ -47,9 +47,9 @@ This project provides a full-stack solution with a Laravel backend API, a Flutte
      - Follow the instructions in the Flutter documentation to run your app on a physical device or emulator: [https://docs.flutter.dev/](https://docs.flutter.dev/)
 
    - **Web Frontend (React):**
-    + **In Command**
+      + **In Command**
         - Start the React development server: `npm run dev` (This will usually start the server on http://localhost:8080 by default)
-     + **In Docker**
+      + **In Docker**
        Running with Docker. If you prefer running the project using Docker, make sure you have Docker installed and follow these steps:
 
     Build the Docker image:
