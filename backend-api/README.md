@@ -48,7 +48,6 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    docker-compose up --build
    ```
-
 2. Access the Django application at `http://localhost:8989/`.
 
 ### Configuration
@@ -56,20 +55,12 @@ These instructions will get you a copy of the project up and running on your loc
 - **Secret Key**: Django requires a secret key for cryptographic signing. You can generate a new secret key by running:
 
   ```bash
-  docker-compose run web python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-  ```
+  docker exec -it web python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 
-  Copy the generated key and set it as the value of `SECRET_KEY` in the `.env` file.
+  ```
+  Copy the generated key and set it as the value of `SECRET_KEY` in the `.env` file in the server folder.
 
 - **Database Configuration**: Update the database settings in the `.env` file to match your database configuration.
-
-### Custom Commands
-
-- **Create Superuser**: To create a superuser, run:
-
-  ```bash
-  docker-compose run web python manage.py createsuperuser
-  ```
 
 ### License
 
