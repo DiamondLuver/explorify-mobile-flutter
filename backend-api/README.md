@@ -1,9 +1,5 @@
 # Django RESTful API Demo
 
-```markdown
-# Django Dockerized Project
-
-This is a Dockerized Django project for [brief description].
 
 ## Getting Started
 
