@@ -7,6 +7,12 @@ from rest_framework.decorators import api_view
 from todo.serializers import ToDoSerializer
 from todo.models import ToDo
 
+def test_api(request):
+    data = {
+        'message': 'This is a test API response.'
+    }
+    return JsonResponse(data)
+
 @api_view(['GET', 'POST', 'DELETE'])
 def todos(request):
   # get all todos

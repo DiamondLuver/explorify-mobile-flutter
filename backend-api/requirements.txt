@@ -4,8 +4,10 @@ charset-normalizer==3.3.2
 Django 
 django-cors-headers
 djangorestframework
+gunicorn
 idna==3.7
 psycopg2-binary
+pytz
 python-decouple
 python-environ
 sqlparse 
