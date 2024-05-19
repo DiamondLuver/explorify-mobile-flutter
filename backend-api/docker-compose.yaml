@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  web:
+    build: .
+    container_name: web
+    restart: always
+    tty: true
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py createsuperuser --no-input --username ${DJANGO_SUPERUSER_USERNAME} --email ${DJANGO_SUPERUSER_EMAIL} || true &&
+      python manage.py runserver 0.0.0.0:8989"
+    volumes:
+      - .:/app
+    ports:
+      - "8989:8989"
+    env_file:
+      - .env
+    depends_on:
+      - db

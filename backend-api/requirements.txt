@@ -1,0 +1,13 @@
+asgiref 
+certifi==2024.2.2
+charset-normalizer==3.3.2
+Django 
+django-cors-headers
+djangorestframewor
+idna==3.7
+psycopg2-binary
+python-decouple
+python-environ
+sqlparse 
+tzdata
+urllib3==2.2.1
