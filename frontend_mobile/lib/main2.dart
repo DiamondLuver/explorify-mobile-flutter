@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -46,18 +46,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static final FacebookLogin facebookSignIn = FacebookLogin();
-  GoogleSignInAccount _currentUser;
-  String _message;
+  late GoogleSignInAccount _currentUser;
+  late String _message;
 
   @override
   void initState() {
     super.initState();
     _googleSignIn.onCurrentUserChanged.listen((account) {
       setState(() {
-        _currentUser = account;
+        _currentUser = account!;
         _currentUser.authentication.then((value) {
           print("Custom Log:${value.accessToken}");
-          _login("google", value.accessToken);
+          _login("google", value.accessToken!);
         });
       });
     });
@@ -80,16 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<Null> _loginFB() async {
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    final FacebookLoginResult result =
+        await facebookSignIn.logIn(customPermissions: ['email']);
 
     switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
+      case FacebookLoginStatus.success:
+        final FacebookAccessToken? accessToken = result.accessToken;
         setState(() {
           _message = '''
          Logged in!
          
-         Token: ${accessToken.token}
+         Token: ${accessToken!.token}
          User id: ${accessToken.userId}
          Expires: ${accessToken.expires}
          Permissions: ${accessToken.permissions}
@@ -99,10 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
           _login("facebook", accessToken.token);
         });
         break;
-      case FacebookLoginStatus.cancelledByUser:
+      case FacebookLoginStatus.cancel:
         break;
       case FacebookLoginStatus.error:
-        print("FB Error: ${result.errorMessage}");
+        print("FB Error: ${result.error}");
         break;
     }
   }
@@ -127,7 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 280,
           ),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            margin:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: MaterialButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
@@ -152,7 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            margin:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: MaterialButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
