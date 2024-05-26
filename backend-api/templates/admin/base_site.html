@@ -1,0 +1,26 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom_admin.css' %}" />
+{% endblock %}
+
+{% block header %}
+{{ block.super }}
+{% if user.is_authenticated %}
+    <div class="profile-pic-container">
+      <img src="{{ user.profile.profile_pic.url }}" class="profile-pic" alt="Profile Picture">
+    </div>
+    {%endif%}
+{% endblock %}
+
+{% block nav-global %}
+    {{ block.super }}
+{% endblock %}
+{% block extrahead %}
+    <link href=" {% static 'admin/css/dark_mode.css' %}" type="text/css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+{% endblock %}
