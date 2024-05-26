@@ -94,15 +94,15 @@ This project provides a full-stack solution with a Laravel backend API, a Flutte
 
 ```
 your-project-name/
-├── backend-api/  # Laravel backend API
-│   ├── app/   # Laravel application code
-│   ├── config/  # Laravel configuration files
-│   ├── database/  # Database files (migrations, seeds, etc.)
-│   ├── public/  # Publicly accessible files
-│   ├── resources/  # Laravel resources (views, routes, etc.)
-│   ├── routes/  # API routes
-│   ├── .env  # Environment variables
-│   └── ...  # Other Laravel files
+├── backend-api/  # Django backend API
+│   ├── server/   # Django project directory
+│   │   ├── settings.py  # Django project settings
+│   │   ├── urls.py  # Django URL configuration
+│   │   └── ...  # Other Django files
+│   │   ├── .env  # Environment variables for Django project
+│   └── manage.py...  # Other Django files
+│   ├── .env  # Environment variables for Docker setup
+│   └── ...  # Other Docker-related files
 ├── frontend-mobile/  # Flutter mobile frontend
 │   ├── lib/  # Flutter code
 │   ├── pubspec.yaml  # Flutter project configuration
@@ -112,6 +112,7 @@ your-project-name/
     ├── src/  # React source code
     ├── package.json  # Project dependencies
     └── ...  # Other React files
+
 ```
 
 **API Documentation**
