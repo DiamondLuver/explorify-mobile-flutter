@@ -10,7 +10,7 @@ This project provides a full-stack solution with a Laravel backend API, a Flutte
 1. **Prerequisites:**
    - Ensure you have Node.js (`node -v`) and npm (`npm -v`) installed on your system. You can download them from [https://nodejs.org/en](https://nodejs.org/en).
    - For Flutter development, follow the official installation guide: [https://docs.flutter.dev/](https://docs.flutter.dev/)
-   - For Laravel development, make sure you have Composer installed: [https://getcomposer.org/doc/articles/troubleshooting.md](https://getcomposer.org/doc/articles/troubleshooting.md)
+   - For Django development, can check out the documentation: [https://docs.djangoproject.com/en/5.0/](https://docs.djangoproject.com/en/5.0/)
 
 2. **Clone the Repository:**
 
@@ -20,27 +20,53 @@ This project provides a full-stack solution with a Laravel backend API, a Flutte
 
 3. **Install Dependencies:**
 
-   - **Backend (Laravel):**
+  - **Backend (Django):**
      - Navigate to the backend directory: `cd backend-api`
-     - Install Composer dependencies: `composer install`
-     - Generate an application key: `php artisan key:generate`
-     - Create a `.env` file and configure your database and other environment variables according to Laravel's documentation: [https://laravel.com/docs/11.x/installation](https://laravel.com/docs/11.x/installation)
-     - Run database migrations: `php artisan migrate` (if applicable)
+     - Create a `.env` file for environment variables and specify your Django settings:
+    
+  There are two `env` in the project directory
 
-   - **Mobile Frontend (Flutter):**
+   ```bash
+   cp .env.example .env
+   ```
+   Update the values in the `.env` file as needed.
+
+  ```bash
+  cd server
+  ```
+  
+  ```bash
+  cp .env.example .env
+  ```
+
+  - 
+    - Update the values in the `.env` file as needed.  
+    - **Secret Key**: Django requires a secret key for cryptographic signing. You can generate a new secret key by running:
+    ```bash
+    docker exec -it web python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    ```
+-----------
+
+*
+     - Copy the generated key and set it as the value of `SECRET_KEY` in the `.env` file in the server folder.
+
+     - **Database Configuration**: Update the database settings in the `.env` file to match your database configuration.
+     - For any change and creation such as database and migrate, go to docker shell instead of the VS Code terminal 
+
+- **Mobile Frontend (Flutter):**
      - Navigate to the mobile frontend directory: `cd frontend-mobile`
      - Install Flutter dependencies: `flutter pub get`
 
-   - **Web Frontend (React):**
+- **Web Frontend (React):**
      - Navigate to the web frontend directory: `cd frontend-web`
      - Install npm dependencies: `npm install`
 
 4. **Start the Development Server:**
 
-   - **Backend (Laravel):**
-        - **In XAMPP or MAMP**
-        (Optional) Set up a local development server using a tool like XAMPP or MAMP.
-         Run the Laravel development server: `php artisan serve` (This will start the server on http://localhost:8000 by default)
+   - **Backend (Django):**
+        - **In Local using virtual environment**
+        (Optional) Create virtual environment using conda or python and activate it.
+        Run the Django development server: `python manage.py runserver` (This will start the server on http://localhost:8000 by default)
         - **In Docker**
         Run and build the container: `docker-compose up --build`
    - **Mobile Frontend (Flutter):**
@@ -96,9 +122,9 @@ API documentation will be added soon. In the meantime, you can explore the API r
 
 Deployment instructions will vary depending on your chosen hosting provider. Here are some general guidelines:
 
-- **Backend (Laravel):**
-  - Configure your web server (e.g., Apache, Nginx) to serve the Laravel application from the `public` directory.
-  - Consider using a deployment tool like Laravel Forge or Envoyer for streamlined deployments.
+- **Backend (Django):**
+  - Configure your web server (e.g., Apache, Nginx) to serve the Django application from the `wsigx` directory.
+ 
 - **Mobile Frontend (Flutter):**
   - Follow the platform-specific deployment instructions provided by Flutter: [https://docs.flutter.dev/](https://docs.flutter.dev/)
 - **Web Frontend (React):**
