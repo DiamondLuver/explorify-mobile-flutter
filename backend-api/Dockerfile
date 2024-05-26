@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-FROM python:3.11-slim AS builder
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     && /opt/venv/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /usr/local/wheels -r requirements.txt
 
 # Stage 2: Final Stage
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Copy the built wheels from the previous stage
 COPY --from=builder /usr/local/wheels /usr/local/wheels

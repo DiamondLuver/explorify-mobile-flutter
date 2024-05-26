@@ -22,9 +22,12 @@ services:
     tty: true
     command: >
       sh -c "
+      pip install -r requirements.txt &&
+      python manage.py migrate account && python manage.py migrate internship &&
       python manage.py migrate &&
       python manage.py createsuperuser --no-input --username ${DJANGO_SUPERUSER_USERNAME} --email ${DJANGO_SUPERUSER_EMAIL} || true &&
       python manage.py runserver 0.0.0.0:8989"
+      sh -c "ls /app/**/*.py | entr -r python manage.py runserver 0.0.0.0:8989"
     volumes:
       - .:/app
     ports:
