@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             // curve style
-            Image.asset("assets/images/upper_style.png"),
+            Image.asset(AppImage.upperStyle),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
               child: Column(
@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: IconButton(
                           onPressed: () {},
                           icon: const Image(
-                            image: AssetImage(AppImage.welcomeImg),
+                            image: AssetImage(AppImage.google),
                             width: 24,
                             height: 24,
                           ),
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: IconButton(
                           onPressed: () {},
                           icon: const Image(
-                            image: AssetImage(AppImage.welcomeImg),
+                            image: AssetImage(AppImage.facebook),
                             width: 24,
                             height: 24,
                           ),
