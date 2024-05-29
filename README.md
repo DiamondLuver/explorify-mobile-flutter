@@ -115,9 +115,6 @@ your-project-name/
 
 ```
 
-**API Documentation**
-
-API documentation will be added soon. In the meantime, you can explore the API routes defined in the `backend/routes` directory or use tools like Laravel Dingo API to generate documentation automatically: [https://github.com/dingo/api](https://github.com/dingo/api)
 
 **Deployment**
 
