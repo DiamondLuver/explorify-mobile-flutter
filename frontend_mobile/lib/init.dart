@@ -9,4 +9,8 @@ class InitApp {
   static void loginApp(BuildContext context) async {
     Navigator.popAndPushNamed(context, RouteManager.loginScreen);
   }
+
+  static void welcomeScreen(BuildContext context) async {
+    Navigator.popAndPushNamed(context, RouteManager.welcomeScreen);
+  }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/screens/loading_screen.dart';
-import 'package:frontend_mobile/screens/login_screen.dart';
-import 'package:frontend_mobile/screens/register_screen.dart';
-import 'package:frontend_mobile/screens/splash_screen.dart';
-import 'package:frontend_mobile/screens/welcome_screen.dart';
+import 'package:frontend_mobile/screens/onboarding/loading_screen.dart';
+import 'package:frontend_mobile/screens/login/login_screen.dart';
+import 'package:frontend_mobile/screens/login/register_screen.dart';
+import 'package:frontend_mobile/screens/onboarding/splash_screen.dart';
+import 'package:frontend_mobile/screens/onboarding/welcome_screen.dart';
 
 class RouteManager {
   static const String splashScreen = '/';

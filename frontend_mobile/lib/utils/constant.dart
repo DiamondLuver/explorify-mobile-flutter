@@ -10,7 +10,7 @@ InputDecoration formDecoration(String labelText, IconData iconData) {
       ),
       errorMaxLines: 3,
       labelText: labelText,
-      labelStyle: TextStyle(color: Colors.grey),
+      labelStyle: const TextStyle(color: Colors.grey),
       enabledBorder: Config.outlinedBorder,
       focusedBorder: Config.focusBorder,
       errorBorder: Config.errorBorder);

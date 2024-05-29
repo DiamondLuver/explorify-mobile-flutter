@@ -22,8 +22,9 @@ class Config {
 
   //define space height
   static const spaceSmall = SizedBox(height: 24);
-  static final spaceMedium = SizedBox(height: screenHeight! * 0.05);
-  static final spaceLarge = SizedBox(height: screenHeight! * 0.08);
+  static const spaceMedium = SizedBox(height: 32);
+  static const spaceLarge = SizedBox(height: 48);
+  static const appBarHeight = SizedBox(height: 56);
 
   //textform field border
   static const outlinedBorder = OutlineInputBorder(

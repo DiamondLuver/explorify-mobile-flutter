@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
@@ -34,30 +37,89 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              "Username",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
             TextFormField(
               // textInputAction: TextInputAction.continueAction,
               validator: validateEmail,
               controller: emailController,
-              decoration: formDecoration('Email Address', Icons.email_rounded),
+              decoration: formDecoration('', Icons.person),
             ),
             const SizedBox(child: Config.spaceSmall),
+            Text(
+              "Password",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
             TextFormField(
               // textInputAction: TextInputAction.continueAction,
-              validator: validateEmail,
+              validator: validatePassword,
               controller: passwordController,
-              decoration: formDecoration('Password', Icons.lock),
+              decoration: formDecoration('', Icons.lock),
             ),
+            const SizedBox(child: Config.spaceSmall),
+            Text(
+              "Password",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            TextFormField(
+              // textInputAction: TextInputAction.continueAction,
+              validator: validatePassword,
+              controller: passwordController,
+              decoration: formDecoration('', Icons.lock),
+            ),
+            Config.spaceSmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Remember Me
+                Row(
+                  children: [
+                    Checkbox(
+                      value: true,
+                      onChanged: (value) {},
+                    ),
+                    Text(
+                      "Remember Me",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+
+                // Forget Password
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(color: AppColor.error),
+                  ),
+                ),
+              ],
+            ),
+            Config.spaceSmall,
             // SIGN IN BUTTON
-            MaterialButton(
-              padding: const EdgeInsets.all(12),
-              onPressed: () {},
-              child: const Text("Sign In"),
-            )
+            ElevatedButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+              },
+              style: Theme.of(context).elevatedButtonTheme.style,
+              child: Text(AppText.enText['signIn-button']!),
+            ),
           ],
         ),
       ),

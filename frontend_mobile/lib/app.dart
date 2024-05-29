@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 
 class MyApp extends StatelessWidget {
@@ -20,14 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Inter',
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: Color.fromRGBO(249, 249, 249, 1),
-        primaryColor: Color(0xFFF27C1C),
-        secondaryHeaderColor: Color(0xFF150B3D),
-        textTheme: TextTheme(
+        scaffoldBackgroundColor: AppColor.white,
+        primaryColor: AppColor.primary,
+        secondaryHeaderColor: AppColor.secondary,
+        textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
-            color: Colors.orange,
+            color: AppColor.primary,
           ),
           headlineLarge: TextStyle(
             fontSize: 30,
@@ -37,39 +38,55 @@ class MyApp extends StatelessWidget {
           headlineMedium: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Color(0xff404040)),
+              color: AppColor.secondary),
           headlineSmall: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Color(0xff404040)),
+              color: AppColor.accent),
           titleLarge: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: Colors.orange,
+            color: AppColor.primary,
           ),
           titleMedium: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Color(0xff404040),
+            color: AppColor.secondary,
           ),
           titleSmall: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              color: Color(0xff666666)),
+              color: AppColor.accent),
           bodyLarge: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.normal,
-            color: Color(0xff404040),
+            color: AppColor.textPrimary,
           ),
           bodyMedium: TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.normal,
-            color: Color(0xff666666),
+            color: AppColor.textSecondary,
           ),
           bodySmall: TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.normal,
-            color: Color(0xffAAA6B9),
+            color: AppColor.textAccent,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size.fromHeight(54),
+            foregroundColor: AppColor.white,
+            backgroundColor: AppColor.primary,
+            disabledForegroundColor: AppColor.midGrey,
+            disabledBackgroundColor: AppColor.midGrey,
+            textStyle: const TextStyle(
+                fontSize: 16,
+                color: AppColor.white,
+                fontWeight: FontWeight.bold),
+            shape: const RoundedRectangleBorder(
+                side: BorderSide(color: AppColor.primary),
+                borderRadius: BorderRadius.all(Radius.circular(12.0))),
           ),
         ),
       ),
