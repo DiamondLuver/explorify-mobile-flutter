@@ -8,10 +8,21 @@ class AppText {
     'signIn-title': 'Welcome Back!',
     'signIn-text': 'Fill your details or continue with social media ',
     'signIn-button': 'LOGIN',
-    'signUp-button': 'SIGNUP',
-    'registered_text': 'Already have an account?',
-    'register_text': 'Easy sign up to connect with your doctor',
+    'signUp-button': 'REGISTER',
     'signUp_text': 'Don\'t have an account?',
     'forgot-password': 'Forgot Your Password?',
+    'register_title': 'Rrgister Account',
+    'register_text': 'Fill your details or continue with social media',
+    'check_email_title': 'Check Your Email',
+    'check_email_text':
+        'We have sent the reset password to the email address brandonelouis@gmial.com',
+    'open_email_button': 'OPEN YOUR EMAIL',
+    'back_to_login_button': 'BACK TO LOGIN',
+    'success_title': 'Successful',
+    'success_text':
+        'Your password has been updated, please change your password regularly to avoid this happening',
+    'continue_button': 'CONTINUE',
+    'verify_title': 'Verification Code',
+    'verify_text': 'We have sent the verification code to your email address',
   };
 }
