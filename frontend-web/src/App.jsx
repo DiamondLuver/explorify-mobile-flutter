@@ -1,11 +1,13 @@
-import { Button } from "flowbite-react";
-import PermissionManagement from "./components/PermissionManagement";
+import GoogleLoginButton from "./components/GoogleLogin";
+
 export default function App() {
   return (
     <>
-    <h2>Permission Management</h2>
-      <PermissionManagement />
-      <p>TEST</p>
+      
+      <div>
+        <h1>Welcome to My App</h1>
+        <GoogleLoginButton />
+      </div>
     </>
   );
 }
