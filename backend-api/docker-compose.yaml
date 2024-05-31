@@ -5,7 +5,6 @@ services:
     image: postgres
     container_name: db
     restart: always
-    tty: true
     ports:
       - "5433:5432"
     volumes:
@@ -14,12 +13,17 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+      - POSTGRES_INITDB_ARGS=--data-checksums
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   web:
     build: .
     container_name: web
     restart: always
-    tty: true
     command: >
       sh -c "
       pip install -r requirements.txt &&
@@ -35,4 +39,5 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy

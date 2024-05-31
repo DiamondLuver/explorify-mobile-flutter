@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from account.models import User
 from django.utils import timezone
 from django.views import View
 from django.http import JsonResponse
@@ -8,6 +8,14 @@ from .models import Otp
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
+from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework import status, generics
+from rest_framework.response import Response
+import os
+
+from .serializers import RegistrationSerializer, UsersSerializer
+import requests
 
 class LoginView(View):
     def post(self, request):
@@ -94,3 +102,39 @@ class LoginWithOtpView(View):
             }, status=200)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=500)
+
+
+class CreateAccount(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        reg_serializer = RegistrationSerializer(data=request.data)
+        if reg_serializer.is_valid():
+            new_user = reg_serializer.save()
+            if new_user:
+                r = requests.post(
+                    os.getenv("BACKEND_URL")+"/api/v1/auth/token/",
+                    data={
+                        "username": new_user.email,
+                        "password": request.data["password"],
+                        "client_id": os.getenv("APP_CLIENT_ID"),
+                        "client_secret": os.getenv("APP_CLIENT_SECRET"),
+                        "grant_type": "password",
+                    },
+                )
+                return Response( r.json(), status=status.HTTP_201_CREATED)
+        return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AllUsers(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.all()
+    serializer_class = UsersSerializer
+
+
+class CurrentUser(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        serializer = UsersSerializer(self.request.user)
+        return Response(serializer.data)

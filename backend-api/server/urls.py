@@ -2,13 +2,26 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
+BASE_PREFIX = 'api/v1/'  
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(BASE_PREFIX , include([
+        # add these
+        path('auth/', include("rest_framework.urls")),
+        path('auth/', include('social_django.urls', namespace='social')),
+        path('auth/', include("drf_social_oauth2.urls", namespace="drf")),
+    ])),
     
-    # path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    # REGISTER URL HERE
+    path(BASE_PREFIX, include([
+        path('', include('internship.urls')),            # from internship APP
+        path('account/', include("account.urls")),       # from account APP
+
+    ])),
     
-    path('', include('internship.urls')),
-    path('', include('account.urls')),
+    
 ]
 
 # if settings.DEBUG:
