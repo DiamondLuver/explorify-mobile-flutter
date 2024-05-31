@@ -1,11 +1,24 @@
-import { Button } from "flowbite-react";
-import PermissionManagement from "./components/PermissionManagement";
+import Main from './components/Main';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './auth/Login';
+import Register from './auth/Register';
+
 export default function App() {
+ 
+
   return (
     <>
-    <h2>Permission Management</h2>
-      <PermissionManagement />
-      <p>TEST</p>
+
+    
+   <BrowserRouter>
+   <Routes>
+    <Route path='' element={<Main/>}></Route>
+    <Route path='/login' element={<Login/>}></Route>
+    <Route path='/register' element={<Register/>}></Route>
+   </Routes>
+   </BrowserRouter>
+
+   
     </>
   );
 }
