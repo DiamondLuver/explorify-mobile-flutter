@@ -4,6 +4,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/login_form.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -196,7 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const Text("Don't have an account yet?"),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.registerScreen);
+                          },
                           child: const Text(
                             "Register Now",
                             style: TextStyle(
