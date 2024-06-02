@@ -38,6 +38,7 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_login_facebook: ^2.0.0
   loading_animation_widget: ^1.2.1
+  provider: ^6.1.2
 
   # Utility
   http: ^1.2.1

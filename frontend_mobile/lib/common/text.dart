@@ -13,5 +13,10 @@ class AppText {
     'register_text': 'Easy sign up to connect with your doctor',
     'signUp_text': 'Don\'t have an account?',
     'forgot-password': 'Forgot Your Password?',
+    'appBar-title': 'Welcome, Byun Woo Seok',
+    'appBar-subTitle': 'Find your internship program',
+    'search-text': 'Find Company, Job, Location',
+    'findjob-text': 'Find Job',
+    'recommended-text': 'Recommended For You',
   };
 }

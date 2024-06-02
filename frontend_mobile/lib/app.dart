@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: AppColor.white,
-        primaryColor: AppColor.primary,
+        primaryColor: const Color.fromARGB(255, 145, 121, 102),
         secondaryHeaderColor: AppColor.secondary,
         textTheme: const TextTheme(
           displayLarge: TextStyle(
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           titleLarge: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: AppColor.primary,
+            color: AppColor.secondary,
           ),
           titleMedium: TextStyle(
             fontSize: 12,
