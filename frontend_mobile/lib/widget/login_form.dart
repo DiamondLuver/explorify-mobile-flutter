@@ -115,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
             // SIGN IN BUTTON
             ElevatedButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+                Navigator.popAndPushNamed(context, RouteManager.navigationMenu);
               },
               style: Theme.of(context).elevatedButtonTheme.style,
               child: Text(AppText.enText['signIn-button']!),

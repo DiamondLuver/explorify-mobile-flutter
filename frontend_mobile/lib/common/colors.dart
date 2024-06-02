@@ -7,6 +7,7 @@ class AppColor {
   static const Color secondary = Color(0xFF150B3D);
   static const Color accent = Color(0xFF524B6B);
   static const Color white = Color(0xFFFFFFFF);
+
   // text color
   static const Color textPrimary = Color(0xFF150B3D);
   static const Color textSecondary = Color(0xFF524B6B);
@@ -15,6 +16,7 @@ class AppColor {
   // scaffold color
   static const Color primaryBackground = Color(0xFFD9D9D9);
   static const Color lightContainer = Color(0xFFFFFFFF);
+  static const Color appbBarColor = Color(0xFFF9C79D);
 
   // button color
   static const Color buttonPrimary = Color(0xFFF27C1C);
