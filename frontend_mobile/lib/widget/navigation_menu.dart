@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
+import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -12,8 +13,15 @@ class NavigationMenu extends StatelessWidget {
         height: 60,
         elevation: 0,
         selectedIndex: context.watch<NavigationProvider>().selectedIndex,
-        onDestinationSelected: (index) =>
-            context.read<NavigationProvider>().updateSelectedIndex(index),
+        onDestinationSelected: (index) {
+          if (index == 3) {
+            // Navigate to the profile screen using Navigator.pushNamed
+            Navigator.pushNamed(context, '/profile');
+          } else {
+            // Update the selected index for other destinations
+            context.read<NavigationProvider>().updateSelectedIndex(index);
+          }
+        },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(
@@ -35,7 +43,7 @@ class NavigationProvider with ChangeNotifier {
     const HomeScreen(),
     Container(color: Colors.red),
     Container(color: Colors.yellow),
-    Container(color: Colors.orange),
+    const ProfileScreen(),
   ];
 
   int get selectedIndex => _selectedIndex;

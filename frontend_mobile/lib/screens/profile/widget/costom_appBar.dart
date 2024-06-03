@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/common/colors.dart';
-import 'package:frontend_mobile/utils/config.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar(
+class CustomProfileAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  const CustomProfileAppBar(
       {super.key,
       this.title,
       this.showBackArrow = false,
@@ -20,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 56),
+      padding: const EdgeInsets.only(top: 26),
       child: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -31,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios,
-                  size: 14,
+                  size: 20,
                   color: Colors.white,
                 ),
               )
@@ -44,7 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
                     icon: Icon(
                       leadingIcon,
-                      size: 14,
+                      size: 20,
                       color: Colors.white,
                     ),
                   )

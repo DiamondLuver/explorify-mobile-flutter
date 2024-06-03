@@ -29,5 +29,9 @@ class AppText {
     'continue_button': 'CONTINUE',
     'verify_title': 'Verification Code',
     'verify_text': 'We have sent the verification code to your email address',
+    'profile_name': 'Byun Woo Seok',
+    'profile_email': 'Byunwooseok@gmail.com',
+    'profile': 'Profile',
+    'setting': 'Setting',
   };
 }

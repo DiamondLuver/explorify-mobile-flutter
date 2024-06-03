@@ -9,6 +9,8 @@ import 'package:frontend_mobile/screens/login/login_screen.dart';
 import 'package:frontend_mobile/screens/login/register_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/splash_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/welcome_screen.dart';
+import 'package:frontend_mobile/screens/profile/acoount_screen.dart';
+import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/widget/navigation_menu.dart';
 
 class RouteManager {
@@ -23,6 +25,8 @@ class RouteManager {
   static const String checkEmailScreen = '/checkEmil';
   static const String successScreen = '/success';
   static const String verifyScreen = '/verify';
+  static const String profileScreen = '/profile';
+  static const String accountScreen = '/profile/acoount_detail';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -48,6 +52,10 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const SuccessPage());
       case verifyScreen:
         return MaterialPageRoute(builder: (context) => const VerifyPage());
+      case profileScreen:
+        return MaterialPageRoute(builder: (context) => const ProfileScreen());
+      case accountScreen:
+        return MaterialPageRoute(builder: (context) => const AccountScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }
