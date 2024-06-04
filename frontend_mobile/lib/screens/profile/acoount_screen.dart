@@ -91,6 +91,10 @@ class _AccountScreenState extends State<AccountScreen> {
                           subTitle:
                               'Manager at Amazon Inc (Jan 2015 - Feb 2022)',
                         ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        //button
                       ],
                     ),
                   )

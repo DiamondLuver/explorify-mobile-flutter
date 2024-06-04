@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/profile/widget/costom_appBar.dart';
 
 class ProfileAppBar extends StatelessWidget {
@@ -91,7 +92,8 @@ class ProfileAppBar extends StatelessWidget {
                   SizedBox(width: 60),
                   InkWell(
                     onTap: () {
-                      // Add your onTap functionality here
+                      Navigator.popAndPushNamed(
+                          context, RouteManager.editProfileScreen);
                     },
                     borderRadius: BorderRadius.circular(
                         20.0), // Adjust the radius as needed
