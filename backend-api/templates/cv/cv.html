@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            width: 210mm !important;
+            display: flex;
+            margin: auto;
+            padding: 0;
+            color: #333;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        .container {
+            width: 210mm !important;
+            height: auto !important;
+            {% comment %} margin: 0; {% endcomment %}
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            {% comment %} padding-bottom: 20px; {% endcomment %}
+            
+        }
+        
+        .profile-picture {
+            flex: 1;
+        }
+        
+        .profile-picture img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .header-content {
+            flex: 3;
+            padding-left: 20px;
+        }
+        
+        .header-content h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #2d3e50;
+        }
+        
+        .header-content h2 {
+            margin: 5px 0;
+            font-size: 24px;
+            color: #8d99ae;
+        }
+        
+        .contact-info {
+            margin-top: 15px;
+        }
+        
+        .contact-info p {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #8d99ae;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: #2d3e50;
+        }
+        
+        .main-content {
+            display: flex;
+        }
+        
+        .left-column,
+        .right-column {
+            padding: 10px;
+        }
+        
+        .left-column {
+            flex: 1;
+            border-right: 2px solid #eee;
+        }
+        
+        .right-column {
+            flex: 2;
+            padding-rigth: 20px;
+        }
+        
+        h3 {
+            margin-top: 0;
+            color: #2d3e50;
+            border-bottom: 2px solid #2d3e50;
+            padding-bottom: 5px;
+        }
+        
+        .about-me p,
+        .job p,
+        .education-item p,
+        .skill p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .languages ul,
+        .expertise ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .languages ul li,
+        .expertise ul li {
+            background: #2d3e50;
+            color: #fff;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        
+        .job {
+            margin-bottom: 20px;
+        }
+        
+        .job h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #2d3e50;
+        }
+        
+        .education-item {
+            margin-bottom: 10px;
+        }
+        
+        .education-item h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #2d3e50;
+        }
+        
+        .skills-summary .skill {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        
+        .progress {
+            height: 10px;
+            background: #2d3e50;
+            border-radius: 5px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-picture">
+                <img src="{{ image_url }}" alt="Profile Picture">
+            </div>
+            <div class="header-content">
+                <h1>{{ cv.user.username }}</h1>
+                <h2>{{ cv.job_title }}</h2>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> +123-456-7890</p>
+                    <p><i class="fas fa-envelope"></i> {{ cv.user.email }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Anywhere St., Any City</p>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="left-column">
+                <div class="about-me">
+                    <h3>About Me</h3>
+                    <p>{{ cv.description }}</p>
+                </div>
+                <div class="languages">
+                    <h3>Languages</h3>
+                    <ul>
+                        {% for language in cv.user_language %}
+                            <li>{{ language.language_name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="expertise">
+                    <h3>Expertise</h3>
+                    <ul>
+                        {% for skill in cv.user_skill %}
+                            <li>{{ skill.skill_name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="experience">
+                    <h3>Experience</h3>
+                    <div class="job">
+                        <h4>{{ cv.user_company.company }}</h4>
+                        <p>Location: {{ cv.user_company.location }}</p>
+                        <p>{{ cv.user_company.start_date }} - {{ cv.user_company.end_date }}</p>
+                        <p>{{ cv.user_company.description }}</p>
+                    </div>
+                </div>
+                <div class="education">
+                    <h3>Education</h3>
+                    {% for education in cv.user_education %}
+                        <div class="education-item">
+                            <h4>{{ education.school }}</h4>
+                            <p>{{ education.start_date }} - {{ education.end_date }}</p>
+                            <p>{{ education.education_level }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="skills-summary">
+                    <h3>Skills Summary</h3>
+                    {% for skill in cv.user_skill %}
+                        <div class="skill">
+                            <p>{{ skill.skill_name }}</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{ skill.skill_progress }}%;"></div>
+                            </div>
+                            <span>{{ skill.skill_progress }}%</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
