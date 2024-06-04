@@ -18,7 +18,7 @@ urlpatterns = [
     path(BASE_PREFIX, include([
         path('', include('internship.urls')),            # from internship APP
         path('account/', include("account.urls")),       # from account APP
-
+        path('', include("cv_maker.urls")),              # from cv_maker APP
     ])),
     
     
