@@ -11,7 +11,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.leadingIcon,
       this.action,
       this.leadingOnPressed,
-      this.isCenter = false});
+      this.isCenter = false,
+      this.hasBg = false});
 
   final Widget? title;
   final bool showBackArrow;
@@ -19,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? action;
   final VoidCallback? leadingOnPressed;
   final bool isCenter;
-
+  final bool hasBg;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,10 +35,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.popAndPushNamed(
                       context, RouteManager.navigationMenu);
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back_ios,
                   size: 14,
-                  color: Colors.white,
+                  color: hasBg ? Colors.white : Colors.black,
                 ),
               )
             : leadingIcon != null

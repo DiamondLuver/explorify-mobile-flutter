@@ -14,10 +14,12 @@ class PrimaryCustomContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(0),
       decoration: const BoxDecoration(
-          color: AppColor.primary,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(24),
-              bottomRight: Radius.circular(24))),
+        color: AppColor.primary,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
+        ),
+      ),
       child: SizedBox(
         height: 243,
         child: Stack(
