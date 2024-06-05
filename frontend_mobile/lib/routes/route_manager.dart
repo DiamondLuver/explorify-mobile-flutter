@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/cv_generate/cv_generate_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
@@ -23,6 +24,7 @@ class RouteManager {
   static const String checkEmailScreen = '/checkEmil';
   static const String successScreen = '/success';
   static const String verifyScreen = '/verify';
+  static const String cvGenerateScreen = '/cvGenertate';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -48,6 +50,9 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const SuccessPage());
       case verifyScreen:
         return MaterialPageRoute(builder: (context) => const VerifyPage());
+      case cvGenerateScreen:
+        return MaterialPageRoute(
+            builder: (context) => const CVGenerateScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }

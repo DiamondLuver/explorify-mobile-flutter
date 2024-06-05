@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/utils/config.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -9,25 +10,29 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.showBackArrow = false,
       this.leadingIcon,
       this.action,
-      this.leadingOnPressed});
+      this.leadingOnPressed,
+      this.isCenter = false});
 
   final Widget? title;
   final bool showBackArrow;
   final IconData? leadingIcon;
   final List<Widget>? action;
   final VoidCallback? leadingOnPressed;
+  final bool isCenter;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 68),
+      padding: EdgeInsets.only(left: 24, right: 24, top: isCenter ? 0 : 68),
       child: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
+        centerTitle: isCenter,
         leading: showBackArrow
             ? IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.navigationMenu);
                 },
                 icon: const Icon(Icons.arrow_back_ios))
             : leadingIcon != null

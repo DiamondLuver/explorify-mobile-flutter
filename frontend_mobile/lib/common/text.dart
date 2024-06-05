@@ -29,5 +29,16 @@ class AppText {
     'continue_button': 'CONTINUE',
     'verify_title': 'Verification Code',
     'verify_text': 'We have sent the verification code to your email address',
+    'job_detail_title': 'Internship Detail',
+    'job_title': 'Job Description',
+    'job_requirement_title': 'Requirements',
+    'job_location_title': 'Location',
+    'informations_title': 'Informations',
+    'others_title': 'Facilities and Others',
+    'cv_title': 'Upload CV',
+    'cv_text': 'Add your CV/Resume to apply for a job',
+    'company_title': 'About Company',
+    'website_title': 'Website',
+    'gallery_title': 'Company Gallery',
   };
 }

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
