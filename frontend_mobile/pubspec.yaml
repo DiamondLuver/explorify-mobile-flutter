@@ -39,6 +39,9 @@ dependencies:
   flutter_login_facebook: ^2.0.0
   loading_animation_widget: ^1.2.1
   provider: ^6.1.2
+  dotted_border: ^2.1.0
+  file_picker: ^8.0.3
+  cached_network_image: ^3.3.1
 
   # Utility
   http: ^1.2.1
