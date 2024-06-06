@@ -6,8 +6,8 @@ import 'package:frontend_mobile/screens/profile/widget/costom_appBar.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +116,8 @@ class ProfileAppBar extends StatelessWidget {
                                 .bodyLarge!
                                 .copyWith(color: AppColor.white),
                           ),
-                          SizedBox(width: 8),
-                          Icon(
+                          const SizedBox(width: 8),
+                          const Icon(
                             Icons.edit,
                             color: AppColor.white,
                             size: 14,
