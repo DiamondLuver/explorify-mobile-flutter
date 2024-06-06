@@ -22,7 +22,8 @@ services:
       DJANGO_SUPERUSER_EMAIL: admin@example.com
       DJANGO_SUPERUSER_PASSWORD: password
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
 
