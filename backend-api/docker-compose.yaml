@@ -1,25 +1,7 @@
-version: "3.9"
+version: "3"
 
 services:
-  db:
-    image: postgres
-    container_name: db
-    restart: always
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_INITDB_ARGS=--data-checksums
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
+  # Django Application
   web:
     build: .
     container_name: web
@@ -27,17 +9,67 @@ services:
     command: >
       sh -c "
       pip install -r requirements.txt &&
-      python manage.py migrate account && python manage.py migrate internship &&
+      python manage.py makemigrations &&
       python manage.py migrate &&
       python manage.py createsuperuser --no-input --username ${DJANGO_SUPERUSER_USERNAME} --email ${DJANGO_SUPERUSER_EMAIL} || true &&
       python manage.py runserver 0.0.0.0:8989"
-      sh -c "ls /app/**/*.py | entr -r python manage.py runserver 0.0.0.0:8989"
     volumes:
       - .:/app
     ports:
       - "8989:8989"
-    env_file:
-      - .env
+    environment:
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_PASSWORD: password
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+    networks:
+      - app-network
+
+  # Nginx Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_volume:/app/staticfiles
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+  # PostgreSQL Database
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES="explorify, postgres"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD= password
+      - POSTGRES_INITDB_ARGS=--data-checksums
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres "]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+# Networks
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  dbdata:
+    driver: local
+  static_volume:
