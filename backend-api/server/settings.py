@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+from os.path import join, dirname
+
+from dotenv import load_dotenv
+dotenv_path = join(dirname(__file__), '.env')
+
+load_dotenv(dotenv_path)
 
 env = os.getenv("DEBUG", False)
 
@@ -26,6 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = PRODUCTION_ENV == False
@@ -56,6 +63,7 @@ INSTALLED_APPS = [
     "social_django",
     "drf_social_oauth2",
     "corsheaders",
+    "cv_maker",
     # last line
     "django.contrib.admin",
 ]
@@ -123,12 +131,12 @@ WSGI_APPLICATION = "server.wsgi.application"
 DATABASES = {
     "default": {
         # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite',
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DB_HOSTNAME"),
+        "USER": os.getenv("POSTGRES_USER","postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
+        "HOST": os.getenv("DB_HOSTNAME", "localhost"),
         "PORT": os.getenv("DB_PORT", 5432),
     }
 }
@@ -240,5 +248,7 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [os.getenv("FRONTEND_WEB_URL"), os.getenv("FRONTEND_WEB_URL")]
-SOCIAL_AUTH_REDIRECT_URI = os.getenv("BACKEND_URL") + "/auth/complete/google/"
+# url1 = os.getenv("FRONTEND_WEB_URL")
+# url2 = os.getenv("FRONTEND_WEB_URL")
+# CORS_ALLOWED_ORIGINS = [url1, url2 ]
+SOCIAL_AUTH_REDIRECT_URI = os.getenv("BACKEND_URL") , "/auth/complete/google/"
