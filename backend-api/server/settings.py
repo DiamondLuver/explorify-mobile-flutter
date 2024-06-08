@@ -178,14 +178,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # root to copy static files
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Directory where collectstatic will collect static files
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    # BASE_DIR / 'staticfiles',
+    # BASE_DIR / "static",  # Custom static files
 ]
 
+# Make sure to include the default finders
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
