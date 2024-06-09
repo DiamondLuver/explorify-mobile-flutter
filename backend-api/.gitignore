@@ -2,7 +2,7 @@
 server/.env
 
 
-
+staticfiles
 ### Django ###
 *.log
 *.pot

@@ -1,10 +1,11 @@
 # Django RESTful API Demo
 
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+The toturial of Set up the docker here:
+`https://youtu.be/_Wkge1cUoYA?si=VjxsmQ5uVoqXBEpo`
 ### Prerequisites
 
 - Docker
@@ -25,20 +26,17 @@ These instructions will get you a copy of the project up and running on your loc
    ```
 
 3. Create a `.env` file for environment variables and specify your Django settings:
-    
-    There are two env in the project directory
 
-   ```bash
-   cp .env.example .env
-   ```
    Update the values in the `.env` file as needed.
 
    ```bash
    cd server
    ```
+
    ```bash
    cp .env.example .env
    ```
+
    Update the values in the `.env` file as needed.
 
 ### Usage
@@ -46,22 +44,26 @@ These instructions will get you a copy of the project up and running on your loc
 1. Start the Docker containers:
 
    ```bash
-   docker-compose up --build
+   <!-- Build Image -->
+   docker compose -f "build-process/backend-project/docker-compose-django-backend.yml" build
+   <!-- Create container to run image with log show in terminal -->
+   docker compose -f "build-process/backend-project/docker-compose-django-backend.yml" up
+   <!-- Create container to run image without log show in terminal -->
+   docker compose -f "build-process/backend-project/docker-compose-django-backend.yml" up -d
+   <!-- Remove containers -->
+   docker compose -f "build-process/backend-project/docker-compose-django-backend.yml" down
    ```
+
 2. Access the Django application at `http://localhost:8989/`.
 
 ### Configuration
-
+   The configuration are set already in the .env.example file, so you can skip this part
 - **Secret Key**: Django requires a secret key for cryptographic signing. You can generate a new secret key by running:
-
-  ```bash
-  docker exec -it web python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-
-  ```
-  Copy the generated key and set it as the value of `SECRET_KEY` in the `.env` file in the server folder.
 
 - **Database Configuration**: Update the database settings in the `.env` file to match your database configuration.
 
 ### License
 
 This project is licensed under the [MIT License].
+
+
