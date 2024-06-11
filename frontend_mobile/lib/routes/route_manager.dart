@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/screens/cv_generate/cv_generate_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';

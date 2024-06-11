@@ -21,7 +21,7 @@ class SelectFileButton extends StatelessWidget {
       radius: const Radius.circular(24),
       padding: const EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => pickMedia(),
+        onTap: () => pickMedia(), 
         child: SizedBox(
           height: 80,
           // decoration: BoxDecoration(

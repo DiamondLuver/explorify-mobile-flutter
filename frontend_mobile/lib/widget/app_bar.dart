@@ -24,9 +24,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, top: isCenter ? 0 : 68),
+      padding: EdgeInsets.only(left: 24, right: 24, top: isCenter ? 0 : 36),
       child: AppBar(
+       
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         centerTitle: isCenter,
         leading: showBackArrow
@@ -63,5 +66,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(243.0);
+  Size get preferredSize => const Size.fromHeight(300.0);
 }

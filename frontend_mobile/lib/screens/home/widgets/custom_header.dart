@@ -21,7 +21,7 @@ class PrimaryCustomContainer extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        height: 243,
+        height: MediaQuery.of(context).size.height * 0.35,
         child: Stack(
           children: [
             Positioned(
