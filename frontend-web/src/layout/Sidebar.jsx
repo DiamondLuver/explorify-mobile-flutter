@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaBars,  FaLandmark} from 'react-icons/fa';
+import { FaBagShopping,  FaUserGroup } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -18,32 +20,50 @@ const Sidebar = () => {
         </div>
       </form>
       <ul className="space-y-2">
-        <li>
-          <Link to=''>
+
+      <li>
+          <Link to='/'>
           <a href="#" className="flex items-center p-2 text-base font-medium text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
-            <svg aria-hidden="true" className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-            </svg>
+            <FaBars  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBars>
             <span className="ml-3">
-             Table               </span>
+             Dashboard       </span>
           </a>
           </Link>
         </li>
 
         <li>
-          <Link to='/form'>
+          <Link to='/job/posting'>
           <a href="#" className="flex items-center p-2 text-base font-medium text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
-            <svg aria-hidden="true" className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-            </svg>
+            <FaBagShopping  className='w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBagShopping>
             <span className="ml-3">
-             Form               </span>
+            Jobs          </span>
           </a>
           </Link>
         </li>
 
+
+        <li>
+          <Link to='/company/profile'>
+          <a href="#" className="flex items-center p-2 text-base font-medium text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
+            <FaUserGroup  className='w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaUserGroup>
+            <span className="ml-3">
+             Candidates         </span>
+          </a>
+          </Link>
+        </li>
+
+
+        <li>
+          <Link to='/company/profile'>
+          <a href="#" className="flex items-center p-2 text-base font-medium text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
+            <FaLandmark  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaLandmark>
+            <span className="ml-3">
+             Company          </span>
+          </a>
+          </Link>
+        </li>
+
+      
         <li>
           <button type="button" className="flex items-center p-2 w-full text-base font-medium text-gray-700 hover:text-[#F27C1C] rounded-lg transition duration-75 group hover:bg-[#fce0c9] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
             <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-[#F27C1C] dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
