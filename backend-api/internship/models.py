@@ -12,6 +12,12 @@ class CompanyProfile(models.Model):
     company_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255, blank=True, null=True)
+    head_office = models.CharField(max_length=255, blank=True, null=True)
+    employee_size = models.IntegerField(blank=True, null=True)
+    company_type = models.CharField(max_length=255, blank=True, null=True)
+    specialization = models.CharField(max_length=255, blank=True, null=True)
+    company_website = models.URLField(max_length=200, blank=True, null=True)
+    company_pic = models.ImageField(default='images/profile_pics/Default.png', upload_to='images/profile_pics')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -71,7 +77,12 @@ class InternshipPost(models.Model):
         CompanyProfile, models.DO_NOTHING, blank=True, null=True
     )
     location = models.CharField(max_length=255, blank=True, null=True)
-    body = models.TextField(blank=True, null=True)
+    job_description = models.TextField(blank=True) 
+    job_requirement = models.TextField(blank=True) 
+    job_type = models.CharField(max_length=100, blank=True) 
+    job_duration = models.CharField(max_length=100, blank=True) 
+    qualification = models.CharField(max_length=100, blank=True)
+    salary = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -95,3 +106,13 @@ class JobPoster(models.Model):
         verbose_name = "Job Poster"
         verbose_name_plural = "Job Posters"
         db_table = "job_poster"
+
+
+
+
+
+
+
+
+
+
