@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'colorfield',
     'base',
     
-    
     # last line
     'django.contrib.admin',
 ]

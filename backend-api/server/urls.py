@@ -9,6 +9,7 @@ urlpatterns = [
     
     path('', include('internship.urls')),
     path('', include('account.urls')),
+    
 ]
 
 # if settings.DEBUG:
