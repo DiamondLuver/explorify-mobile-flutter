@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 // Assuming you have a class for PermissionsMixin (if needed)
 
 class User {

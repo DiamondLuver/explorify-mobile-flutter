@@ -95,7 +95,7 @@ class CV {
         'user_award': userAward.toMap(),
       };
   String toJson() => json.encode(toMap());
-
+  factory CV.fromJson(String source) => CV.fromMap(json.decode(source));
   @override
   String toString() => 'CV {cvId: $cvId, userId: ${user.userId}}';
 }
