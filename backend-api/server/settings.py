@@ -19,7 +19,8 @@ dotenv_path = join(dirname(__file__), '.env')
 
 load_dotenv(dotenv_path)
 
-env = os.getenv("DEBUG", False)
+# env = os.getenv("DEBUG", False)
+DEBUG = bool(os.environ.get("DEBUG", default=1))
 
 PRODUCTION_ENV = os.getenv("PRODUCTION_ENV", False)
 
@@ -35,10 +36,10 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = PRODUCTION_ENV == False
+# DEBUG = PRODUCTION_ENV == False
 
 if PRODUCTION_ENV == True:
-    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+    ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
     CORS_ALLOWED_ORIGINS = os.getenv("ALLOWED_CORS_ORIGINS")
 else:
     ALLOWED_HOSTS = ["*"]
@@ -183,7 +184,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"  # Directory where collectstatic will collect static files
 
 STATICFILES_DIRS = [
-    # BASE_DIR / "static",  # Custom static files
+    BASE_DIR / "static",  # Custom static files
 ]
 
 # Make sure to include the default finders
@@ -202,7 +203,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "account.User"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "/home/backend-project/media/")
+
+
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
