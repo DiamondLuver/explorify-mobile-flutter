@@ -7,3 +7,5 @@ admin.site.register(Document)
 admin.site.register(InternshipApplication)
 admin.site.register(InternshipPost)
 admin.site.register(JobPoster)
+
+
