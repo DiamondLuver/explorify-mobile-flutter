@@ -1,5 +1,5 @@
 from django.contrib import admin
-from account.models import User, Profile, ContactInformation
+from account.models import User, Profile, ContactInformation, Otp
 from django.contrib.auth.admin import UserAdmin
 from account.forms import CustomUserChangeForm
 from django.utils.safestring import mark_safe
@@ -57,4 +57,6 @@ class CustomUserAdmin(UserAdmin):
         return fieldsets
 
 admin.site.register(User, CustomUserAdmin)
+# admin.site.register(Profile)
 admin.site.register(Profile)
+admin.site.register(Otp)

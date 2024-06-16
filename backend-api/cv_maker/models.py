@@ -2,19 +2,16 @@ from django.db import models
 from account.models import User
 from django.core.exceptions import ValidationError
 from internship.models import Document, CompanyProfile
-# Create your models here.
-
 
 class CV(models.Model):
     cv_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=255,  null=True)
+    description = models.CharField(max_length=255, null=True)
     job_title = models.CharField(max_length=255, null=True)
-    user_company = models.ForeignKey('UserCompany',  null=True,on_delete=models.CASCADE)
-    user_education = models.ManyToManyField('UserEducation',blank=True)
-    # user_education_level = models.ManyToManyField('EducationLevel',  blank=True)
+    user_company = models.ForeignKey('UserCompany', null=True, on_delete=models.CASCADE)
+    user_education = models.ManyToManyField('UserEducation', blank=True)
     user_skill = models.ManyToManyField('Skill', blank=True)
-    user_major = models.ManyToManyField('Major',  blank=True)
+    user_major = models.ManyToManyField('Major', blank=True)
     user_language = models.ManyToManyField('Language', blank=True)
     user_award = models.ManyToManyField('UserAward', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -22,6 +19,7 @@ class CV(models.Model):
     
     def __str__(self):
         return f"CV {self.cv_id} for User {self.user_id}"
+    
     class Meta:
         verbose_name = "CV"
         verbose_name_plural = "CVs"
@@ -35,6 +33,7 @@ class EducationLevel(models.Model):
 
     def __str__(self):
         return self.education_name
+    
     class Meta:
         verbose_name = "EducationLevel"
         verbose_name_plural = "EducationLevels"
@@ -48,6 +47,7 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.skill_name
+    
     class Meta:
         verbose_name = "Skill"
         verbose_name_plural = "Skills"
@@ -69,7 +69,7 @@ class Language(models.Model):
 
 class UserCompany(models.Model):
     user_company_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyProfile, on_delete=models.DO_NOTHING)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -79,6 +79,7 @@ class UserCompany(models.Model):
     def clean(self):
         if self.end_date < self.start_date:
             raise ValidationError("End date cannot be before start date.")
+    
     def __str__(self):
         return f"Company {self.company_id} for User {self.user_id}"
     
@@ -86,7 +87,6 @@ class UserCompany(models.Model):
         verbose_name = "User Company"
         verbose_name_plural = "User Companies"
         db_table = "user_company"
-
 
 class School(models.Model):
     school_id = models.AutoField(primary_key=True)
@@ -96,6 +96,7 @@ class School(models.Model):
 
     def __str__(self):
         return self.school_name
+    
     class Meta:
         verbose_name = "School"
         verbose_name_plural = "Schools"
@@ -105,17 +106,18 @@ class UserEducation(models.Model):
     user_education_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     school = models.ForeignKey('School', on_delete=models.DO_NOTHING, null=True)
-    education_level= models.ForeignKey('EducationLevel', on_delete=models.DO_NOTHING, null=True)
+    education_level = models.ForeignKey('EducationLevel', on_delete=models.DO_NOTHING, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f"Education for User {self.user_id}"
     def clean(self):
         if self.end_date < self.start_date:
             raise ValidationError("End date cannot be before start date.")
+    
+    def __str__(self):
+        return f"Education for User {self.user_id}"
     
     class Meta:
         verbose_name = "User Education"
@@ -130,6 +132,7 @@ class Major(models.Model):
 
     def __str__(self):
         return self.major_name
+    
     class Meta:
         verbose_name = "Major"
         verbose_name_plural = "Majors"
@@ -148,6 +151,7 @@ class UserAward(models.Model):
 
     def __str__(self):
         return f"Award {self.award_name} for User {self.user_id}"
+    
     class Meta:
         verbose_name = "User Award"
         verbose_name_plural = "User Awards"
