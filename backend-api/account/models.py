@@ -1,19 +1,18 @@
 # Model
 """
-    Otp | Profile | Role | Staff | User
+    Otp | Profile | Role | User
 """
 
 from django.db import models
 from django.utils.translation import gettext as _
-from django.dispatch import receiver
 from django.db.models.signals import post_save
-from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from PIL import Image
 from django.utils import timezone
-
-    
+import datetime    
 class Otp(models.Model):
     otp_id = models.BigAutoField(primary_key=True)
+    code = models.CharField(max_length=6, default="")
     is_verify = models.BooleanField(blank=True, null=True)
     expiry_time = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,14 +25,16 @@ class Otp(models.Model):
         db_table = 'otp'
     
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.code:
             self.code = self.generate_code()
-            self.expiry_time = timezone.now() + timezone.timedelta(minutes=10)
-        super().save(*args, **kwargs)
+        if not self.expiry_time:
+            self.expiry_time = timezone.now() + datetime.timedelta(minutes=10)
+        super(Otp, self).save(*args, **kwargs)
 
-    def generate_code(self):
+    @staticmethod
+    def generate_code():
         import random
-        return str(random.randint(100000, 999999))
+        return ''.join(random.choices('0123456789', k=6))
 
 
 class Profile(models.Model):
@@ -78,22 +79,6 @@ class Role(models.Model):
         db_table = 'role'
 
 
-class Staff(models.Model):
-    staff_id = models.BigAutoField(primary_key=True)
-    staff_first_name = models.CharField(max_length=255, blank=True, null=True)
-    staff_last_name = models.CharField(max_length=255, blank=True, null=True)
-    staff_role = models.ForeignKey('Role', models.DO_NOTHING, blank=True, null=True)
-    staff_email = models.CharField(max_length=255, blank=True, null=True)
-    staff_password = models.CharField(max_length=255, blank=True, null=True)
-    staff_telephone = models.CharField(max_length=20, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "Staff"
-        verbose_name_plural = "Staffs"
-        db_table = 'staff'
-        
 class User(AbstractUser, PermissionsMixin):
     user_id = models.BigAutoField(primary_key=True)
     username = models.CharField(max_length=128, unique=True, verbose_name=_("Username"))
@@ -116,7 +101,7 @@ class User(AbstractUser, PermissionsMixin):
 
 class ContactInformation(models.Model):
     contact_information_id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey('User', null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField('User', null=True, blank=True, on_delete=models.CASCADE, related_name='contact_information')
     email = models.EmailField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     website = models.CharField(max_length=255, blank=True, null=True)

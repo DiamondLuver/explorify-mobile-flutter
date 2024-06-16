@@ -1,128 +1,168 @@
+# Django imports
 from django.contrib.auth import authenticate, login
-from account.models import User
 from django.utils import timezone
-from django.views import View
-from django.http import JsonResponse
-from django.middleware.csrf import get_token
-from .models import Otp
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-import json
-from rest_framework import permissions
-from rest_framework.views import APIView
-from rest_framework import status, generics
-from rest_framework.response import Response
+from django.conf import settings
+
+# Django models
+from account.models import User
+from .models import Otp
 import os
-
-from .serializers import RegistrationSerializer, UsersSerializer
+# Third-party imports
+from rest_framework import status, permissions
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.response import Response
+from oauth2_provider.models import AccessToken, RefreshToken, Application
+from oauthlib.common import generate_token
 import requests
+import datetime
+# Serializers
+from .serializers import (
+    RegistrationSerializer,
+    UsersSerializer,
+    OtpLoginSerializer,
+    LoginSerializer
+)
 
-class LoginView(View):
+@method_decorator(csrf_exempt, name='dispatch')
+class LoginView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
     def post(self, request):
         try:
-            data = json.loads(request.body)
-            username_or_email = data.get('username_or_email')
-            password = data.get('password')
+            serializer = self.get_serializer(data=request.data)
+            if not serializer.is_valid():
+                return Response({"message": "Invalid input data", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-            if not username_or_email or not password:
-                return JsonResponse({"message": "username_or_email and password are required"}, status=400)
+            user = serializer.validated_data['user']
+            user_otp = self.generate_otp(user.user_id)
+            # Implement SMS sending if needed
+            # user_otp.send_sms(request.data.get('phone_number'))
 
-            user = User.objects.filter(username=username_or_email).first()
-            if not user:
-                user = User.objects.filter(email=username_or_email).first()
-
-            if not user or not user.check_password(password):
-                return JsonResponse({"message": "Invalid credentials"}, status=422)
-
-            user_otp = self.generate_otp(user.id)
-            # Uncomment and implement SMS sending if needed
-            # user_otp.send_sms(data.get('phone_number'))
-
-            return JsonResponse({
+            response_data = {
                 'result': True,
                 'result_code': 200,
                 'result_message': "Success",
                 'body': {
-                    'username_or_email': username_or_email,
+                    'username_or_email': request.data.get('username_or_email'),
                     'code': user_otp.code,
                     'expiry_time': user_otp.expiry_time.isoformat(),
                 }
-            }, status=200)
+            }
+            return Response(response_data, status=status.HTTP_200_OK)
         except Exception as e:
-            return JsonResponse({"message": str(e)}, status=500)
+            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def generate_otp(self, user_id):
-        user_otp = Otp.objects.filter(user_id=user_id).order_by('-id').first()
-        now = timezone.now()
+        user_otp, created = Otp.objects.get_or_create(user_id=user_id)
+        if not created:
+            user_otp.code = Otp.generate_code()
+            user_otp.expiry_time = timezone.now() + datetime.timedelta(minutes=10)
+            user_otp.is_verify = False
+            user_otp.save()
+        return user_otp
+    
+class LoginWithOtpView(APIView):
+    permission_classes = [permissions.AllowAny]
 
-        if user_otp and now < user_otp.expiry_time:
-            return user_otp
-
-        return Otp.objects.create(user_id=user_id)
-
-@method_decorator(csrf_exempt, name='dispatch')
-class LoginWithOtpView(View):
     def post(self, request):
-        try:
-            data = json.loads(request.body)
-            username_or_email = data.get('username_or_email')
-            code = data.get('code')
-
-            if not username_or_email or not code:
-                return JsonResponse({"message": "username_or_email and code are required"}, status=400)
+        serializer = OtpLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username_or_email = serializer.data.get('username_or_email')
+            code = serializer.data.get('code')
 
             user = User.objects.filter(username=username_or_email).first()
             if not user:
                 user = User.objects.filter(email=username_or_email).first()
 
             if not user:
-                return JsonResponse({"message": "Account not found"}, status=404)
+                return Response({"message": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
 
-            user_otp = Otp.objects.filter(user_id=user.id, code=code).first()
+            user_otp = Otp.objects.filter(user_id=user.user_id, code=code).first()
             now = timezone.now()
 
             if not user_otp:
-                return JsonResponse({"message": "Invalid code"}, status=422)
+                return Response({"message": "Invalid code"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             elif now > user_otp.expiry_time:
-                return JsonResponse({"message": "Code expired"}, status=422)
+                return Response({"message": "Code expired"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
             user_otp.expiry_time = now
             user_otp.is_verify = True
             user_otp.save()
 
-            login(request, user)
+            backend = "django.contrib.auth.backends.ModelBackend"
+            user.backend = backend
+            login(request, user, backend=backend)
 
-            token = get_token(request)
+            application = Application.objects.get(name='Backend')
+            expires = now + datetime.timedelta(seconds=settings.OAUTH2_PROVIDER['ACCESS_TOKEN_EXPIRE_SECONDS'])
+            access_token = AccessToken.objects.create(
+                user=user,
+                scope='read write',
+                expires=expires,
+                token=generate_token(),
+                application=application
+            )
 
-            return JsonResponse({
+            refresh_token = RefreshToken.objects.create(
+                user=user,
+                token=generate_token(),
+                access_token=access_token,
+                application=application
+            )
+
+            return Response({
                 'user': user.username,
-                'access_token': token,
+                'access_token': access_token.token,
+                'refresh_token': refresh_token.token,
                 'token_type': 'Bearer',
-                'expires_at': (now + timezone.timedelta(weeks=1)).isoformat(),
-            }, status=200)
-        except Exception as e:
-            return JsonResponse({"message": str(e)}, status=500)
+                'expires_at': expires.isoformat(),
+            }, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
-
+# Register and login with social account
 class CreateAccount(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         reg_serializer = RegistrationSerializer(data=request.data)
+        
         if reg_serializer.is_valid():
-            new_user = reg_serializer.save()
+            try:
+                new_user = reg_serializer.save()
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             if new_user:
-                r = requests.post(
-                    os.getenv("BACKEND_URL")+"/api/v1/auth/token/",
-                    data={
-                        "username": new_user.email,
-                        "password": request.data["password"],
-                        "client_id": os.getenv("APP_CLIENT_ID"),
-                        "client_secret": os.getenv("APP_CLIENT_SECRET"),
-                        "grant_type": "password",
-                    },
-                )
-                return Response( r.json(), status=status.HTTP_201_CREATED)
+                backend_url = os.getenv("BACKEND_URL")
+                client_id = os.getenv("APP_CLIENT_ID")
+                client_secret = os.getenv("APP_CLIENT_SECRET")
+
+                if not backend_url or not client_id or not client_secret:
+                    return Response(
+                        {'error': 'Missing required environment variables'},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                    )
+
+                try:
+                    r = requests.post(
+                        f"{backend_url}/api/v1/auth/token/",
+                        data={
+                            "username": new_user.email,
+                            "password": request.data["password"],
+                            "client_id": client_id,
+                            "client_secret": client_secret,
+                            "grant_type": "password",
+                        },
+                    )
+                    r.raise_for_status()
+                    return Response(r.json(), status=r.status_code)
+                except requests.exceptions.RequestException as e:
+                    return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
