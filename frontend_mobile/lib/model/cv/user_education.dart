@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:frontend_mobile/model/user/education_level_model.dart';
-import 'package:frontend_mobile/model/user/school_model.dart';
-import 'package:frontend_mobile/model/user/user_model.dart';
+import 'package:frontend_mobile/model/cv/education_level_model.dart';
+import 'package:frontend_mobile/model/cv/school_model.dart';
+import 'package:frontend_mobile/model/cv/user_model.dart';
 
 // Assuming you have models for User, School, and EducationLevel
 

@@ -36,7 +36,7 @@ class CVFormAPIView(generics.GenericAPIView):
     def post(self, request):
         
         try:
-            user = User.objects.get(user_id=37)
+            user = User.objects.get(user_id=1)
             cv = CV.objects.get(user=user, cv_id=1)
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)

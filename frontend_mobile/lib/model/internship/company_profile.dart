@@ -42,6 +42,6 @@ class CompanyProfile {
       };
 
   String toJson() => json.encode(toMap());
-  @override
-  String toString() => companyName ?? '';
+  factory CompanyProfile.fromJson(String source) =>
+      CompanyProfile.fromMap(json.decode(source));
 }

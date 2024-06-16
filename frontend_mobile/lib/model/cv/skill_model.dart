@@ -29,7 +29,7 @@ class Skill {
   Map<String, dynamic> toMap() => {
         'skill_id': skillId,
         'skill_name': skillName,
-      };
+  };
 
   String toJson() => json.encode(toMap());
 

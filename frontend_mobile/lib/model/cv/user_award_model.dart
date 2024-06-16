@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:frontend_mobile/model/user/user_model.dart';
+import 'package:frontend_mobile/model/cv/user_model.dart';
 
 // Assuming you might have a File class for handling files
 
