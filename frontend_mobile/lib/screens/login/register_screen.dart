@@ -5,9 +5,11 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/register_form.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: <String>[
@@ -28,10 +30,12 @@ class RegisterPageState extends State<RegisterPage> {
   static final FacebookLogin facebookSignIn = FacebookLogin();
   late GoogleSignInAccount _currentUser;
   late String _message;
-
+ 
+  
   @override
   void initState() {
     super.initState();
+
     _googleSignIn.onCurrentUserChanged.listen((account) {
       setState(() {
         _currentUser = account!;
@@ -41,6 +45,14 @@ class RegisterPageState extends State<RegisterPage> {
         });
       });
     });
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  
   }
 
   void _login(String provider, String token) async {
@@ -87,6 +99,7 @@ class RegisterPageState extends State<RegisterPage> {
         break;
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +221,6 @@ class RegisterPageState extends State<RegisterPage> {
                           ))
                     ],
                   ),
-                  
                 ],
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/login/logic/user_input_logic.dart';
+import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
@@ -15,13 +17,17 @@ class RegisterForm extends StatefulWidget {
 class _RigisterState extends State<RegisterForm> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late TextEditingController usernameController;
+  final userInputData = UserInputLogic();
+  final AuthService authService = AuthService();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
+    emailController = TextEditingController(text: userInputData.email);
+    passwordController = TextEditingController(text: userInputData.password);
+    usernameController = TextEditingController(text: userInputData.username);
   }
 
   @override
@@ -30,6 +36,16 @@ class _RigisterState extends State<RegisterForm> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    usernameController.dispose();
+  }
+
+  void signUp() {
+    authService.registration(
+      context: context,
+      username: usernameController.text,
+      password: passwordController.text,
+      email: emailController.text,
+    );
   }
 
   @override
@@ -42,6 +58,21 @@ class _RigisterState extends State<RegisterForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              "Username",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            TextFormField(
+              // textInputAction: TextInputAction.continueAction,
+              validator: validateUsername,
+              controller: usernameController,
+              decoration: formDecoration('', Icons.person),
+              onChanged: (value) => userInputData.updateUsername(value),
+            ),
+            Config.spaceSmall,
+            Text(
               "Email",
               style: Theme.of(context).textTheme.titleSmall,
             ),
@@ -52,7 +83,8 @@ class _RigisterState extends State<RegisterForm> {
               // textInputAction: TextInputAction.continueAction,
               validator: validateEmail,
               controller: emailController,
-              decoration: formDecoration('', Icons.person),
+              decoration: formDecoration('', Icons.email),
+              onChanged: (value) => userInputData.updateEmail(value),
             ),
             const SizedBox(child: Config.spaceSmall),
             Text(
@@ -81,22 +113,11 @@ class _RigisterState extends State<RegisterForm> {
               validator: validatePassword,
               controller: passwordController,
               decoration: formDecoration('', Icons.lock),
+              onChanged: (value) => userInputData.updatePassword(value),
+              obscureText: true,
             ),
             Config.spaceSmall,
-            Text(
-              "Confirm Password",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
-              controller: passwordController,
-              decoration: formDecoration('', Icons.visibility),
-            ),
-            Config.spaceSmall,
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -121,6 +142,7 @@ class _RigisterState extends State<RegisterForm> {
               onPressed: () {
                 Navigator.popAndPushNamed(
                     context, RouteManager.checkEmailScreen);
+                signUp();
               },
               style: Theme.of(context).elevatedButtonTheme.style,
               child: Text(AppText.enText['signUp-button']!),

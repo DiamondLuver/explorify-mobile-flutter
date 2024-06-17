@@ -1,19 +1,40 @@
 String? validateEmail(String? value) {
-  if(value == null || value.isEmpty) {
-    return 'email address required';
+  final _emailRegExp = RegExp(
+      r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+");
+
+  if (value == null || value.isEmpty) {
+    return 'Please enter your email address.';
+  } else if (_emailRegExp.hasMatch(value)) {
+    return 'Please enter a valid email address.';
   }
-  // else if (()..hasMatch(value)) {
-  //   return 'invalid email address';
-  // }
   return null;
 }
 
 String? validatePassword(String? value) {
-  if(value == null || value.isEmpty) {
-    return 'password required';
+  if (value == null || value.isEmpty) {
+    return 'Please enter your password';
+  } else if (value.length < 8) {
+    return 'Password must be at least 8 characters';
+  } else if (!RegExp(r'[a-z]').hasMatch(value)) {
+    return 'Password should contain at least one lowercase letter';
+  } else if (!RegExp(r'[A-Z]').hasMatch(value)) {
+    return 'Password should contain at least one uppercase';
+  } else if (!RegExp(r'[^\w\s]').hasMatch(value)) {
+    return 'Password should contain at least one special character (!@#\$%^&*)';
   }
-  // else if (()..hasMatch(value)) {
-  //   return 'invalid email address';
-  // }
+  return null;
+}
+
+String? validateUsername(String? value) {
+  final _usernameRegExp =
+      RegExp(r"^[a-zA-Z0-9_.-]*$"); // Allows letters, numbers, ., -, and _
+
+  if (value == null || value.isEmpty) {
+    return 'Please enter your username';
+  } else if (value.length < 3) {
+    return 'Username must contain at least 3 character';
+  } else if (_usernameRegExp.hasMatch(value)) {
+    return "Username must not contain any special character";
+  }
   return null;
 }

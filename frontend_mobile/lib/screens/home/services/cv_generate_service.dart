@@ -14,10 +14,12 @@ class CvGenerateService {
 
     try {
       http.Response response = await http.get(
-        Uri.parse('http://localhost:8989/api/v1/cv-form-data/'),
+        Uri.parse(APIEndPoint.baseUrl +
+            APIEndPoint.version +
+            APIEndPoint.authEndPoint.getCV),
         headers: {
           'Content-Type': 'application/json;',
-          // 'x-auth-token': userProvider.user.loginToken,
+          // 'Authorization': 'Bearer $token'
         },
       );
       print(response.body);

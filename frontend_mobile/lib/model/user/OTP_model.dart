@@ -1,7 +1,7 @@
 import 'package:frontend_mobile/model/cv/user_model.dart';
 
 class Otp {
-  int? otpId; // '?' indicates nullable variable
+  int? otpId; 
   bool? isVerify;
   DateTime? expiryTime;
   User user;
