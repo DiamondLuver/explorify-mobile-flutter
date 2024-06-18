@@ -25,6 +25,8 @@ class AuthService {
           {"username": username, "password": password, "email": email},
         ),
       );
+      print(response);
+
       if (!context.mounted) return;
       httpErrorHandle(
         response: response,
