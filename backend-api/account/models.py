@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from PIL import Image
 from django.utils import timezone
-import datetime    
+import datetime
 class Otp(models.Model):
     otp_id = models.BigAutoField(primary_key=True)
     code = models.CharField(max_length=6, default="")
@@ -17,7 +17,7 @@ class Otp(models.Model):
     expiry_time = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.OneToOneField('User', models.DO_NOTHING, blank=True, null=True)
+    user = models.OneToOneField('User', models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "OTP"
@@ -77,6 +77,8 @@ class Role(models.Model):
         verbose_name = "Role"
         verbose_name_plural = "Roles"
         db_table = 'role'
+    def __str__(self):
+        return f"{self.role}"
 
 
 class User(AbstractUser, PermissionsMixin):
@@ -89,6 +91,7 @@ class User(AbstractUser, PermissionsMixin):
     location = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Location"))
     school = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("School"))
     headline = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Headline"))
+    role = models.ForeignKey("Role", on_delete=models.PROTECT, default=3, null=False)  # default is user
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated At"))
 
@@ -97,6 +100,9 @@ class User(AbstractUser, PermissionsMixin):
         db_table = 'user'
         verbose_name = _("User")
         verbose_name_plural = _("Users")
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.username})"
 
 
 class ContactInformation(models.Model):
