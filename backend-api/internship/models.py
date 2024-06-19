@@ -5,11 +5,15 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from account.models import User
+from PIL import Image
 
 
 class CompanyProfile(models.Model):
     company_id = models.BigAutoField(primary_key=True)
     company_name = models.CharField(max_length=255, blank=True, null=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="company_profile"
+    )
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255, blank=True, null=True)
     head_office = models.CharField(max_length=255, blank=True, null=True)
@@ -17,7 +21,9 @@ class CompanyProfile(models.Model):
     company_type = models.CharField(max_length=255, blank=True, null=True)
     specialization = models.CharField(max_length=255, blank=True, null=True)
     company_website = models.URLField(max_length=200, blank=True, null=True)
-    company_pic = models.ImageField(default='images/profile_pics/Default.png', upload_to='images/profile_pics')
+    company_pic = models.ImageField(
+        default="images/profile_pics/Default.png", upload_to="images/company_pics"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -25,6 +31,17 @@ class CompanyProfile(models.Model):
         verbose_name = "Company Profile"
         verbose_name_plural = "Company Profiles"
         db_table = "company_profile"
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.company_pic.path)
+        if img.height > 500 or img.width > 500:
+            new_img = (500, 500)
+            img.thumbnail(new_img)
+            img.save(self.company_pic.path)
+
+    def __str__(self):
+        return f"{self.company_name} {self.user}"
 
 
 class Document(models.Model):
@@ -77,10 +94,10 @@ class InternshipPost(models.Model):
         CompanyProfile, models.DO_NOTHING, blank=True, null=True
     )
     location = models.CharField(max_length=255, blank=True, null=True)
-    job_description = models.TextField(blank=True) 
-    job_requirement = models.TextField(blank=True) 
-    job_type = models.CharField(max_length=100, blank=True) 
-    job_duration = models.CharField(max_length=100, blank=True) 
+    job_description = models.TextField(blank=True)
+    job_requirement = models.TextField(blank=True)
+    job_type = models.CharField(max_length=100, blank=True)
+    job_duration = models.CharField(max_length=100, blank=True)
     qualification = models.CharField(max_length=100, blank=True)
     salary = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=50, blank=True, null=True)
@@ -106,13 +123,3 @@ class JobPoster(models.Model):
         verbose_name = "Job Poster"
         verbose_name_plural = "Job Posters"
         db_table = "job_poster"
-
-
-
-
-
-
-
-
-
-

@@ -25,43 +25,54 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ["language_id", "language_name"]
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = ["school_id", "school_name"]
+class MajorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Major
+        fields = ["major_id", "major_name"]
 
 class UserCompanySerializer(serializers.ModelSerializer):
-    company = serializers.StringRelatedField()
-
     class Meta:
         model = UserCompany
-        fields = ["user_company_id", "company", "start_date", "end_date"]
+        fields = ["user_company_id", "company_name", "start_date", "end_date"]
 
 class UserEducationSerializer(serializers.ModelSerializer):
-    school = serializers.StringRelatedField()
-    education_level = serializers.StringRelatedField()
-
+    education_level = EducationLevelSerializer()
+    school = SchoolSerializer() 
+    major = MajorSerializer()
     class Meta:
         model = UserEducation
         fields = [
             "user_education_id",
             "education_level",
             "school",
+            "major",
             "start_date",
             "end_date",
         ]
-
-class SchoolSerializer(serializers.ModelSerializer):
+class UserEducationDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = School
-        fields = ["school_id", "school_name"]
+        model = UserEducation
+        fields = [
+            "user_education_id",
+            "education_level",
+            "school",
+            "major",
+            "start_date",
+            "end_date",
+        ]
+    
 
-class MajorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Major
-        fields = ["major_id", "major_name"]
+
 
 class UserAwardSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAward
         fields = ["user_award_id", "award_name", "date", "description"]
-
+        
 class CVDataSerializer(serializers.Serializer):
     cv_id = serializers.IntegerField()
     user = UsersSerializer()

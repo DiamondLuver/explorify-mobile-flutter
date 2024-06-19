@@ -64,7 +64,9 @@ INSTALLED_APPS = [
     "social_django",
     "drf_social_oauth2",
     "corsheaders",
-    "cv_maker",
+    "cv_maker.apps.CvMakerConfig",
+    "cv_maker_data",
+    
     # last line
     "django.contrib.admin",
 ]
@@ -90,6 +92,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 MIDDLEWARE = [
+    "base.middleware.TraceIDMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -101,6 +104,8 @@ MIDDLEWARE = [
     # add these
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "base.middleware.CustomErrorHandlerMiddleware",
+    
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -261,3 +266,20 @@ CORS_ALLOW_CREDENTIALS = True
 # url2 = os.getenv("FRONTEND_WEB_URL")
 # CORS_ALLOWED_ORIGINS = [url1, url2 ]
 SOCIAL_AUTH_REDIRECT_URI = os.getenv("BACKEND_URL") , "/auth/complete/google/"
+
+
+# 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
