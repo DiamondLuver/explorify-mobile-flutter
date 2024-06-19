@@ -24,8 +24,8 @@ class LanguageAdmin(admin.ModelAdmin):
 
 @admin.register(UserCompany)
 class UserCompanyAdmin(admin.ModelAdmin):
-    list_display = ('user_company_id', 'user', 'company', 'start_date', 'end_date', 'created_at', 'updated_at')
-    search_fields = ('user__username', 'company__name')
+    list_display = ('user_company_id', 'user', 'company_name', 'start_date', 'end_date', 'created_at', 'updated_at')
+    search_fields = ('user__username', 'company_name')
     list_filter = ('start_date', 'end_date')
 
 @admin.register(UserEducation)
