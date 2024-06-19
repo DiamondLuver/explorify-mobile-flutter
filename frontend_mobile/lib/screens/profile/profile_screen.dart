@@ -88,39 +88,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () {},
                         ),
                         const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.work).icon ?? Icons.error,
-                          title: 'Project',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
-                          ),
-                          onTap: () {},
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.edit).icon ?? Icons.error,
-                          title: 'Signature',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
-                          ),
-                          onTap: () {},
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.book_outlined).icon ?? Icons.error,
-                          title: 'Reference',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
-                          ),
-                          onTap: () {},
-                        ),
-                        const CustomDivider(),
                       ],
                     ),
                   )
@@ -131,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             //setting
             // user profile
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 24.0),
               child: Column(
                 children: [
                   Padding(
@@ -171,7 +138,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: 16.0,
                             color: AppColor.grey,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.changePasswordScreen);
+                          },
                         ),
                         const CustomDivider(),
                         ProfileSetting(
@@ -212,6 +182,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {},
+                        ),
+                        const CustomDivider(),
+                        ProfileSetting(
+                          icon: Icon(Icons.logout_outlined).icon ?? Icons.error,
+                          title: 'Logout',
+                          trailing: null,
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.loginScreen);
+                          },
                         ),
                         const CustomDivider(),
                       ],

@@ -21,6 +21,7 @@ class NavigationMenu extends StatelessWidget {
             // Update the selected index for other destinations
             context.read<NavigationProvider>().updateSelectedIndex(index);
           }
+          //context.read<NavigationProvider>().updateSelectedIndex(index);
         },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),

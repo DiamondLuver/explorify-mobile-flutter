@@ -7,13 +7,13 @@ class ProfileInfoBox extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subTitle,
-    required this.trailing,
+    required this.onTrailingTap,
   });
 
   final IconData icon;
   final String title;
   final String subTitle;
-  final Widget trailing;
+  final VoidCallback onTrailingTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,14 @@ class ProfileInfoBox extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    trailing,
+                    GestureDetector(
+                      onTap: onTrailingTap,
+                      child: Icon(
+                        Icons.edit_note,
+                        size: 24.0,
+                        color: AppColor.primary,
+                      ),
+                    ),
                   ],
                 ),
                 Divider(),
@@ -60,3 +67,4 @@ class ProfileInfoBox extends StatelessWidget {
     );
   }
 }
+

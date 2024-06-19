@@ -102,7 +102,6 @@ class _CheckEmailPageState extends State<CheckEmailPage> {
                   Navigator.popAndPushNamed(context, RouteManager.loginScreen);
                 },
                 child: Container(
-                  // Keep the Container
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
@@ -113,11 +112,9 @@ class _CheckEmailPageState extends State<CheckEmailPage> {
                       width: 2,
                     ),
                   ),
-                  child: Padding(
-                    // Add Padding around the Icon
-                    padding: const EdgeInsets.only(left: 7.0),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 7.0),
                     child: Center(
-                      // Keep Center for visual alignment
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: Colors.orange,

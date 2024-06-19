@@ -33,5 +33,9 @@ class AppText {
     'profile_email': 'Byunwooseok@gmail.com',
     'profile': 'Profile',
     'setting': 'Setting',
+    'change_pwd': 'Change Password',
+    'update_button': 'Update',
+    'cancle_button': 'Cancel',
+    'description': 'Description',
   };
 }

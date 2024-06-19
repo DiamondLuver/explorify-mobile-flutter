@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 
 class CustomProfileAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  const CustomProfileAppBar(
-      {super.key,
-      this.title,
-      this.showBackArrow = false,
-      this.leadingIcon,
-      this.action,
-      this.leadingOnPressed});
+  const CustomProfileAppBar({
+    super.key,
+    this.title,
+    this.showBackArrow = false,
+    this.leadingIcon,
+    this.action,
+    this.leadingOnPressed,
+    this.leadingIconColor = Colors.white, // Add this line
+  });
 
   final Widget? title;
   final bool showBackArrow;
   final IconData? leadingIcon;
   final List<Widget>? action;
   final VoidCallback? leadingOnPressed;
+  final Color leadingIconColor; // Add this line
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,10 @@ class CustomProfileAppBar extends StatelessWidget
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back_ios,
                   size: 20,
-                  color: Colors.white,
+                  color: leadingIconColor, // Change this line
                 ),
               )
             : leadingIcon != null
@@ -44,7 +47,7 @@ class CustomProfileAppBar extends StatelessWidget
                     icon: Icon(
                       leadingIcon,
                       size: 20,
-                      color: Colors.white,
+                      color: leadingIconColor, // Change this line
                     ),
                   )
                 : null,
@@ -55,6 +58,5 @@ class CustomProfileAppBar extends StatelessWidget
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(243.0);
 }
