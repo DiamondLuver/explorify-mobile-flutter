@@ -193,8 +193,6 @@ def add_company(request):
         return Response(company_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 @api_view(['PUT'])
 def update_company(request, companyId):
     try:
@@ -222,8 +220,6 @@ def delete_company(request, companyId):
 
 
 # CRUD operation fo InternshipPost 
-
-
 @api_view(['GET'])
 def view_post(request):
      # checking for the parameters from the URL

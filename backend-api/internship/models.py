@@ -17,7 +17,7 @@ class CompanyProfile(models.Model):
     company_type = models.CharField(max_length=255, blank=True, null=True)
     specialization = models.CharField(max_length=255, blank=True, null=True)
     company_website = models.URLField(max_length=200, blank=True, null=True)
-    company_pic = models.ImageField(default='images/profile_pics/Default.png', upload_to='images/profile_pics')
+    company_pic = models.ImageField(default='images/', upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -28,8 +28,6 @@ urlpatterns = [
 
 # if settings.DEBUG:
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# if settings.DEBUG:
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_title = "Explorify site admin (DEV)"
 admin.site.site_header = "Explorify administration"
