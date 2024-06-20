@@ -39,7 +39,7 @@ const Header = () => {
               data-testid="flowbite-breadcrumb-item"
               href="/users/list"
             >
-              Users
+              Jobs
             </a>
           </li>
 
@@ -52,13 +52,14 @@ const Header = () => {
               className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400"
               data-testid="flowbite-breadcrumb-item"
             >
-              Profile
+              Table
             </span>
           </li>
 
         </ol>
       </nav>
-      <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Company Background</h1>
+      
+      <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Table intern program</h1>
 </div>
 
     </>
