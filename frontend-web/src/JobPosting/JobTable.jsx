@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { FaEye, FaTrash } from 'react-icons/fa';
+import { FaEye, FaPenAlt } from 'react-icons/fa';
 import Pagiantion from '../CompanyPost/Pagiantion';
 import Header from './Header';
 import JobBar from './JobBar';
-
+import { Link } from 'react-router-dom';
+import DeleteJob from './DeleteJob';
 const JobTable = () => {
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8989/api/post/list/')
+        axios.get('http://localhost:8989/api/v1/post/list/')
             .then(response => setJobs(response.data))
             .catch(error => console.error('Error fetching data', error));
     }, []);
@@ -61,10 +62,15 @@ const JobTable = () => {
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{job.status}</td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div className="flex items-center">
-                                                {/* <Link to={`/details/job/${job.internship_post_id}`}> */}
+                                                 <Link to={`/details/job/${job.internship_post_id}`}> 
                                                         <FaEye className="mr-3 text-amber-600" />
-                                                    {/* </Link> */}
-                                                    <FaTrash style={{ color: 'red', cursor: 'pointer' }} />
+                                                 </Link> 
+                                                 <Link to={`/edit/job/${job.internship_post_id}`}> 
+                                                        <FaPenAlt className="mr-3 text-blue-600" />
+                                                 </Link> 
+                                                
+                                                 <DeleteJob jobId={job.internship_post_id} />
+                                                   
                                                 </div>
                                             </td>
                                         </tr>

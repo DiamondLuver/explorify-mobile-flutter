@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
 import { FaBuilding, FaIndustry, FaLink, FaMapMarkedAlt, FaTasks } from 'react-icons/fa';
-
+import { Link } from 'react-router-dom';
 const ViewDetail = () => {
     const { companyId } = useParams();
     const [companyData, setCompanyData] = useState(null);
@@ -12,7 +12,7 @@ const ViewDetail = () => {
     useEffect(() => {
         const fetchCompanyData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8989/api/company/details/${companyId}/`);
+                const response = await axios.get(`http://localhost:8989/api/v1/company/details/${companyId}/`);
                 setCompanyData(response.data);
             } catch (error) {
                 setError(error.message);
@@ -30,74 +30,131 @@ const ViewDetail = () => {
         return <div className="text-center mt-4">Loading...</div>;
     }
 
-    const renderCompanyDetail = (icon, label, value, isLink = false) => (
-        <div className="flex items-center my-2">
-            {icon}
-            <p className="text-lg dark:text-neutral-200">
-                <span className="font-semibold text-gray-700">{label}</span>
-                {isLink ? (
-                    <a href={value} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                        {value}
-                    </a>
-                ) : (
-                    `: ${value}`
-                )}
-            </p>
-        </div>
-    );
+  
 
     return (
-        <div className="antialiased dark:bg-gray-900">
-            <Header />
-            <article className="font-fira mx-auto max-w-3xl p-4 selection:bg-black selection:text-white">
-                <img
-                    className="float-right w-44 rounded-full pt-5"
-                    src="https://st1.bollywoodlife.com/wp-content/uploads/2024/05/1-50.png?impolicy=Medium_Widthonly&w=400&h=711"
-                    alt="Company Logo"
-                />
-                <div className="py-3 ">
-                    <h2 className="text-lg font-poppins font-bold text-amber-500">Company Profile</h2>
-                    <div className="border-2 bg-amber-500 w-36 my-3" />
-                    <div className="space-y-4 pt-3">
-                        {renderCompanyDetail(<FaBuilding className="mr-4 h-5 w-5 text-[#F27C1C]" aria-label="Company Icon" />, 'Company Name', companyData.company_name)}
-                        {renderCompanyDetail(<FaMapMarkedAlt className="mr-4 h-5 w-5 text-[#F27C1C]" aria-label="Head Office Icon" />, 'Head Office', companyData.head_office)}
-                        {renderCompanyDetail(<FaIndustry className="mr-4 h-5 w-5 text-[#F27C1C]" aria-label="Industry Icon" />, 'Industry', companyData.company_type)}
-                        {renderCompanyDetail(<FaTasks className="mr-4 h-5 w-5 text-[#F27C1C]" aria-label="Specialization Icon" />, 'Specialization', companyData.specialization)}
-                        {renderCompanyDetail(<FaLink className="mr-4 h-5 w-5 text-[#F27C1C]" aria-label="Website Icon" />, 'Website :', companyData.company_website, true)}
+        
+        
+<>
+   
+   <Header />
+
+            <section className="text-blueGray-700 bg-white mt-10">
+              <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-28">
+                <div className="flex flex-col items-start mb-16 text-left lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:mb-0">
+                  <h2 className="mb-8 text-xs font-semibold tracking-widest text-black uppercase title-font"> {companyData.company_name} </h2>
+                  <h1 className="mb-8 text-xl font-black tracking-tighter text-black md:text-3xl title-font"> {companyData.company_name} </h1>
+                  <p className="mb-8 text-base leading-relaxed text-left text-blueGray-600 "> {companyData.description} </p>
+                  <div className="flex flex-col justify-center lg:flex-row">
+                  <Link to="/company/profile">
+
+<button type="button" class="text-white bg-amber-500  inline-flex items-center hover:text-white border  hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+Back to home
+</button>
+
+</Link>  
+                  </div>
+                </div>
+
+                  {/* Display Image if company_pic is available
+            {companyData.company_pic && (
+              <div className="mb-8">
+                <img src={companyData.company_pic} alt="Company Logo" className="object-cover object-center rounded-lg" />
+              </div>
+            )} */}
+                <div className="w-full lg:w-1/3 lg:max-w-lg md:w-1/2">
+                  <img className="object-cover object-center rounded-lg " alt="hero" src="https://i.pinimg.com/474x/8b/ec/c7/8becc728a7cb5158329e7fc7c0a062b0.jpg" />
+                </div>
+            
+              </div>
+            
+              <article className="font-fira mx-auto max-w-3xl  selection:bg-black selection:text-white">
+              <h1 class="pb-5 lg:text-2xl text-2xl md:text-xl font-bold tracking-tight text-gray-900 text-center">Additionally
+        <span class="pl-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-700 to-gray-600">About Company</span>
+      </h1>
+               <div class="pt-10 container mx-auto max-w-5xl grid gap-12 grid-cols-1 md:grid-cols-3 items-start justify-center">
+                <div class="grid gap-6 justify-items-center text-center">
+                    <div class="rounded-full border-8 border-amber-400 p-4">
+                    <FaBuilding className="h-6 w-6 text-[#F27C1C]" aria-label="Company Icon" />
                     </div>
+                    <h3 class="text-md font-bold">Head Office 
+                        <br />
+                        <span className='font-normal text-center'> {companyData.head_office}</span>
+                    </h3>
+         
                 </div>
-
-                <section className="mt-12">
-                    <h2 className="text-lg font-poppins font-bold text-amber-500">About Company</h2>
-                    <div className="border-2 bg-amber-500 w-36 my-3" />
-                    <p className="mt-6 text-lg dark:text-neutral-200">{companyData.description}</p>
-                </section>
-
-                <section className="mt-12">
-                    <h2 className="text-lg font-poppins font-bold text-amber-500">Location</h2>
-                    <div className="border-2 bg-amber-500 w-36 my-3" />
-                    <p className="mt-6 text-lg dark:text-neutral-200">Location : {companyData.location}</p>
-                    <iframe
-                        src={`https://www.google.com/maps/embed?pb=${companyData.location}`}
-                        className="rounded-lg w-full h-64 pt-5"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Company Location"
-                    />
-                </section>
-
-                <div class="flex items-center space-x-4 pt-10">
-                    <button type="button" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                        Go back
-                    </button>
-                    <button type="submit" class="text-white bg-amber-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                        Edit profile
-                    </button>
+            
+                <div class="grid gap-6 justify-items-center text-center">
+                    <div class="rounded-full border-8 border-amber-400 p-4">
+                    <FaIndustry className="h-6 w-6 text-[#F27C1C]" aria-label="Industry Icon" />
+                    </div>
+                    <h3 class="text-md font-bold">Industry
+                    <br />
+                    <span className='font-normal text-center'>{companyData.company_type}</span>
+                    </h3>
+                 
                 </div>
-            </article>
-        </div>
+            
+                <div class="grid gap-6 justify-items-center text-center">
+                    <div class="rounded-full border-8 border-amber-400 p-4">
+                    <FaTasks className="h-6 w-6 text-[#F27C1C]" aria-label="Specialization Icon" />
+                    </div>
+                    <h3 class="text-md font-bold">Spectailization
+                    <br />
+                    <span className='font-normal text-center'>{companyData.specialization}</span>
+                    </h3>
+                </div>
+            
+                <div class="grid gap-6 justify-items-center text-center">
+                    <div class="rounded-full border-8 border-amber-400 p-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-md font-bold">Company size
+                    <br />
+                    <span className='font-normal text-center'>Our company have {companyData.company_size} staff</span>
+                    </h3>
+                  
+                </div>
+            
+                <div class="grid gap-6 justify-items-center text-center">
+                    <div class="rounded-full border-8 border-amber-400 p-4">
+                    <FaLink className="h-6 w-6 text-[#F27C1C]" aria-label="Website Icon" />
+                    </div>
+                    <h3 class="text-md font-bold">Website
+                    <br />
+                    <span className='font-normal text-center pt-2 text-blue-500 hover:underline'>{companyData.company_website}</span>
+                    </h3>
+                    
+                </div>
+            </div>
+            
+              <section className="mt-16">
+              <h1 class="pb-5 lg:text-2xl text-2xl md:text-xl font-bold tracking-tight text-gray-900 text-center">Our company location
+
+      </h1>
+                            <div>
+    <p className="mt-6 text-lg dark:text-neutral-200">
+        Address: {companyData.location}
+    </p>
+    <iframe
+        src={`https://www.google.com/maps/embed?pb=${encodeURIComponent(companyData.location)}`}
+        className="rounded-lg w-full h-64 pt-5"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title="Company Location"
+    />
+</div>
+</section>
+</article>
+</section>
+            
+            
+            
+</>
     );
 };
 

@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import Header from '../CompanyPost/Header';
 import AddProfile from './AddProfile';
 import Pagiantion from './Pagiantion';
-import AddEdit from './AddEdit';
+import Edit from './Edit';
+import DeleteProfile from './DeleteProfile';
+
 
 const CompanyTable = () => {
     const [programs, setPrograms] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8989/api/company/list/')
+        axios.get('http://localhost:8989/api/v1/company/list/')
             .then(response => setPrograms(response.data))
             .catch(error => console.error('Error fetching data: ', error));
     }, []);
@@ -25,58 +27,45 @@ const CompanyTable = () => {
                 <div className="mx-auto max-w-screen-2xl lg:px-1">
                     <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
                        <AddProfile/>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-[#F27C1C] uppercase bg-[#fef2e8] dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" className="p-4">
-                                            <div className="flex items-center">
-                                                <input id="checkbox-all" type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                                <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
-                                            </div>
-                                        </th>
-                                        <th scope="col" className="px-4 py-3">Company Name</th>
-                                        <th scope="col" className="px-4 py-3">Head office</th>
-                                        <th scope="col" className="px-4 py-3">Industry</th>
-                                        <th scope="col" className="px-4 py-3">Specialization</th>
-                                        <th scope="col" className="px-4 py-3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {programs.map(program => (
-                                        <tr key={program.company_id} className="border-b dark:border-gray-600 hover:bg-[#fef2e8] dark:hover:bg-gray-700">
-                                            <td className="w-4 px-4 py-3">
-                                                <div className="flex items-center">
-                                                    <input id={`checkbox-${program.company_id}`} type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                                    <label htmlFor={`checkbox-${program.company_id}`} className="sr-only">checkbox</label>
-                                                </div>
-                                            </td>
-                                            <td scope="row" className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {program.company_name}
-                                            </td>
-                                            <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{program.head_office}</td>
-                                            <td className="px-4 py-2">
-                                                <span className="bg-amber-100 text-amber-400 text-xs font-medium px-2 py-0.5 rounded-full dark:bg-primary-900 dark:text-primary-300">{program.company_type}</span>
-                                            </td>
-                                            <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{program.specialization}</td>
-                                            <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div className="flex items-center">
-                                                    <Link to={`/details/company/${program.company_id}`}>
-                                                        <FaEye className="mr-3 text-amber-600" />
-                                                    </Link>
-                                                    <AddEdit companyId={program.company_id} />
-                                                    <FaTrash style={{ color: 'red', cursor: 'pointer' }} onClick={() => handleDelete(program.company_id)} />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        <Pagiantion />
-                    </div>
+                       </div>
                 </div>
-            </section>
+          
+                      
+                          <div className="py-8">
+                          <div className="container mx-auto px-2">
+                           
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {programs.map(program => ( 
+                              <div className="bg-white rounded-lg shadow-lg p-8">
+                                <div className="relative overflow-hidden">
+                                  <img className="object-cover w-32 h-30" src="https://i.pinimg.com/474x/8b/ec/c7/8becc728a7cb5158329e7fc7c0a062b0.jpg" alt="Product" />
+                                  <div className="absolute inset-0 bg-black opacity-40" />
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                  <Link to={`/details/company/${program.company_id}`}>               
+                                    <button className="bg-white text-gray-900 py-2 px-6 rounded-full font-bold hover:bg-gray-300">View detail</button>
+                                    </Link>
+                                  </div>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mt-4">{program.company_name}</h3>
+                                <p className="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
+                                  ante justo. Integer euismod libero id mauris malesuada tincidunt.</p>
+                                <div className="flex items-center justify-between mt-4">
+                                  <span className="text-gray-900 font-bold text-lg">
+                                  <Edit companyId={program.company_id} />
+                                  </span>
+                                 
+                                  <DeleteProfile companyId={program.company_id} />
+                                
+                                </div>
+                              </div>
+                               ))}
+                            </div>
+                          </div>
+                        </div>
+                     
+
+ </section>   
+                
         </>
     );
 };

@@ -8,6 +8,15 @@ import ViewDetail from './CompanyPost/ViewDetail';
 import Dashboard from './Page/Dashboard';
 import JobTable from './JobPosting/JobTable';
 import JobDetail from './JobPosting/JobDetail';
+import Test from './components/Test';
+
+import Edit from './CompanyPost/Edit';
+import DeleteProfile from './CompanyPost/DeleteProfile';
+import DeleteJob from './JobPosting/DeleteJob';
+import EditJob from './JobPosting/EditJob';
+import AddJob from './JobPosting/AddJob';
+import UI from './companyProfile/UI';
+
 
 
 
@@ -24,11 +33,33 @@ export default function App() {
           }
         />
 
+
+<Route 
+          path="/UI" 
+          element={
+            <Main>
+             <UI/>
+            </Main>
+          }
+        />
+
+        {/*  For job posting URL  */}
+        
          <Route 
-          path="/job/posting" 
+          path="/job/table" 
           element={
             <Main>
              <JobTable/>
+            </Main>
+          }
+        />
+
+
+         <Route 
+          path="/job/create" 
+          element={
+            <Main>
+             <AddJob/>
             </Main>
           }
         />
@@ -43,12 +74,46 @@ export default function App() {
         />
 
 
+        <Route 
+          path="/edit/job/:jobId" 
+          element={
+            <Main>
+              <EditJob />
+            </Main>
+          }
+        />
+
+
+         <Route 
+          path="/delete/job/:jobId" 
+          element={
+            <Main>
+              <DeleteJob />
+            </Main>
+          }
+        />
+
+
+         <Route 
+          path="/test" 
+          element={
+            <Main>
+              <Test />
+            </Main>
+          }
+        />
+
+
+
        
        
     
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
   
+
+
+
   {/* Company post route */}
         <Route 
           path="/company/profile" 
@@ -69,16 +134,29 @@ export default function App() {
         />
 
         <Route 
-          path="/edits/company/:companyId" 
+          path="/edit/company/:companyId" 
           element={
             <Main>
-              <CompanyTable />
+              <Edit/>
             </Main>
           }
-        />
+        />      
 
-       
-        
+
+         <Route 
+          path="/delete/company/:companyId" 
+          element={
+            <Main>
+              <DeleteProfile/>
+            </Main>
+          }
+        />      
+
+
+
+
+    
+
       </Routes>
     </BrowserRouter>
   );
