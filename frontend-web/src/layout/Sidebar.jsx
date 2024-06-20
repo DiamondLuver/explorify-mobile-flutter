@@ -27,7 +27,6 @@ const Sidebar = () => {
             <FaBars  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBars>
             <span className="ml-3">
              Dashboard       </span>
-             Dashboard       </span>
           </a>
           </Link>
         </li>
@@ -60,7 +59,7 @@ const Sidebar = () => {
             <FaLandmark  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaLandmark>
             <span className="ml-3">
              Company          </span>
-             Company          </span>
+            
           </a>
           </Link>
         </li>

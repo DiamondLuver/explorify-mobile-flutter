@@ -1,7 +1,5 @@
 import React from 'react';
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CompanyTable from './CompanyPost/CompanyTable';
 import CompanyTable from './CompanyPost/CompanyTable';
 import Login from './auth/Login';
 import Register from './auth/Register';
