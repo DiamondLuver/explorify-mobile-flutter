@@ -1,10 +1,11 @@
 String? validateEmail(String? value) {
-  final _emailRegExp = RegExp(
-      r"[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+");
+  final _emailRegExp =
+      RegExp(r'^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@'
+          r'(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$');
 
   if (value == null || value.isEmpty) {
     return 'Please enter your email address.';
-  } else if (_emailRegExp.hasMatch(value)) {
+  } else if (!_emailRegExp.hasMatch(value.trim())) {
     return 'Please enter a valid email address.';
   }
   return null;
@@ -27,7 +28,7 @@ String? validatePassword(String? value) {
 
 String? validateUsername(String? value) {
   final _usernameRegExp =
-      RegExp(r"^[a-zA-Z0-9_.-]*$"); // Allows letters, numbers, ., -, and _
+      RegExp(r'[^\w\s]'); // Allows letters, numbers, ., -, and _
 
   if (value == null || value.isEmpty) {
     return 'Please enter your username';

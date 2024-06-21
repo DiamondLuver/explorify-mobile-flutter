@@ -3,7 +3,7 @@ import 'dart:convert';
 // Assuming you have a class for PermissionsMixin (if needed)
 
 class User {
-  final int userId;
+  final int? userId;
   final String username;
   final String? firstName;
   final String? lastName;
@@ -14,7 +14,7 @@ class User {
   final String? headline;
 
   User({
-    required this.userId,
+    this.userId,
     required this.username,
     this.firstName,
     this.lastName,
@@ -75,7 +75,7 @@ class User {
         'headline': headline,
       };
   String toJson() => json.encode(toMap());
-
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
   @override
   String toString() => 'User {userId: $userId, username: $username}';
 }

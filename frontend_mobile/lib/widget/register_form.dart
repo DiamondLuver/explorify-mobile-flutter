@@ -15,6 +15,8 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RigisterState extends State<RegisterForm> {
+  final _formKey = GlobalKey<FormState>();
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController usernameController;
@@ -42,15 +44,21 @@ class _RigisterState extends State<RegisterForm> {
   void signUp() {
     authService.registration(
       context: context,
-      username: usernameController.text,
-      password: passwordController.text,
-      email: emailController.text,
+      username: userInputData.username,
+      password: userInputData.password,
+      email: userInputData.email,
     );
+
+    print(userInputData.email);
+    print(userInputData.password);
+    print(userInputData.username);
   }
 
+  bool isSubmitted = false;
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -67,6 +75,9 @@ class _RigisterState extends State<RegisterForm> {
             TextFormField(
               // textInputAction: TextInputAction.continueAction,
               validator: validateUsername,
+              autovalidateMode: isSubmitted
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
               controller: usernameController,
               decoration: formDecoration('', Icons.person),
               onChanged: (value) => userInputData.updateUsername(value),
@@ -83,23 +94,27 @@ class _RigisterState extends State<RegisterForm> {
               // textInputAction: TextInputAction.continueAction,
               validator: validateEmail,
               controller: emailController,
+              autovalidateMode: isSubmitted
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
+
               decoration: formDecoration('', Icons.email),
               onChanged: (value) => userInputData.updateEmail(value),
             ),
-            const SizedBox(child: Config.spaceSmall),
-            Text(
-              "Phone Numbers",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
-              controller: passwordController,
-              decoration: formDecoration('', Icons.phone),
-            ),
+            // const SizedBox(child: Config.spaceSmall),
+            // Text(
+            //   "Phone Numbers",
+            //   style: Theme.of(context).textTheme.titleSmall,
+            // ),
+            // const SizedBox(
+            //   height: 12,
+            // ),
+            // TextFormField(
+            //   // textInputAction: TextInputAction.continueAction,
+            //   validator: validatePassword,
+            //   controller: passwordController,
+            //   decoration: formDecoration('', Icons.phone),
+            // ),
             const SizedBox(child: Config.spaceSmall),
             Text(
               "Password",
@@ -111,6 +126,9 @@ class _RigisterState extends State<RegisterForm> {
             TextFormField(
               // textInputAction: TextInputAction.continueAction,
               validator: validatePassword,
+              autovalidateMode: isSubmitted
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
               controller: passwordController,
               decoration: formDecoration('', Icons.lock),
               onChanged: (value) => userInputData.updatePassword(value),
@@ -140,9 +158,15 @@ class _RigisterState extends State<RegisterForm> {
             // SIGN UP BUTTON
             ElevatedButton(
               onPressed: () {
-                Navigator.popAndPushNamed(
-                    context, RouteManager.checkEmailScreen);
-                signUp();
+                // Navigator.popAndPushNamed(
+                //     context, RouteManager.checkEmailScreen);
+                setState(() {
+                  isSubmitted == true;
+                });
+                if (_formKey.currentState!.validate()) {
+                  signUp();
+                  // print("ok");
+                }
               },
               style: Theme.of(context).elevatedButtonTheme.style,
               child: Text(AppText.enText['signUp-button']!),
