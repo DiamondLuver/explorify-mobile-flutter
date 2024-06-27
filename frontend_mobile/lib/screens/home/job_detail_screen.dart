@@ -3,7 +3,7 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
-import 'package:frontend_mobile/screens/cv_generate/cv_generate_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/tab_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/text_tile.dart';
@@ -50,9 +50,9 @@ class _JobDetailScreenState extends State<JobDetailScreen>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // -------APP BAR--------
-
             Image.asset(AppImage.upperStyle),
             CustomAppBar(
               isCenter: true,
@@ -154,36 +154,37 @@ class _JobDetailScreenState extends State<JobDetailScreen>
             Config.spaceSmall,
 
             // -------TAB BAR & TAB VIEW--------
-            uploadState.isUpload
-                ? const SizedBox(height: 300, child: CVGenerateScreen())
-                : Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Container(
-                          width: MediaQuery.of(context).size.height,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(48),
-                            color: AppColor.buttonSecondary,
-                          ),
-                          child: DescriptionTab(
-                            tabs: tabs,
-                            tabController: tabController,
-                          ),
-                        ),
-                      ),
-                      Config.spaceMedium,
-
-                      // ----TAB VIEW----
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: TabBarView(
-                          controller: tabController,
-                          children: const [JobInfo(), CompanyInfo()],
-                        ),
-                      ),
-                    ],
+            // uploadState.isUpload
+            //     ? const SizedBox(height: 300, child: CVGenerateScreen())
+            //     :
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Container(
+                    width: MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(48),
+                      color: AppColor.buttonSecondary,
+                    ),
+                    child: DescriptionTab(
+                      tabs: tabs,
+                      tabController: tabController,
+                    ),
                   ),
+                ),
+                Config.spaceMedium,
+
+                // ----TAB VIEW----
+                SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: TabBarView(
+                    controller: tabController,
+                    children: const [JobInfo(), CompanyInfo()],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

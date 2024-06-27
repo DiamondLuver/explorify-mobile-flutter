@@ -33,3 +33,15 @@ InputDecoration formDecoration(String labelText, IconData iconData) {
 //       Radius.circular(10),
 //     ),
 //     borderSide: BorderSide(width: 1, color: Colors.red));
+
+void showSnackBar(BuildContext context, String text) {
+  // Hide the current SnackBar
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text),
+      backgroundColor: Colors.red,
+    ),
+  );
+}

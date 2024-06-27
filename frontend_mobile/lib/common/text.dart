@@ -44,5 +44,13 @@ class AppText {
     'profile_email': 'Byunwooseok@gmail.com',
     'profile': 'Profile',
     'setting': 'Setting',
+    'warning_title': 'No CV upload yet',
+    'warning_text':
+        'You don\'t have a CV uploaded yet. Would you like to upload one now?',
+    'upload_text_button': 'Upload CV',
+    'cancel_text': 'Cancel',
+    'success_upload_title': 'Successful',
+    'success_upload_text':
+        'Your CV has been uploaded successfully. The company will review your application and get back to you soon.'
   };
 }

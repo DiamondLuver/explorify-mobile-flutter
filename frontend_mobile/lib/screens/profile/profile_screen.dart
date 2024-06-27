@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   // -- APPBAR --
                   ProfileAppBar(),
-                  Config.spaceMedium,
+                  Config.spaceSmall,
                 ],
               ),
             ),

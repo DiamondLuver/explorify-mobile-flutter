@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/screens/cv_generate/cv_generate_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
@@ -54,8 +54,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const CheckEmailPage());
       case successScreen:
         return MaterialPageRoute(builder: (context) => const SuccessPage());
-      case verifyScreen:
-        return MaterialPageRoute(builder: (context) => const VerifyPage());
+      // case verifyScreen:
+      //   return MaterialPageRoute(builder: (context) => const VerifyPage());
       case cvGenerateScreen:
         return MaterialPageRoute(
             builder: (context) => const CVGenerateScreen());
@@ -64,7 +64,8 @@ class RouteManager {
       case accountScreen:
         return MaterialPageRoute(builder: (context) => const AccountScreen());
       case editProfileScreen:
-        return MaterialPageRoute(builder: (context) => const EditProfileScreen());
+        return MaterialPageRoute(
+            builder: (context) => const EditProfileScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }

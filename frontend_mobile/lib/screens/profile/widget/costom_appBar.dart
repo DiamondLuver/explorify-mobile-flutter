@@ -19,8 +19,9 @@ class CustomProfileAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 26),
+      padding: const EdgeInsets.only(top: 0),
       child: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         leading: showBackArrow
@@ -56,5 +57,5 @@ class CustomProfileAppBar extends StatelessWidget
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(243.0);
+  Size get preferredSize => const Size.fromHeight(300.0);
 }
