@@ -45,8 +45,7 @@ def send_approval_notification_email(company_name, contact_email):
     plain_message = strip_tags(html_message)  # Strip HTML tags for the plain text message
     from_email = settings.EMAIL_HOST_USER
     to_email = ['sreypich.un@student.cadt.edu.kh']  
-    bcc = ['unsreypich999@gmail.com']
-    # bcc = ['unsreypich999@gmail.com','heaklinh@gmail.com', 'chanmaliza.tann@student.cadt.edu.kh']
+    bcc = ['unsreypich999@gmail.com','heaklinh@gmail.com', 'chanmaliza.tann@student.cadt.edu.kh']
 
     msg = EmailMessage(subject, html_message, from_email, to_email, bcc=bcc)
     msg.content_subtype = 'html' 
@@ -98,23 +97,23 @@ def send_html_email(to_email, subject, message):
     except smtplib.SMTPException as e:
         logger.error(f'SMTP error occurred: {e}')
 
-def success_response(message, data=None, status_code=status.HTTP_200_OK):
+def success_response(message="Success", data=None, status_code=status.HTTP_200_OK):
     return Response(
         {
-            "status": "success",
-            "status_code": status.HTTP_200_OK,
-            "message": message,
-            "data": data,
+            "result": "Success",
+            "status_code": status_code,
+            "result_message": message,
+            "body": data,
         },
         status=status_code,
     )
 
-def error_response(message, status_code=status.HTTP_400_BAD_REQUEST):
+def error_response(message, data=None, status_code=status.HTTP_400_BAD_REQUEST):
     response_data = {
-        "status": "error",
+        "result": "Error",
         "status_code": status_code,
-        "message": message,
-        "data": None,
+        "result_message": message,
+        "body": data
         
     }
     # if error:

@@ -37,7 +37,7 @@ class CustomErrorHandlerMiddleware:
         elif response.status_code == 401:
             return self.handle_unauthorized(request, response)
         elif response.status_code == 500:
-            return self.handle_server_error(request)
+            return self.handle_server_error(request, response)
         else:
             return response
 
@@ -45,17 +45,17 @@ class CustomErrorHandlerMiddleware:
         return error_response(message="Forbidden", status_code=403)
 
     def handle_unauthorized(self, request, response):
-        return error_response(message="Unauthorized",data=response, status_code=401)
+        return error_response(message="Unauthorized", status_code=401)
 
-    def handle_server_error(self, request):
-        return error_response(message="Internal Server Error",data="Error from the Server side", status_code=500)
+    def handle_server_error(self, request, response):
+        return error_response(message="Internal Server Error",data=None, status_code=500)
 
 def error_response(message, data=None, status_code=500):
         response_data = {
             "status": "error",
             "status_code": status_code,
             "message": message,
-            "data": None,
+            "data": data,
             
         }
         return JsonResponse(response_data, status=status_code)
