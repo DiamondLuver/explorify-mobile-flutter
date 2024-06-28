@@ -14,6 +14,7 @@ urlpatterns = [
         path('auth/', include("rest_framework.urls")),
         path('auth/', include('social_django.urls', namespace='social')),
         path('auth/', include("drf_social_oauth2.urls", namespace="drf")),
+        path('auth/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),  # Reset password via Email
     ])),
     
     # REGISTER URL HERE
@@ -21,6 +22,7 @@ urlpatterns = [
         path('', include('internship.urls')),            # from internship APP
         path('account/', include("account.urls")),       # from account APP
         path('', include("cv_maker.urls")),              # from cv_maker APP
+        path('', include("cv_maker_data.urls")),         # from cv_maker_data APP
     ])),
     
     

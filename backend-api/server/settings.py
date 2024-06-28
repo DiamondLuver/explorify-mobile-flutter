@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "social_django",
     "drf_social_oauth2",
     "corsheaders",
+    'django_rest_passwordreset', 
     "cv_maker.apps.CvMakerConfig",
     "cv_maker_data",
     
