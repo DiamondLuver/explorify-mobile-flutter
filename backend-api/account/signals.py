@@ -3,14 +3,16 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import User
 from internship.models import CompanyProfile
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.core.mail import EmailMultiAlternatives
+from django_rest_passwordreset.signals import reset_password_token_created
 
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created and instance.role.role_id == 2:
-        CompanyProfile.objects.create(
-            user=instance
-        )
+        CompanyProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
@@ -20,3 +22,48 @@ def delete_user_profile(sender, instance, **kwargs):
             instance.company_profile.delete()
         except CompanyProfile.DoesNotExist:
             pass
+
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(
+    sender, instance, reset_password_token, *args, **kwargs
+):
+    """
+    Handles password reset tokens
+    When a token is created, an e-mail needs to be sent to the user
+    :param sender: View Class that sent the signal
+    :param instance: View Instance that sent the signal
+    :param reset_password_token: Token Model Object
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    context = {
+        "current_user": reset_password_token.user,
+        "username": reset_password_token.user.username,
+        "email": reset_password_token.user.email,
+        "reset_password_url": "{}?token={}".format(
+            instance.request.build_absolute_uri(
+                reverse("password_reset:reset-password-confirm")
+            ),
+            reset_password_token.key,
+        ),
+    }
+    # render email text
+    email_html_message = render_to_string("email/password_reset_email.html", context)
+    # email_plaintext_message = render_to_string(
+    #     "email/password_reset_email.html", context
+    # )
+
+    msg = EmailMultiAlternatives(
+        # title:
+        "Password Reset for {title}".format(title="Explorify Account"),
+        # message:
+        email_html_message,
+        # from:
+        "noreply@yourdomain.com",
+        # to:
+        [reset_password_token.user.email],
+    )
+    msg.attach_alternative(email_html_message, "text/html")
+    msg.send()

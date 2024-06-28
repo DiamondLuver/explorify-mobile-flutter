@@ -3,10 +3,13 @@ from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.conf import settings
-from django.db import IntegrityError
+from django.db import transaction, IntegrityError
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import update_session_auth_hash
 from base.utils import *
+
 # Django models
 from account.models import *
 from .models import Otp
@@ -36,31 +39,34 @@ class LoginView(generics.GenericAPIView):
         try:
             serializer = self.get_serializer(data=request.data)
             if not serializer.is_valid():
-                return Response(
-                    {"message": "Invalid input data", "errors": serializer.errors},
-                    status=status.HTTP_400_BAD_REQUEST,
+                return error_response(
+                    message={
+                        "message": "Invalid input data",
+                        "errors": serializer.errors,
+                    },
+                    status_code=status.HTTP_400_BAD_REQUEST,
                 )
 
             user = serializer.validated_data["user"]
             user_otp = generate_otp(user.user_id)
-            send_otp_email(user.email,user.username,otp=user_otp)
+            send_otp_email(user.email, user.username, otp=user_otp)
             # Implement SMS sending if needed
             # user_otp.send_sms(request.data.get('phone_number'))
 
             response_data = {
-                "result": True,
-                "result_code": 200,
-                "result_message": "Success",
-                "body": {
-                    "username_or_email": request.data.get("username_or_email"),
-                    "code": user_otp.code,
-                    "expiry_time": user_otp.expiry_time.isoformat(),
-                },
+                "username_or_email": request.data.get("username_or_email"),
+                "code": user_otp.code,
+                "expiry_time": user_otp.expiry_time.isoformat(),
             }
-            return Response(response_data, status=status.HTTP_200_OK)
+            return success_response(
+                message="Successfully Logged in",
+                data=response_data,
+                status_code=status.HTTP_200_OK,
+            )
         except Exception as e:
-            return Response(
-                {"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            return error_response(
+                message=str(e),
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
 
@@ -88,22 +94,22 @@ class LoginWithOtpView(APIView):
                 user = User.objects.filter(email=username_or_email).first()
 
             if not user:
-                return Response(
-                    {"message": "Account not found"}, status=status.HTTP_404_NOT_FOUND
+                return error_response(
+                    message="Invalid Input", status_code=status.HTTP_400_BAD_REQUEST
                 )
 
             user_otp = Otp.objects.filter(user_id=user.user_id, code=code).first()
             now = timezone.now()
 
             if not user_otp:
-                return Response(
-                    {"message": "Invalid code"},
-                    status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                return error_response(
+                    message="Invalid code",
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 )
             elif now > user_otp.expiry_time:
-                return Response(
-                    {"message": "Code expired"},
-                    status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                return error_response(
+                    message="Code expired",
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 )
 
             user_otp.expiry_time = now
@@ -133,22 +139,26 @@ class LoginWithOtpView(APIView):
                 application=application,
             )
 
-            return Response(
-                {
-                    "user": user.username,
-                    "access_token": access_token.token,
-                    "refresh_token": refresh_token.token,
-                    "token_type": "Bearer",
-                    "expires_at": expires.isoformat(),
-                },
-                status=status.HTTP_200_OK,
+            response = {
+                "user_name": user.username,
+                "email": user.email,
+                "access_token": access_token.token,
+                "refresh_token": refresh_token.token,
+                "token_type": "Bearer",
+                "expires_at": expires.isoformat(),
+            }
+            return success_response(
+                message="Successfully Logged in", data=response, status_code=200
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(
+            message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
+        )
 
 
 # Register and login with social account for user
 class CreateAccount(APIView):
     permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         reg_serializer = RegistrationSerializer(data=request.data)
 
@@ -156,70 +166,98 @@ class CreateAccount(APIView):
             try:
                 new_user = reg_serializer.save()
             except Exception as e:
-                return Response(
-                    {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                return error_response(
+                    message=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
-            # check if the user click social login and new account
+
             if new_user:
-                backend_url = os.getenv("BACKEND_URL")
-                client_id = os.getenv("APP_CLIENT_ID")
-                client_secret = os.getenv("APP_CLIENT_SECRET")
+                if reg_serializer.validated_data.get("social_registration"):
+                    backend_url = os.getenv("BACKEND_URL")
+                    client_id = os.getenv("APP_CLIENT_ID")
+                    client_secret = os.getenv("APP_CLIENT_SECRET")
 
-                if not backend_url or not client_id or not client_secret:
-                    return Response(
-                        {"error": "Missing required environment variables"},
-                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    )
+                    if not backend_url or not client_id or not client_secret:
+                        return error_response(
+                            message="Missing required environment variables",
+                            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        )
 
-                try:
-                    r = requests.post(
-                        f"{backend_url}/api/v1/auth/token/",
-                        data={
-                            "username": new_user.email,
+                    try:
+                        r = requests.post(
+                            f"{backend_url}/api/v1/auth/token/",
+                            data={
+                                "username": new_user.email,
+                                "password": request.data["password"],
+                                "client_id": client_id,
+                                "client_secret": client_secret,
+                                "grant_type": "password",
+                            },
+                        )
+                        r.raise_for_status()
+                        return success_response(
+                            message=r.json(), status_code=r.status_code
+                        )
+                    except requests.exceptions.RequestException as e:
+                        return error_response(
+                            message=str(e),
+                            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        )
+                else:
+                    try:
+                        login_data = {
+                            "username_or_email": reg_serializer.validated_data[
+                                "username"
+                            ],
                             "password": request.data["password"],
-                            "client_id": client_id,
-                            "client_secret": client_secret,
-                            "grant_type": "password",
-                        },
-                    )
-                    r.raise_for_status()
-                    return Response(r.json(), status=r.status_code)
-                except requests.exceptions.RequestException as e:
-                    return Response(
-                        {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                    )
-            # # check if the user register normally and new account
-            # elif new_user and reg_serializer.validated_data['social_registration'] == False:
-            #     user_otp = generate_otp(new_user.user_id)
-            #     send_otp_email(new_user.email,new_user.username,otp=user_otp)
-            #     # Implement SMS sending if needed
-            #     # user_otp.send_sms(request.data.get('phone_number'))
+                        }
+                        serializer = LoginSerializer(data=login_data)
+                        if not serializer.is_valid():
+                            return error_response(
+                                message={
+                                    "message": "Invalid input data",
+                                    "errors": serializer.errors,
+                                },
+                                status_code=status.HTTP_400_BAD_REQUEST,
+                            )
 
-            #     response_data = {
-            #         "result": True,
-            #         "result_code": 200,
-            #         "result_message": "Success",
-            #         "body": {
-            #             "username_or_email": new_user.username,
-            #             "code": user_otp.code,
-            #             "expiry_time": user_otp.expiry_time.isoformat(),
-            #         },
-            #     }
-            #     return Response(response_data, status=status.HTTP_200_OK)
-                
-        return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                        user = serializer.validated_data["user"]
+                        user_otp = generate_otp(user.user_id)
+                        send_otp_email(user.email, user.username, otp=user_otp)
+
+                        response_data = {
+                            "username_or_email": user.username,
+                            "code": user_otp.code,
+                            "expiry_time": user_otp.expiry_time.isoformat(),
+                        }
+
+                        return success_response(
+                            message="Successfully registered",
+                            data=response_data,
+                            status_code=status.HTTP_200_OK,
+                        )
+                    except Exception as e:
+                        return error_response(
+                            message=str(e),
+                            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                        )
+        return error_response(
+            message=reg_serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
+        )
 
 
 class AllUsers(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = User.objects.all()
     serializer_class = UsersSerializer
+
+
 class CurrentUser(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         serializer = UsersSerializer(self.request.user)
         return Response(serializer.data)
+
 
 # for company
 @api_view(["POST"])
@@ -228,22 +266,52 @@ def register_company_profile(request):
         serializer = CompanyProfileRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                company = serializer.save()
-                role = Role.objects.get(pk=2)
-                company.user.role = role
-                company.user.save()
-                
-                send_registration_confirmation_email(company.user.email, company.user)
-                send_approval_notification_email(company.company_name, company.user.email)
-                return success_response(
-                    message="Company profile registration is submitted and pending approval.",
-                    status_code=status.HTTP_201_CREATED,
-                )
+                with transaction.atomic():
+                    company = serializer.save()
+                    role = Role.objects.get(pk=2)
+                    company.user.role = role
+                    company.user.save()
+
+                    send_registration_confirmation_email(
+                        company.user.email, company.user
+                    )
+                    send_approval_notification_email(
+                        company.company_name, company.user.email
+                    )
+                    return success_response(
+                        message="Company profile registration is submitted and pending approval.",
+                        status_code=status.HTTP_201_CREATED,
+                    )
             except IntegrityError:
                 return error_response(
-                    message="Not available username or email", status_code=status.HTTP_400_BAD_REQUEST
+                    message="Not available username or email",
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                )
+            except Exception as e:
+                return error_response(
+                    message="Not available server",
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
 
         return error_response(
             message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
         )
+
+
+""" Change Password"""
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+    
+    if serializer.is_valid():
+        serializer.save()
+        return success_response(
+            message="Password changed successfully.",
+            status_code=status.HTTP_200_OK,
+        )
+    return error_response(
+        message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
+    )
