@@ -1,4 +1,5 @@
 # Django imports
+from logging import exception
 from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -304,8 +305,10 @@ def register_company_profile(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def change_password(request):
-    serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
-    
+    serializer = ChangePasswordSerializer(
+        data=request.data, context={"request": request}
+    )
+
     if serializer.is_valid():
         serializer.save()
         return success_response(
@@ -315,3 +318,19 @@ def change_password(request):
     return error_response(
         message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
     )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def user_logout(request):
+    try:
+        access_token = request.auth
+        refresh_token = request.data.get("refresh_token")
+
+        AccessToken.objects.filter(token=access_token.token).delete()
+        if refresh_token:
+            RefreshToken.objects.filter(token=refresh_token).delete()
+
+        return Response({"message": "Successfully logged out."}, status=200)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
