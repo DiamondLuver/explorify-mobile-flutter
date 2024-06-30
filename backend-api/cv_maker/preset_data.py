@@ -80,24 +80,24 @@ def insert_favorites():
         logger.error("Favorites already exist or insertion failed.")
 
 
-def insert_internship_posts():
-    try:
-        InternshipPost.objects.create(
-            job_title="Software Engineer Intern",
-            company_name="Example Company",
-            location="New York, NY",
-            job_description="This is a description of the internship position.",
-            job_requirement="These are the requirements for the internship.",
-            job_type="Full-time",
-            job_duration="3 months",
-            qualification="Bachelor's degree in Computer Science",
-            salary="Paid internship",
-            status="Open",
-        )
+# def insert_internship_posts():
+#     try:
+#         InternshipPost.objects.create(
+#             job_title="Software Engineer Intern",
+#             company_name="Example Company",
+#             location="New York, NY",
+#             job_description="This is a description of the internship position.",
+#             job_requirement="These are the requirements for the internship.",
+#             job_type="Full-time",
+#             job_duration="3 months",
+#             qualification="Bachelor's degree in Computer Science",
+#             salary="Paid internship",
+#             status="Open",
+#         )
 
-        logger.info("Internship posts inserted successfully.")
-    except IntegrityError:
-        logger.error("Internship posts already exist or insertion failed.")
+#         logger.info("Internship posts inserted successfully.")
+#     except IntegrityError:
+#         logger.error("Internship posts already exist or insertion failed.")
 
 
 def load_preset_data(sender, **kwargs):
@@ -108,7 +108,7 @@ def load_preset_data(sender, **kwargs):
     insert_comments()
     insert_replies()
     insert_favorites()
-    insert_internship_posts()
+    # insert_internship_posts()
 
     roles = ["Super-Admin", "Admin", "User"]
     education_levels = ["High School", "Bachelor's Degree", "Master's Degree", "PhD"]
