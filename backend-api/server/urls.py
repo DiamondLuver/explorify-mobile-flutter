@@ -23,6 +23,7 @@ urlpatterns = [
         path('account/', include("account.urls")),       # from account APP
         path('', include("cv_maker.urls")),              # from cv_maker APP
         path('', include("cv_maker_data.urls")),         # from cv_maker_data APP
+        path('', include("post.urls")),                  # from post APP
     ])),
     
     
