@@ -8,3 +8,4 @@ class BaseConfig(AppConfig):
     def ready(self):
         import base.internship_admin
         import base.account_admin
+        import base.post_admin
