@@ -6,7 +6,6 @@ from django.db import models
 from django.utils.translation import gettext as _
 from account.models import User
 from PIL import Image
-from post.models import Tag
 
 
 class CompanyProfile(models.Model):
@@ -86,7 +85,14 @@ class InternshipApplication(models.Model):
 class InternshipPost(models.Model):
     internship_post_id = models.BigAutoField(primary_key=True)
     job_title = models.CharField(max_length=255, blank=True, null=True)
-    tags = models.ManyToManyField(Tag, blank=True)
+    job_poster = models.ForeignKey(
+        "JobPoster", models.DO_NOTHING, blank=True, null=True
+    )
+    category = models.CharField(max_length=255, blank=True, null=True)
+    company_name = models.CharField(max_length=255, blank=True, null=True)
+    company = models.ForeignKey(
+        CompanyProfile, models.DO_NOTHING, blank=True, null=True
+    )
     location = models.CharField(max_length=255, blank=True, null=True)
     job_description = models.TextField(blank=True)
     job_requirement = models.TextField(blank=True)
