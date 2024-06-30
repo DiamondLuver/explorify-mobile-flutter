@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django_rest_passwordreset', 
     "cv_maker.apps.CvMakerConfig",
     "cv_maker_data",
+    "post",
     
     # last line
     "django.contrib.admin",
