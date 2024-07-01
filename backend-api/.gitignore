@@ -158,3 +158,5 @@ Thumbs.db
 
 .env
 data
+
+migrations/*.py
