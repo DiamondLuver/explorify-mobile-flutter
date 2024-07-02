@@ -6,7 +6,9 @@ from django.db import models
 from django.utils.translation import gettext as _
 from account.models import User
 from PIL import Image
-
+from post.models import Tag
+from datetime import datetime
+from django.core.exceptions import ValidationError
 
 class CompanyProfile(models.Model):
     company_id = models.BigAutoField(primary_key=True)
@@ -85,22 +87,34 @@ class InternshipApplication(models.Model):
 class InternshipPost(models.Model):
     internship_post_id = models.BigAutoField(primary_key=True)
     job_title = models.CharField(max_length=255, blank=True, null=True)
-    job_poster = models.ForeignKey(
-        "JobPoster", models.DO_NOTHING, blank=True, null=True
-    )
-    category = models.CharField(max_length=255, blank=True, null=True)
-    company_name = models.CharField(max_length=255, blank=True, null=True)
-    company = models.ForeignKey(
-        CompanyProfile, models.DO_NOTHING, blank=True, null=True
-    )
+    tags = models.ManyToManyField(Tag, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     location = models.CharField(max_length=255, blank=True, null=True)
     job_description = models.TextField(blank=True)
     job_requirement = models.TextField(blank=True)
-    job_type = models.CharField(max_length=100, blank=True)
+    JOB_TYPE_CHOICES = [
+        ("FT", "Full-time"),
+        ("PT", "Part-time"),
+        ("CT", "Contract"),
+        ("IN", "Internship"),
+    ]
+    job_type = models.CharField(
+        max_length=100, choices=JOB_TYPE_CHOICES, blank=True, default="FT"
+    )
     job_duration = models.CharField(max_length=100, blank=True)
     qualification = models.CharField(max_length=100, blank=True)
-    salary = models.CharField(max_length=100, blank=True)
-    status = models.CharField(max_length=50, blank=True, null=True)
+    salary = models.CharField(max_length=100, blank=True, default='Not disclosed')
+    deadline = models.DateField(blank=True, null=True)
+    
+    STATUS_CHOICES = [
+        ("Open", "Open"),
+        ("Closed", "Closed"),
+        ("Filled", "Filled"),
+    ]
+    status = models.CharField(
+        max_length=50, choices=STATUS_CHOICES, blank=True, default="Open"
+    )
+    active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -108,6 +122,23 @@ class InternshipPost(models.Model):
         verbose_name = "Internship Post"
         verbose_name_plural = "Internship Posts"
         db_table = "internship_post"
+        # To help during queries and searching
+        indexes = [
+            models.Index(fields=["job_title"]),
+            models.Index(fields=["location"]),
+        ]
+
+    def __str__(self):
+        return f"{self.job_title}"
+
+    def clean(self):
+        if self.deadline and self.deadline < datetime.now().date():
+            raise ValidationError("Deadline must be a future date.")
+
+    def save(self, *args, **kwargs):
+        if datetime.now() > self.deadline:
+            self.active = False
+        return super().save(*args, **kwargs)
 
 
 class JobPoster(models.Model):
