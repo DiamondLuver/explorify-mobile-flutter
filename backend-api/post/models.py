@@ -56,7 +56,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
 # COMMENT MODEL
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)

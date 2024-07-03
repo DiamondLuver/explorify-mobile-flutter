@@ -6,4 +6,4 @@ class PostConfig(AppConfig):
     name = 'post'
     verbose_name = ("POST ARTICLES")
     def ready(self):
-        pass
+        import post.mobile_urls

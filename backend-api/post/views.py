@@ -5,11 +5,18 @@ from .models import *
 from .serializers import *
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework import generics, status
-from base.utils import StandardResultsSetPagination, success_response, error_response     # customized in base app
+from base.utils import (
+    StandardResultsSetPagination,
+    success_response,
+    error_response,
+)  # customized in base app
+
 from django.shortcuts import get_object_or_404
+from internship.models import InternshipPost
+
 
 class IsAdminUser(BasePermission):
-    def has_permission(request):
+    def has_permission(self, request, view):
         return (
             request.user
             and request.user.is_authenticated
@@ -17,23 +24,147 @@ class IsAdminUser(BasePermission):
         )
 
 
+"""
+FOR POST LIST (FOR MOBILE)
+"""
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def post_list(request):
+    tags = request.query_params.getlist("tag")  # many tags
+    if request.method == "GET":
+        paginator = StandardResultsSetPagination()
+        posts = Post.objects.all()
+        if request.query_params:
+            posts = posts.filter(**request.query_params.dict())
+        if tags:
+            posts = posts.filter(tags__name__in=tags)
+        result_page = paginator.paginate_queryset(posts, request)
+        serializer = PostSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
 """ 
-FOR POST LIST, CREATE, DETAIL, UPDATE, DELETE
+FOR POST LIST, CREATE, DETAIL, UPDATE, DELETE (WEB)
 """
 
 
 @api_view(["GET", "POST"])
+@permission_classes([IsAdminUser])
 def post_list_create(request):
+    tags = request.query_params.getlist("tag")  # many tags
     if request.method == "GET":
         paginator = StandardResultsSetPagination()
-        posts = Post.objects.all()
+        posts = Post.objects.filter(author=request.user)
+        if request.query_params:
+            posts = posts.filter(**request.query_params.dict())
+        if tags:
+            posts = posts.filter(tags__name__in=tags)
         result_page = paginator.paginate_queryset(posts, request)
         serializer = PostSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
     elif request.method == "POST":
-        if not IsAdminUser.has_permission(request):
+        serializer = PostDetailSerializer(
+            data=request.data, context={"request": request}
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return success_response(
+                message="Create successfully",
+                data=serializer.data,
+                status_code=status.HTTP_201_CREATED,
+            )
+        return error_response(
+            message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
+        )
+
+
+"""
+GET (MOBILE & WEB) PUT DELETE (WEB)
+"""
+
+
+@api_view(["GET", "PUT", "DELETE"])
+@permission_classes([AllowAny])  # for GET requests
+def post_detail(request, pk=None):
+    if request.method == "GET":
+        post = get_object_or_404(Post, pk=pk)
+        serializer = PostDetailSerializer(post)
+        return success_response(
+            message="Get data successfully",
+            data=serializer.data,
+            status_code=status.HTTP_200_OK,
+        )
+    elif request.method == "PUT":
+        if not IsAdminUser().has_permission(request, None):
+            return Response({"message": "Forbidden"}, status=403)
+        post = get_object_or_404(Post, pk=pk, author=request.user)
+        serializer = PostDetailSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return success_response(
+                message="Update successfully",
+                data=serializer.data,
+                status_code=status.HTTP_200_OK,
+            )
+        return error_response(
+            message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
+        )
+    elif request.method == "DELETE":
+        if not IsAdminUser().has_permission(request, None):
             return error_response(message="Forbidden", status_code=403)
-        serializer = PostDetailSerializer(data=request.data)
+        post = get_object_or_404(Post, pk=pk, author=request.user)
+        post.delete()
+        return success_response(
+            message="Delete successfully", status_code=status.HTTP_204_NO_CONTENT
+        )
+
+
+""" 
+FOR INTERNSHIP-POST LIST, DETAIL For Mobile
+"""
+
+
+@api_view(["GET"])  # For Mobile
+def internship_post_list(request):
+    tags = request.query_params.getlist("tag")  # many tags
+    if request.method == "GET":
+        paginator = StandardResultsSetPagination()
+        posts = InternshipPost.objects.all()
+        if request.query_params:
+            posts = posts.filter(**request.query_params.dict())
+        if tags:
+            posts = posts.filter(tags__name__in=tags)
+        result_page = paginator.paginate_queryset(posts, request)
+        serializer = InternshipPostSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+"""
+FOR INTERNSHIP-POST LIST, CREATE For Web
+"""
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsAdminUser])
+def internship_post_list_create(request):
+    tags = request.query_params.getlist("tag")  # many tags
+    if request.method == "GET":
+        paginator = StandardResultsSetPagination()
+        posts = InternshipPost.objects.filter(user=request.user)
+        if request.query_params:
+            posts = posts.filter(**request.query_params.dict())
+        if tags:
+            posts = posts.filter(tags__name__in=tags)
+        result_page = paginator.paginate_queryset(posts, request)
+        serializer = InternshipPostSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    elif request.method == "POST":
+        serializer = InternshipPostSerializer(
+            data=request.data, context={"request": request}
+        )
 
         if serializer.is_valid():
             serializer.save()
@@ -47,21 +178,28 @@ def post_list_create(request):
         )
 
 
+"""
+FOR INTERNSHIP-POST DETAIL, UPDATE, DELETE For Web
+"""
+
+
 @api_view(["GET", "PUT", "DELETE"])
-def post_detail(request, pk=None):
+
+def internship_post_detail(request, pk=None):
     if request.method == "GET":
-        post = get_object_or_404(Post, pk=pk)
-        serializer = PostDetailSerializer(post)
+        post = get_object_or_404(InternshipPost, pk=pk)
+        serializer = InternshipPostSerializer(post)
+    
         return success_response(
             message="Get data successfully",
             data=serializer.data,
             status_code=status.HTTP_200_OK,
         )
     elif request.method == "PUT":
-        if not IsAdminUser.has_permission(request):
+        if not IsAdminUser().has_permission(request, None):
             return error_response(message="Forbidden", status_code=403)
-        post = get_object_or_404(Post, pk=pk)
-        serializer = PostDetailSerializer(post, data=request.data)
+        post = get_object_or_404(InternshipPost, pk=pk)
+        serializer = InternshipPostSerializer(post, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return success_response(
@@ -73,18 +211,20 @@ def post_detail(request, pk=None):
             message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
         )
     elif request.method == "DELETE":
-        if not IsAdminUser.has_permission(request):
+        if not IsAdminUser().has_permission(request, None):
             return error_response(message="Forbidden", status_code=403)
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(InternshipPost, pk=pk)
         post.delete()
         return success_response(
             message="Delete successfully", status_code=status.HTTP_204_NO_CONTENT
         )
 
 
-""" 
+"""
+MOBILE
 FOR COMMENT LIST, CREATE BASED ON POST ID
 Parameters: Query 'content_type_name', 'object_id'
+Examples: 'content_type' = 'post', 'object_id' = post_id
 """
 
 
@@ -135,6 +275,7 @@ def comment_list_create(request):
 
 
 """
+Mobile Device
 This API endpoint allows users to list and create replies based on a comment.
 
 Parameters:
@@ -195,11 +336,11 @@ def reply_list_create(request):
 
 
 @api_view(["GET", "POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def favorite_list_create(request):
     content_type_name = request.query_params.get("content_type_name")
     object_id = request.query_params.get("object_id")
-    if not content_type_name or not object_id:
+    if not content_type_name:
         return error_response(
             message="Invalid content type (Post, or Internship Post)",
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -209,7 +350,7 @@ def favorite_list_create(request):
     if request.method == "GET":
         paginator = StandardResultsSetPagination()
         favorites = Favorite.objects.filter(
-            content_type=content_type, object_id=object_id, active=True
+            content_type=content_type, active=True
         )
 
         result_page = paginator.paginate_queryset(favorites, request)
@@ -217,9 +358,10 @@ def favorite_list_create(request):
         return paginator.get_paginated_response(serializer.data)
 
     elif request.method == "POST":
-        if not request.user.is_authenticated:
+        if not (content_type_name and  object_id):
             return error_response(
-                message="Unauthorized", status_code=status.HTTP_401_UNAUTHORIZED
+                message="Invalid content type (Post, or Internship Post)",
+                status_code=status.HTTP_400_BAD_REQUEST,
             )
         # Check if the favorite already exists
         favorite = Favorite.objects.filter(
@@ -230,7 +372,7 @@ def favorite_list_create(request):
             favorite.active = True
             favorite.save()
             return success_response(
-                message="Create successfully",
+                message="Added successfully",
                 data=FavoriteCreateSerializer(favorite).data,
                 status_code=status.HTTP_200_OK,
             )
@@ -254,6 +396,7 @@ def favorite_list_create(request):
 
 
 """
+Mobile Device
 Deactivate Favorite Post Internship or Article Post.
 REQUIRED: POST PARAMETER:
 - pk: The ID of the favorite to be deleted.
@@ -280,3 +423,5 @@ def favorite_delete(request, pk):
         return error_response(
             message="Unauthorized", status_code=status.HTTP_401_UNAUTHORIZED
         )
+
+# DONE CHECKING AND TESTING

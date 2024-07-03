@@ -1,20 +1,26 @@
 from rest_framework import serializers
 from .models import *
 from account.serializers import UsersSerializer
-
+from django.utils import timezone
 
 class PostSerializer(serializers.ModelSerializer):
+    author = UsersSerializer()
     class Meta:
         model = Post
         fields = "__all__"
+    
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
     slug = serializers.SlugField(required=False)
-
+    author = UsersSerializer(required=False)
     class Meta:
         model = Post
         fields = "__all__"
+    def create(self, validated_data):
+        user = self.context["request"].user
+        post = Post.objects.create(author=user, **validated_data)
+        return post
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -100,5 +106,31 @@ class FavoriteCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context["request"].user
-        comment = Comment.objects.create(user=user, active=1, **validated_data)
-        return comment
+        favorite = Favorite.objects.create(user=user, active=1, **validated_data)
+        return favorite
+
+
+class TagsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = "__all__"
+
+
+from account.serializers import UsersSerializer
+from internship.models import InternshipPost
+
+class UsernameOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username']
+class InternshipPostSerializer(serializers.ModelSerializer):
+    user = UsernameOnlySerializer(required=False)
+    tags = TagsSerializer(many=True, read_only=True)
+    deadline = serializers.DateField(required=False)
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+    def create(self, validated_data):
+        user = self.context["request"].user
+        post = InternshipPost.objects.create(user=user, **validated_data)
+        return post
