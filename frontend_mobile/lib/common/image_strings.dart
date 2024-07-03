@@ -8,4 +8,10 @@ class AppImage {
   static const String sendEmailImg = "assets/images/check_email.png";
   static const String verifyEmailImg = "assets/images/verify.png";
   static const String bgAppBarImg = "";
+  static const String debImg = "assets/images/deb.jpg";
+  static const String lizaImg = "assets/images/liza.jpg";
+  static const String pichImg = "assets/images/pich.jpg";
+  static const String chhenglyImg = "assets/images/chhengly.jpg";
+  static const String sakuraImg = "assets/images/sakura.jpg";
+  static const String linhImg = "assets/images/linh.jpg";
 }

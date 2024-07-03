@@ -86,7 +86,7 @@ class _SkillScreenState extends State<SkillScreen> {
               ],
             ),
           ),
-          
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Column(
@@ -112,7 +112,7 @@ class _SkillScreenState extends State<SkillScreen> {
                           ))
                       .toList(),
                 ),
-                const SizedBox(height: 16.0),
+                //const SizedBox(height: 16.0),
               ],
             ),
           ),

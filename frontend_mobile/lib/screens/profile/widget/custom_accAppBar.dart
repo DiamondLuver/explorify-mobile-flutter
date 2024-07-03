@@ -24,32 +24,34 @@ class CustomAccountAppBar extends StatelessWidget
     return AppBar(
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      leading: showBackArrow
-          ? IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                size: 20,
-                color: leadingIconColor,
-              ),
-              padding: EdgeInsets.zero, // Add this line
-            )
-          : leadingIcon != null
-              ? IconButton(
-                  onPressed: () {
-                    if (leadingOnPressed != null) {
-                      leadingOnPressed!();
-                    }
-                  },
-                  icon: Icon(
-                    leadingIcon,
-                    size: 20,
-                    color: leadingIconColor,
-                  ),
-                )
-              : null,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20.0),
+        child: showBackArrow
+            ? IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  size: 20,
+                  color: leadingIconColor,
+                ),
+              )
+            : leadingIcon != null
+                ? IconButton(
+                    onPressed: () {
+                      if (leadingOnPressed != null) {
+                        leadingOnPressed!();
+                      }
+                    },
+                    icon: Icon(
+                      leadingIcon,
+                      size: 20,
+                      color: leadingIconColor,
+                    ),
+                  )
+                : null,
+      ),
       title: title,
       actions: action,
     );

@@ -3,6 +3,7 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/screens/profile/widget/costom_appBar.dart';
+import 'package:frontend_mobile/screens/profile/widget/custom_accAppBar.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
@@ -25,30 +26,30 @@ class _ChangePasswordState extends State<ChangePassword> {
         child: Column(
           children: [
             Image.asset(AppImage.upperStyle),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-              child: Column(
-                children: [
-                  CustomProfileAppBar(
-                    showBackArrow: true,
-                    leadingIconColor: Colors.black,
-                    title: Row(
-                      children: [
-                        Text(
-                          AppText.enText['change_pwd']!,
-                          style: const TextStyle(
-                            color: AppColor.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+            Column(
+              children: [
+                CustomAccountAppBar(
+                  showBackArrow: true,
+                  leadingIconColor: Colors.black,
+                  title: Row(
+                    children: [
+                      Text(
+                        AppText.enText['change_pwd']!,
+                        style: const TextStyle(
+                          color: AppColor.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Column(
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -125,8 +126,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

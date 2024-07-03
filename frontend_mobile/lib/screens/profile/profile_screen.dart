@@ -85,7 +85,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: 16.0,
                             color: AppColor.grey,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.languageScreen);
+                          },
                         ),
                         const CustomDivider(),
                       ],
@@ -173,15 +176,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         const CustomDivider(),
                         ProfileSetting(
-                          icon: Icon(Icons.settings_accessibility).icon ??
+                          icon: Icon(Icons.people_alt_rounded).icon ??
                               Icons.error,
-                          title: 'Other Services',
+                          title: 'Our Team',
                           trailing: Icon(
                             Icons.arrow_forward_ios,
                             size: 16.0,
                             color: AppColor.grey,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.teamScreen);
+                          },
                         ),
                         const CustomDivider(),
                         ProfileSetting(

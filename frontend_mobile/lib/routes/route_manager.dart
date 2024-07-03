@@ -20,8 +20,10 @@ import 'package:frontend_mobile/screens/profile/change_password.dart';
 import 'package:frontend_mobile/screens/profile/edit_profile.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/education.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/select_language.dart';
+import 'package:frontend_mobile/screens/profile/language.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/work_experince.dart';
+import 'package:frontend_mobile/screens/profile/team.dart';
 import 'package:frontend_mobile/widget/navigation_menu.dart';
 
 class RouteManager {
@@ -52,7 +54,9 @@ class RouteManager {
       '/profile/account_detail/edit_language';
   static const String skillScreen = '/profile/account_detail/skill';
   static const String appreciationScreen = '/profile/appreciation';
-    static const String addAppreciationScreen = '/profile/addAppreciation';
+  static const String addAppreciationScreen = '/profile/addAppreciation';
+  static const String languageScreen = '/profile/language';
+  static const String teamScreen = '/profile/team';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -111,6 +115,10 @@ class RouteManager {
       case addAppreciationScreen:
         return MaterialPageRoute(
             builder: (context) => const AddAppreciationScreen());
+      case languageScreen:
+        return MaterialPageRoute(builder: (context) => const LanguageScreen());
+      case teamScreen:
+        return MaterialPageRoute(builder: (context) => const TeamScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }

@@ -17,6 +17,7 @@ class NavigationMenu extends StatelessWidget {
           if (index == 3) {
             // Navigate to the profile screen using Navigator.pushNamed
             Navigator.pushNamed(context, '/profile');
+            //context.read<NavigationProvider>().updateSelectedIndex(3);
           } else {
             // Update the selected index for other destinations
             context.read<NavigationProvider>().updateSelectedIndex(index);
