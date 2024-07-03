@@ -21,7 +21,7 @@ class CVFormAPIView(generics.GenericAPIView):
             user = User.objects.get(user_id=request.user.user_id)
         except User.DoesNotExist:
             return error_response(
-                message="User does not exist.", status=status.HTTP_404_NOT_FOUND
+                message="User does not exist.", status_code=status.HTTP_404_NOT_FOUND
             )
 
         try:
@@ -29,7 +29,7 @@ class CVFormAPIView(generics.GenericAPIView):
         except CV.DoesNotExist:
             return error_response(
                 message="CV not found for the user.",
-                status=status.HTTP_404_NOT_FOUND,
+                status_code=status.HTTP_404_NOT_FOUND,
             )
 
         serializer = CVDataSerializer(cv)
@@ -43,24 +43,24 @@ class CVFormAPIView(generics.GenericAPIView):
             cv = CV.objects.get(user=user)
         except User.DoesNotExist:
             return error_response(
-                message="User not found", status=status.HTTP_404_NOT_FOUND
+                message="User not found", status_code=status.HTTP_404_NOT_FOUND
             )
         except CV.DoesNotExist:
             return error_response(
-                message="CV not found for the user", status=status.HTTP_404_NOT_FOUND
+                message="CV not found for the user", status_code=status.HTTP_404_NOT_FOUND
             )
 
         serializer = ImageUploadSerializer(data=request.data)
         if not serializer.is_valid():
             return error_response(
-                message=serializer.errors, status=status.HTTP_400_BAD_REQUEST
+                message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST
             )
 
         try:
             serializer.validate_image_file(serializer.validated_data["image_file"])
         except ValidationError as e:
             return error_response(
-                message=str(e), status=status.HTTP_400_BAD_REQUEST
+                message=str(e), status_code=status.HTTP_400_BAD_REQUEST
             )
 
         try:
@@ -73,7 +73,7 @@ class CVFormAPIView(generics.GenericAPIView):
             )
         except Exception as e:
             return error_response(
-                message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                message=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
         serializer_data = CVDataSerializer(cv)
@@ -93,7 +93,7 @@ class CVFormAPIView(generics.GenericAPIView):
         except Exception as e:
             return error_response(
                 message= f"Failed to generate PDF: {str(e)}",
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
         response = HttpResponse(pdf, content_type="application/pdf")
@@ -105,7 +105,7 @@ class CVFormAPIView(generics.GenericAPIView):
         except Exception as e:
             return error_response(
                 message= f"Failed to delete image file: {str(e)}",
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
         return response
