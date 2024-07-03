@@ -1,0 +1,996 @@
+{
+	"info": {
+		"_postman_id": "e7ab2f3b-7e8e-4523-87f7-4a1ec9753c3c",
+		"name": "Capstone_II_Web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32191433",
+		"_collection_link": "https://data-usp-api.postman.co/workspace/Capstone_II~21c06a01-bda1-4bb9-b302-4ce4cf943e9a/collection/32191433-e7ab2f3b-7e8e-4523-87f7-4a1ec9753c3c?action=share&source=collection_link&creator=32191433"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Company",
+					"item": [
+						{
+							"name": "register company",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "company1224411",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "sreypich.u12212n@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"type": "text"
+										},
+										{
+											"key": "company_name",
+											"value": "\"New Company\",",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "\"We specialize in software development.\",",
+											"description": "optional",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": " 123 Main St,",
+											"type": "text"
+										},
+										{
+											"key": "head_office",
+											"value": " Main Office Location,",
+											"type": "text"
+										},
+										{
+											"key": "employee_size",
+											"value": " 50",
+											"type": "text"
+										},
+										{
+											"key": "company_type",
+											"value": " Private,",
+											"type": "text"
+										},
+										{
+											"key": "specialization",
+											"value": " Software Development",
+											"type": "text"
+										},
+										{
+											"key": "company_website",
+											"value": " http://newcompany.com",
+											"type": "text"
+										},
+										{
+											"key": "company_pic",
+											"type": "file",
+											"src": "/C:/Users/unsre/Pictures/Screenshots/Screenshot 2024-06-06 124727.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/account/create-company/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"account",
+										"create-company",
+										""
+									]
+								},
+								"description": "### Create Company Account\n\nThis endpoint allows you to create a new company account.\n\n#### Request Body Parameters\n\n- `username` (text) - The username for the new account.\n    \n- `email` (text) - The email address for the new account.\n    \n- `password` (text) - The password for the new account.\n    \n- `company_name` (text) - The name of the company.\n    \n- `description` (text) - Description of the company.\n    \n- `location` (text) - Location of the company.\n    \n- `head_office` (text) - Head office location of the company.\n    \n- `employee_size` (text) - Size of the company in terms of employees.\n    \n- `company_type` (text) - Type of the company.\n    \n- `specialization` (text) - Specialization area of the company.\n    \n- `company_website` (text) - Company's website URL.\n    \n- `company_pic` (file) - Company profile picture.\n    \n\n#### Response\n\n- Status: 400\n    \n- Content-Type: application/json\n    \n- `status` - Indicates the status of the request.\n    \n- `status_code` - The status code of the response.\n    \n- `message` - Details about any errors or validation issues.\n    \n- `data` - Additional data related to the request.\n    \n\n#### Example Response\n\n``` json\n{\n    \"status\": \"\",\n    \"status_code\": 0,\n    \"message\": {\n        \"company_pic\": [\"\"]\n    },\n    \"data\": null\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "register error example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "username",
+													"value": "company1",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "jfjfjfjjfl@gmail.com",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "password123",
+													"type": "text"
+												},
+												{
+													"key": "company_name",
+													"value": "\"New Company\",",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "\"We specialize in software development.\",",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": " 123 Main St,",
+													"type": "text"
+												},
+												{
+													"key": "head_office",
+													"value": " Main Office Location,",
+													"type": "text"
+												},
+												{
+													"key": "employee_size",
+													"value": " 50",
+													"type": "text"
+												},
+												{
+													"key": "company_type",
+													"value": " Private,",
+													"type": "text"
+												},
+												{
+													"key": "specialization",
+													"value": " Software Development",
+													"type": "text"
+												},
+												{
+													"key": "company_website",
+													"value": " http://newcompany.com",
+													"type": "text"
+												},
+												{
+													"key": "company_pic",
+													"type": "file",
+													"src": "/C:/Users/unsre/Downloads/Telegram Desktop/Screenshot 2024-03-03 at 11.03.51 in the morning.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{VERSION}}/account/create-company/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{VERSION}}",
+												"account",
+												"create-company",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 19 Jun 2024 14:13:43 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "OPTIONS, POST"
+										},
+										{
+											"key": "Content-Length",
+											"value": "92"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "X-Trace-ID",
+											"value": "1718806423-b589ef40-06a9-4a09-b588-84b2af81dca9"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"error\",\n    \"status_code\": 400,\n    \"message\": \"Not available username or email\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "register success Example",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "username",
+													"value": "company",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "unsreypich999@gmail.com",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "password123",
+													"type": "text"
+												},
+												{
+													"key": "company_name",
+													"value": "\"New Company\",",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "\"We specialize in software development.\",",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": " 123 Main St,",
+													"type": "text"
+												},
+												{
+													"key": "head_office",
+													"value": " Main Office Location,",
+													"type": "text"
+												},
+												{
+													"key": "employee_size",
+													"value": " 50",
+													"type": "text"
+												},
+												{
+													"key": "company_type",
+													"value": " Private,",
+													"type": "text"
+												},
+												{
+													"key": "specialization",
+													"value": " Software Development",
+													"type": "text"
+												},
+												{
+													"key": "company_website",
+													"value": " http://newcompany.com",
+													"type": "text"
+												},
+												{
+													"key": "company_pic",
+													"type": "file",
+													"src": "/C:/Users/unsre/Pictures/Screenshots/Screenshot 2024-06-06 111710.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{VERSION}}/account/create-company/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{VERSION}}",
+												"account",
+												"create-company",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 19 Jun 2024 14:55:14 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "OPTIONS, POST"
+										},
+										{
+											"key": "Content-Length",
+											"value": "126"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "X-Trace-ID",
+											"value": "1718808914-d740de04-4f2c-4bc8-9b19-63d5fc387c7e"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"message\": \"Company profile registration is submitted and pending approval.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Login-otp",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var template = `\r",
+											"<style type=\"text/css\">\r",
+											"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+											"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+											"    .tftable tr {background-color:#ffffff;}\r",
+											"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+											"    .tftable tr:hover {background-color:#e0ffff;}\r",
+											"</style>\r",
+											"\r",
+											"<table class=\"tftable\" border=\"1\">\r",
+											"    <tr>\r",
+											"        <th>Token</th>\r",
+											"        <th>User ID</th>\r",
+											"        <th>Username</th>\r",
+											"        <th>Email</th>\r",
+											"        <th>Role</th>\r",
+											"    </tr>\r",
+											"    \r",
+											"    <tr>\r",
+											"        <td>{{response.token}}</td>\r",
+											"        <td>{{response.user_id}}</td>\r",
+											"        <td>{{response.username}}</td>\r",
+											"        <td>{{response.email}}</td>\r",
+											"        <td>{{response.role}}</td>\r",
+											"    </tr>\r",
+											"</table>\r",
+											"`;\r",
+											"\r",
+											"function constructVisualizerPayload() {\r",
+											"    return { response: pm.response.json() }\r",
+											"}\r",
+											"\r",
+											"pm.visualizer.set(template, constructVisualizerPayload());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "code",
+											"value": "190057",
+											"type": "text"
+										},
+										{
+											"key": "username_or_email",
+											"value": "unsreypich999@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/account/login_with_otp/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"account",
+										"login_with_otp",
+										""
+									]
+								},
+								"description": "### Account Login with OTP\n\nThis endpoint allows users to log in to their account using a one-time password (OTP).\n\n#### Request Body\n\n- `username_or_email` (text): The username or email of the user.\n    \n\n#### Response\n\nThe response will contain the authentication token and user information upon successful login."
+							},
+							"response": []
+						},
+						{
+							"name": "Generate OTP login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username_or_email",
+											"value": "company",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/account/generate/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"account",
+										"generate",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Generate OTP login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "username_or_email",
+													"value": "heh11e11111",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "passw1ord12345",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/{{VERSION}}/account/generate/",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"{{VERSION}}",
+												"account",
+												"generate",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 16 Jun 2024 03:06:10 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.12.4"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, origin"
+										},
+										{
+											"key": "Allow",
+											"value": "POST, OPTIONS"
+										},
+										{
+											"key": "Content-Length",
+											"value": "168"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"result\": true,\n    \"result_code\": 200,\n    \"result_message\": \"Success\",\n    \"body\": {\n        \"username_or_email\": \"heh11e11111\",\n        \"code\": \"690583\",\n        \"expiry_time\": \"2024-06-16T03:16:10.384624+00:00\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Email Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "unsreypich999@gmail.com",
+									"description": "input email to send link for reset password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/auth/password_reset/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth",
+								"password_reset",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "unsreypich999@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "old_password",
+									"value": "password1@1",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "password1@11",
+									"type": "text"
+								},
+								{
+									"key": "confirm_new_password",
+									"value": "password1@11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/account/change_password/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"account",
+								"change_password",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post/Article",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/1/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New by Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Y4zZ9lbHLFw2kUAz1sEJOwiKBC2G8u",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test title\",\r\n    \"content\": \"content Test\"\r\n    // \"tags\": 1, // optional\r\n    // \"author\": 1   // optional\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit by Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Y4zZ9lbHLFw2kUAz1sEJOwiKBC2G8u",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Edit title\",\r\n    \"content\": \"edit content\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/1/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Y4zZ9lbHLFw2kUAz1sEJOwiKBC2G8u",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/1/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Internship Post",
+			"item": [
+				{
+					"name": "Internship Post Web",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "UH5z4APrWLFdKn0oTpJwUyWLMeLLT8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"internship-posts",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/44/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"internship-posts",
+										"44",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New by Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "UH5z4APrWLFdKn0oTpJwUyWLMeLLT8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test title\",\r\n    \"content\": \"content Test\",\r\n    // \"tags\" : [],\r\n    // \"deadline\": \"2024-09-24\",\r\n    \"job_title\": null,\r\n    \"location\": null,\r\n    \"job_description\": \"\",\r\n    \"job_requirement\": \"\",\r\n    \"job_type\": \"FT\",     \r\n    \"job_duration\": \"\",\r\n    \"qualification\": \"\",\r\n    \"salary\": \"Not disclosed\",\r\n    \"status\": \"Open\",\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"internship-posts",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit by Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "UH5z4APrWLFdKn0oTpJwUyWLMeLLT8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test title\",\r\n    \"content\": \"content Test\",\r\n    // \"tags\" : [],\r\n    // \"deadline\": \"2024-09-24\",\r\n    \"job_title\": \"Test edit\",\r\n    \"location\": \"pp\",\r\n    \"job_description\": \"\",\r\n    \"job_requirement\": \"\",\r\n    \"job_type\": \"FT\",     \r\n    \"job_duration\": \"\",\r\n    \"qualification\": \"\",\r\n    \"salary\": \"Not disclosed\",\r\n    \"status\": \"Open\",\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/1/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"internship-posts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete by Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "UH5z4APrWLFdKn0oTpJwUyWLMeLLT8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/1/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"internship-posts",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
