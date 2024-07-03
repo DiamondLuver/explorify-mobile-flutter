@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
-import { FaBuilding, FaIndustry, FaLink, FaMapMarkedAlt, FaTasks } from 'react-icons/fa';
+import { FaDollarSign, FaGraduationCap, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
 import DOMPurify from 'dompurify';
 const JobDetail = () => {
     const { jobId } = useParams();
@@ -37,76 +37,106 @@ const JobDetail = () => {
     return (
         <>
             <Header />
+
+
             <div className="flex min-h-screen items-center justify-center p-10 bg-white mt-10">
-                <section id="features" className="container space-y-6 mx-auto md:py-12 lg:pb-12 lg:pt-1">
-                    <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[64rem] md:grid-cols-1">
-                        <div className="relative overflow-hidden rounded-lg border p-2">
-                            <div className="flex h-auto flex-col justify-between rounded-md p-6">
-                                <h2 className="text-3xl font-poppins font-bold text-amber-500 pb-4">{jobData.job_title}</h2>
-                                <div className="space-y-2 pt-5">
-                                    <h3 className="font-bold">Description</h3>
-                                    <p className="text-sm text-muted-foreground">
-                                    {jobData.job_description}
-                                    </p>
+        <section id="features" className="container space-y-6 mx-auto md:py-12 lg:pb-12 lg:pt-1">
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[64rem] md:grid-cols-1">
+            <div className="relative overflow-hidden rounded-lg border p-2">
+              <div className="flex h-auto flex-col justify-between rounded-md p-6">
+                <h2 className="text-3xl font-poppins font-bold text-amber-500 pb-4">{jobData.job_title}</h2>
 
-                                    <h3 className="font-bold pt-5">Requirements</h3>
-                                    <div className="font-normal text-sm" dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
-                                </div>
+                <div className="max-w-4xl mx-auto px-5 ">
+                  <div className="grid md:grid-cols-1 gap-10 mt-10">
+                    <div className="flex gap-4 items-start"> 
+                      <div>
+                        <h3 className="font-semibold text-lg">Description</h3>
+                        <p className="mt-3 text-gray-700">  {jobData.job_description}</p>
+                      </div>
+                    </div>
 
+                    <div className="flex gap-4 items-start">
+                     
+                      <div>
+                        <h3 className="font-semibold text-lg">Requirements</h3>
+                        <p className="mt-3 text-gray-700" dangerouslySetInnerHTML={{ __html: sanitizedHTML }} ></p>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div className="text-center pt-12">
+                    <p className="font-semibold text-2xl">Other Requirments</p>
+                   
+                  </div>
+<div className="grid md:grid-cols-3 sm-grid-cols-3 gap-10 mt-10 px-6">
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaBriefcase className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.category}</h3>
+      <p className="mt-1 text-gray-500">Job category</p>
+    </div>
+  </div>
 
-<div className="mx-auto grid justify-center gap-4 md:max-w-[64rem] md:grid-cols-1 mt-6 pt-8">
-  <div className="relative overflow-hidden rounded-lg bg-amber-50 p-2">
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6">
-      <div className="flex items-center">
-        <FaTasks size={20} className="text-amber-500" />
-        <h3 className="pl-3 font-semibold text-gray-800">
-          Job Category : <span className="font-normal">{jobData.category}</span>
-        </h3>
-      </div>
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaGraduationCap className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.qualification}</h3>
+      <p className="mt-1 text-gray-500">Qualification</p>
+    </div>
+  </div>
 
-      <div className="flex items-center">
-        <FaTasks size={20} className="text-amber-500" />
-        <h3 className="pl-3  font-semibold text-gray-800">
-         Qulification : <span className="font-normal"> {jobData.qualification}</span>
-        </h3>
-      </div>
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaDollarSign className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.salary}</h3>
+      <p className="mt-1 text-gray-500">Salary</p>
+    </div>
+  </div>
 
-      <div className="flex items-center">
-        <FaTasks size={18} className="text-amber-500" />
-        <h3 className="pl-3 font-semibold text-gray-800">
-          Salary : <span className="font-normal">{jobData.salary}</span>
-        </h3>
-      </div>
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaBriefcase className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.job_type}</h3>
+      <p className="mt-1 text-gray-500">Job type</p>
+    </div>
+  </div>
 
-      <div className="flex items-center">
-        <FaTasks size={20} className="text-amber-500" />
-        <h3 className="pl-3 font-semibold text-gray-800">
-          Job type : <span className="font-normal">{jobData.job_type}</span>
-        </h3>
-      </div>
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaCalendarAlt className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.job_duration}</h3>
+      <p className="mt-1 text-gray-500">Duration</p>
+    </div>
+  </div>
 
-      <div className="flex items-center">
-        <FaTasks size={20} className="text-amber-500" />
-        <h3 className="pl-3 font-semibold text-gray-800">
-          Duration : <span className="font-normal">{jobData.job_duration}</span>
-        </h3>
-      </div>
-
-      <div className="flex items-center">
-        <FaTasks size={20} className="text-amber-500" />
-        <h3 className="pl-3 font-semibold text-gray-800">
-          Location : <span className="font-normal">{jobData.location}</span>
-        </h3>
-      </div>
+  <div className="flex gap-4 items-start">
+    <span className="bg-[#fce0c9] text-[#F27C1C] p-3 rounded-full">
+      <FaMapMarkerAlt className="w-4 h-4" />
+    </span>
+    <div>
+      <h3 className="font-semibold text-lg">{jobData.location} </h3>
+      <p className="mt-1 text-gray-500">Location</p>
     </div>
   </div>
 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
             </div>
+          </div>
+        </section>
+      </div>
+
         </>
     );
 };
