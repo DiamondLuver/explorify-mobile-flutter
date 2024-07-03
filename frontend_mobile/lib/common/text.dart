@@ -51,6 +51,10 @@ class AppText {
     'cancel_text': 'Cancel',
     'success_upload_title': 'Successful',
     'success_upload_text':
-        'Your CV has been uploaded successfully. The company will review your application and get back to you soon.'
+        'Your CV has been uploaded successfully. The company will review your application and get back to you soon.',
+    'change_pwd': 'Change Password',
+    'update_button': 'Update',
+    'cancle_button': 'Cancel',
+    'description': 'Description',
   };
 }
