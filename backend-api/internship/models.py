@@ -9,7 +9,7 @@ from PIL import Image
 from post.models import Tag
 from datetime import datetime
 from django.core.exceptions import ValidationError
-
+from django.utils import timezone
 class CompanyProfile(models.Model):
     company_id = models.BigAutoField(primary_key=True)
     company_name = models.CharField(max_length=255, blank=True, null=True)
@@ -130,16 +130,15 @@ class InternshipPost(models.Model):
 
     def __str__(self):
         return f"{self.job_title}"
-
     def clean(self):
-        if self.deadline and self.deadline < datetime.now().date():
+        if self.deadline and timezone.now().date() > self.deadline:
             raise ValidationError("Deadline must be a future date.")
-
+    
     def save(self, *args, **kwargs):
-        if datetime.now() > self.deadline:
+        if self.deadline and timezone.now().date() > self.deadline:
             self.active = False
+            
         return super().save(*args, **kwargs)
-
 
 class JobPoster(models.Model):
     job_poster_id = models.BigAutoField(primary_key=True)
