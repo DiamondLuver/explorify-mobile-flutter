@@ -16,8 +16,8 @@ class NavigationMenu extends StatelessWidget {
         onDestinationSelected: (index) {
           if (index == 3) {
             // Navigate to the profile screen using Navigator.pushNamed
-            Navigator.pushNamed(context, '/profile');
-            //context.read<NavigationProvider>().updateSelectedIndex(3);
+            //Navigator.pushNamed(context, '/profile');
+            context.read<NavigationProvider>().updateSelectedIndex(3);
           } else {
             // Update the selected index for other destinations
             context.read<NavigationProvider>().updateSelectedIndex(index);
@@ -39,6 +39,22 @@ class NavigationMenu extends StatelessWidget {
   }
 }
 
+// class NavigationProvider with ChangeNotifier {
+//   int _selectedIndex = 0;
+//   final List<Widget> screens = [
+//     const HomeScreen(),
+//     Container(color: Colors.red),
+//     Container(color: Colors.yellow),
+//     const ProfileScreen(),
+//   ];
+
+//   int get selectedIndex => _selectedIndex;
+
+//   void updateSelectedIndex(int index) {
+//     _selectedIndex = index;
+//     notifyListeners();
+//   }
+// }
 class NavigationProvider with ChangeNotifier {
   int _selectedIndex = 0;
   final List<Widget> screens = [
@@ -53,5 +69,9 @@ class NavigationProvider with ChangeNotifier {
   void updateSelectedIndex(int index) {
     _selectedIndex = index;
     notifyListeners();
+  }
+
+  bool get canPop {
+    return _selectedIndex > 0; // Allow pop if not on the first screen
   }
 }

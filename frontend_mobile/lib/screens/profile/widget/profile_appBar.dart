@@ -16,7 +16,7 @@ class ProfileAppBar extends StatelessWidget {
       child: Column(
         children: [
           CustomProfileAppBar(
-            showBackArrow: true,
+            showBackArrow: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -92,7 +92,7 @@ class ProfileAppBar extends StatelessWidget {
                   SizedBox(width: 60),
                   InkWell(
                     onTap: () {
-                      Navigator.popAndPushNamed(
+                      Navigator.pushNamed(
                           context, RouteManager.editProfileScreen);
                     },
                     borderRadius: BorderRadius.circular(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
+import 'package:frontend_mobile/screens/home/notification.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
 import 'package:frontend_mobile/screens/login/success_screen.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
@@ -59,6 +60,7 @@ class RouteManager {
   static const String addAppreciationScreen = '/profile/addAppreciation';
   static const String languageScreen = '/profile/language';
   static const String teamScreen = '/profile/team';
+  static const String notificationScreen = '/home/notification';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -124,6 +126,9 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const LanguageScreen());
       case teamScreen:
         return MaterialPageRoute(builder: (context) => const TeamScreen());
+      case notificationScreen:
+        return MaterialPageRoute(
+            builder: (context) => const NotificationScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }
