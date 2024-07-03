@@ -2,6 +2,7 @@
 set -e
 
 echo "backend-project:boot:env:${APP_ENVIRONMENT}"
+pip install --no-cache-dir -r ./requirements/requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
