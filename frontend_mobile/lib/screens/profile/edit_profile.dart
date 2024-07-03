@@ -62,7 +62,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: PrimaryCustomContainer(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14.0), // Add horizontal padding
+                      horizontal: 24.0), // Add horizontal padding
                   child: Column(
                     children: [
                       const CustomProfileAppBar(
