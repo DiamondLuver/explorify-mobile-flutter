@@ -48,7 +48,7 @@ class CustomErrorHandlerMiddleware:
         return error_response(message="Unauthorized", status_code=401)
 
     def handle_server_error(self, request, response):
-        return error_response(message="Internal Server Error",data=None, status_code=500)
+        return error_response(message=response,data=None, status_code=500)
 
 def error_response(message, data=None, status_code=500):
         response_data = {
