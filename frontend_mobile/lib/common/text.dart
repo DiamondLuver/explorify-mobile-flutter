@@ -56,5 +56,36 @@ class AppText {
     'update_button': 'Update',
     'cancle_button': 'Cancel',
     'description': 'Description',
+    'term_intro': 'Description',
+    'intro': 'Acceptance of Terms',
+    'intro_sub':
+        'By downloading, accessing, or using this app, you agree to be bound by these terms and conditions.',
+    'user_acc': 'User Account',
+    'user_acc_sub':
+        'You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.',
+    'prv_policy': 'Privacy Policy',
+    'prv_policy_sub':
+        'We respect your privacy. Please review our Privacy Policy to understand our practices.',
+    'rule': 'Usage Rules',
+    'rule_sub':
+        'You agree to use the app only for lawful purposes and in accordance with these terms.',
+    'property': 'Intellectual Property',
+    'property_sub':
+        'All content, features, and functionality of the app are and will remain the exclusive property of [App Name] and its licensors.',
+    'terminate': 'Termination',
+    'terminate_sub':
+        'We may terminate or suspend access to our app immediately, without prior notice, for any reason, including if you breach these terms.',
+    'limit': 'Limitation of Liability',
+    'limit_sub':
+        'In no event shall [App Name], nor its directors, employees, partners, or agents, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.',
+    'changes': 'Changes to Terms',
+    'changes_sub':
+        'We reserve the right to modify or replace these terms at any time. It is your responsibility to review these terms periodically.',
+    'law': 'Governing Law',
+    'law_sub':
+        'These terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles.',
+    'contact': 'Contact Us',
+    'contact_sub':
+        'If you have any questions about these terms, please contact us at [Contact Information].',
   };
 }

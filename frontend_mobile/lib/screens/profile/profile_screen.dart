@@ -172,7 +172,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: 16.0,
                             color: AppColor.grey,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteManager.termAndConditionScreen);
+                          },
                         ),
                         const CustomDivider(),
                         ProfileSetting(

@@ -26,6 +26,7 @@ import 'package:frontend_mobile/screens/profile/language.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/work_experince.dart';
 import 'package:frontend_mobile/screens/profile/team.dart';
+import 'package:frontend_mobile/screens/profile/term_condition.dart';
 import 'package:frontend_mobile/widget/navigation_menu.dart';
 
 class RouteManager {
@@ -61,6 +62,7 @@ class RouteManager {
   static const String languageScreen = '/profile/language';
   static const String teamScreen = '/profile/team';
   static const String notificationScreen = '/home/notification';
+  static const String termAndConditionScreen = '/profile/termAndCondition';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -129,6 +131,9 @@ class RouteManager {
       case notificationScreen:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
+      case termAndConditionScreen:
+        return MaterialPageRoute(
+            builder: (context) => const TermAndConditionScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }
