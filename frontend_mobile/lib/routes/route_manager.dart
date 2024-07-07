@@ -69,7 +69,6 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case loadingScreen:
         return MaterialPageRoute(builder: (context) => const LoadingPage());
-      case categoryScreen:
       case preferenceScreen:
         return MaterialPageRoute(builder: (context) => PreferenceScreen());
       case loginScreen:
