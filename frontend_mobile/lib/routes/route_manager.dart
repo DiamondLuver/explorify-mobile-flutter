@@ -8,6 +8,7 @@ import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/loading_screen.dart';
 import 'package:frontend_mobile/screens/login/login_screen.dart';
 import 'package:frontend_mobile/screens/login/register_screen.dart';
+import 'package:frontend_mobile/screens/onboarding/preference_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/splash_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/welcome_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/about_me.dart';
@@ -30,6 +31,8 @@ import 'package:frontend_mobile/widget/navigation_menu.dart';
 class RouteManager {
   static const String splashScreen = '/';
   static const String loadingScreen = '/loading';
+  static const String categoryScreen = '/category';
+  static const String preferenceScreen = '/preference';
   static const String loginScreen = '/login';
   static const String registerScreen = '/register';
   static const String welcomeScreen = '/welcome';
@@ -66,6 +69,9 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case loadingScreen:
         return MaterialPageRoute(builder: (context) => const LoadingPage());
+      case categoryScreen:
+      case preferenceScreen:
+        return MaterialPageRoute(builder: (context) => PreferenceScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (context) => const LoginPage());
       case registerScreen:
