@@ -16,7 +16,7 @@ class AppText {
     'search-text': 'Find Company, Job, Location',
     'findjob-text': 'Find Job',
     'recommended-text': 'Recommended For You',
-    'register_title': 'Rrgister Account',
+    'register_title': 'Register Account',
     'register_text': 'Fill your details or continue with social media',
     'check_email_title': 'Check Your Email',
     'check_email_text':

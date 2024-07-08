@@ -1,5 +1,5 @@
-class SkillList {
-  SkillList._();
+class AppList {
+  AppList._();
   static const  List<String> preferenceList = [
     'Python',
     'JavaScript',
@@ -93,5 +93,12 @@ class SkillList {
     'Persuasion',
     'Delegation',
     'Mentoring',
+  ];
+  static const List<String> companyList = [
+    'Google Inc',
+    'Apple',
+    'Microsoft',
+    'Amazon',
+    'Facebook'
   ];
 }
