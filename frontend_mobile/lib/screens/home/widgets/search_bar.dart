@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 
@@ -21,11 +20,9 @@ class SearchContainer extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width, // *.7
         padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColor.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
-          ),
+          borderRadius: BorderRadius.circular(24.0),
         ),
         child: Row(
           children: [
