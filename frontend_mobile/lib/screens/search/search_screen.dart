@@ -6,6 +6,7 @@ import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/search/widgets/company_card.dart';
+import 'package:frontend_mobile/widget/app_bar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -44,17 +45,24 @@ class _SearchScreenState extends State<SearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(AppImage.upperStyle),
-
-            // Title above body
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-              child: Text(
-                'Search',
+            CustomAppBar(
+              isCenter: true,
+              showBackArrow: true,
+              title: Text(
+                "Search",
                 style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.left,
               ),
             ),
+            // Title above body
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+            //   child: Text(
+            //     'Search',
+            //     style: Theme.of(context).textTheme.headlineMedium,
+            //     textAlign: TextAlign.left,
+            //   ),
+            // ),
 
             // Search Bar
             Padding(
@@ -93,12 +101,12 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: filteredCompanies.length,
               itemBuilder: (context, index) {
                 return CompanyCard(
-                    logoImg: AppImage.google,
-                    companyName: filteredCompanies[index],
-                    location: "Cambodia",
-                    // contact: "",
-                    // onTap: () {}
-                    );
+                  logoImg: AppImage.google,
+                  companyName: filteredCompanies[index],
+                  location: "Cambodia",
+                  // contact: "",
+                  // onTap: () {}
+                );
               },
             ),
 
@@ -108,25 +116,25 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 children: [
                   ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return CustomCardInfo(
-                            jobImage: AppImage.google,
-                            jobType: "Full Time",
-                            companyName: "Google Inc",
-                            positionName: "UX/UI Designer",
-                            location: "California, USA",
-                            minSalary: 200,
-                            maxSalry: 400,
-                            onTap: () {
-                              Navigator.popAndPushNamed(
-                                  context, RouteManager.jobDetailScreen);
-                            },
-                          );
-                        }),
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return CustomCardInfo(
+                          jobImage: AppImage.google,
+                          jobType: "Full Time",
+                          companyName: "Google Inc",
+                          positionName: "UX/UI Designer",
+                          location: "California, USA",
+                          minSalary: 200,
+                          maxSalry: 400,
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.jobDetailScreen);
+                          },
+                        );
+                      }),
                 ],
               ),
             )

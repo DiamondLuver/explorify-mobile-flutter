@@ -4,17 +4,13 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
-import 'package:frontend_mobile/screens/home/widgets/custom_notification.dart';
 import 'package:frontend_mobile/screens/home/widgets/home_appBar.dart';
 import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
 import 'package:frontend_mobile/utils/config.dart';
-import 'package:frontend_mobile/widget/app_bar.dart';
-import 'package:frontend_mobile/widget/custom_container.dart';
 
 class ListCompanyScreen extends StatefulWidget {
   const ListCompanyScreen({super.key});
