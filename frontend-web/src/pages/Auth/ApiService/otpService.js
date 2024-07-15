@@ -8,7 +8,7 @@ const verifyOTP = async (data) => {
         expires: 1,
       });
       Cookies.set("refresh_token", response.data.body.refresh_token, {
-        expires: 1,
+        expires: 2,
       });
       return response.data;
     })

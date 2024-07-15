@@ -26,11 +26,8 @@ export const setupAxiosInterceptors = (navigate) => {
 
   axiosInstance.interceptors.response.use(
     (response) => response,
-    (error) => {
-      if (error.response && error.response.status === 401) {
-        Cookies.remove("access_token");
-        navigate("/login"); // Call navigate passed from a component
-      }
+    async (error) => {
+
       return Promise.reject(error);
     }
   );
