@@ -5,6 +5,8 @@ import SuccessMessage from "src/components/SmallComponents/SuccessMessage";
 import { useLoading } from "src/context/LoadingContext";
 import verifyOTP from "src/pages/Auth/ApiService/otpService";
 import ErrorMessage from "src/components/SmallComponents/ErrorMessage";
+import { Helmet } from "react-helmet";
+
 const OTP = () => {
   const username_or_email = Cookies.get("username_or_email");
   const [code, setCode] = useState("");
@@ -56,6 +58,9 @@ const OTP = () => {
 
   return (
     <>
+    <Helmet>
+      <title>OTP Login - Explorify</title>
+    </Helmet>
       <div className="relative min-h-screen flex items-center justify-center bg-[#F27C1C]">
         <div className="relative flex flex-col sm:flex-row items-center justify-center bg-transparent rounded-3xl">
           <div className="flex justify-center self-center z-10 p-10 bg-white rounded-3xl w-full sm:w-96">

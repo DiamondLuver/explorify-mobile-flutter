@@ -2,10 +2,13 @@ import React from "react";
 import AreaChartHero from "./AreaChartHero";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 const Dashboard = () => {
   return (
     <>
+      <Helmet>
+        <title>Dashboard - Explorify</title>
+      </Helmet>
       <div className="mt-8">
         {/* Code block starts */}
         <div className="mt-6 lg:my-6 container px-4 mx-auto flex flex-col md:flex-row items-start md:items-center justify-between pb-4  ">

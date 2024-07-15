@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
+import ErrorMessage from "src/components/SmallComponents/ErrorMessage";
 import SuccessMessage from "src/components/SmallComponents/SuccessMessage";
 import { useLoading } from "src/context/LoadingContext";
 import loginUser from "src/pages/Auth/ApiService/loginService";
 import OTP from "src/pages/Auth/OTP";
+import { Helmet } from "react-helmet";
 const Login = () => {
   const { showLoading, hideLoading } = useLoading();
   
@@ -50,6 +52,9 @@ const Login = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Login - Explorify</title>
+    </Helmet>
       <div className="relative min-h-screen flex items-center justify-center bg-[#F27C1C]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#f7ac70] via-[#F27C1C] to-[#F27C1C] h-full w-full"></div>
         <div className="relative flex flex-col sm:flex-row items-center justify-center bg-transparent rounded-3xl ">
