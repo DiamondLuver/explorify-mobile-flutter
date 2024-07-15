@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // import styles
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import axiosInstance from 'src/utils/axiosInstance';
 const AddJob = () => {
   const [jobData, setJobData] = useState({
     job_title: '',
@@ -36,8 +37,8 @@ const AddJob = () => {
     setLoading(true);
     setMessage(null);
     try {
-      const res = await axios.post(`http://localhost:8989/api/v1/post/create/`, jobData, {
-        headers: { 'Content-Type': 'application/json' },
+      const res = await axiosInstance.post(`internship-posts/`, jobData, {
+        // headers: { 'Content-Type': 'application/json' },
       });
       setMessage(`Company added successfully: ${JSON.stringify(res.data)}`);
       setLoading(false);
