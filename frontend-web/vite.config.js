@@ -1,11 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-
-// Optional: Load environment variables from a custom .env file
-import { loadEnv } from 'vite';
-
+import dotenv from 'dotenv';
+dotenv.config();
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd());
 
   return {
     base: "/",
@@ -16,7 +13,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      'process.env': env
+      'process.env': process.env
     },
     preview: {
       port: 8080,
