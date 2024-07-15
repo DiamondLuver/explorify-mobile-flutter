@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
-import Spinner from "src/components/SmallComponents/Spinner";
 import SuccessMessage from "src/components/SmallComponents/SuccessMessage";
 import { useLoading } from "src/context/LoadingContext";
 import loginUser from "src/pages/Auth/ApiService/loginService";
 import OTP from "src/pages/Auth/OTP";
 const Login = () => {
-  const { isLoading, showLoading, hideLoading } = useLoading();
+  const { showLoading, hideLoading } = useLoading();
+  
   const [formData, setFormData] = useState({
     username_or_email: "",
     password: "",
@@ -20,7 +20,7 @@ const Login = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
-
+  const [errorMessage, setErrorMessage ] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     showLoading();
@@ -39,6 +39,7 @@ const Login = () => {
     } catch (error) {
       hideLoading();
       console.error("Error logging in user:", error);
+      setErrorMessage("Failed to Logged in");
     }
   };
 
@@ -49,7 +50,6 @@ const Login = () => {
 
   return (
     <>
-      {isLoading ? <Spinner /> : null}
       <div className="relative min-h-screen flex items-center justify-center bg-[#F27C1C]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#f7ac70] via-[#F27C1C] to-[#F27C1C] h-full w-full"></div>
         <div className="relative flex flex-col sm:flex-row items-center justify-center bg-transparent rounded-3xl ">
@@ -71,9 +71,12 @@ const Login = () => {
                 </h3>
                 <p className="text-gray-400 pt-2">Welcome Back !!</p>
               </div>
-              {successMessage && <SuccessMessage message={successMessage} />}
-
-              <br></br>
+              {successMessage ? (
+              <SuccessMessage message={successMessage} />
+            ) : errorMessage ? (
+              <ErrorMessage message={errorMessage} />
+            ) : null}
+            <br></br>
               <form
                 className="space-y-6"
                 encType="multipart/form-data"
@@ -131,7 +134,7 @@ const Login = () => {
                     </div>
                   </div>
                   <a
-                    href="#"
+                    href="/"
                     className="text-sm font-medium text-[#F27C1C] hover:underline"
                   >
                     Forgot password?
@@ -146,7 +149,7 @@ const Login = () => {
                 <p className="text-sm font-light text-gray-500">
                   Don’t have an account yet?{" "}
                   <a
-                    href="#"
+                    href="/register"
                     className="font-medium text-[#F27C1C] hover:underline"
                   >
                     Sign up

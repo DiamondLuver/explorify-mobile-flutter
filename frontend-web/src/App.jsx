@@ -1,20 +1,34 @@
 import React from "react";
-import { BrowserRouter, Route, } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { LoadingProvider } from "./context/LoadingContext";
 import { AuthProvider } from "src/context/AuthContext";
 import { setupAxiosInterceptors } from "src/utils/axiosInstance";
 import Routes from "src/routes/Routes";
+import Spinner from "./components/SmallComponents/Spinner";
+import { useLoading } from "./context/LoadingContext";
+
+const Custom = () => {
+  const { isLoading } = useLoading();
+
+  return (
+    <>
+      {isLoading && <Spinner />}
+      <Routes />
+    </>
+  );
+};
+
 export default function App() {
   React.useEffect(() => {
     setupAxiosInterceptors();
   }, []);
   return (
     <BrowserRouter>
-    <LoadingProvider>
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
-    </LoadingProvider>
+      <LoadingProvider>
+        <AuthProvider>
+          <Custom />
+        </AuthProvider>
+      </LoadingProvider>
     </BrowserRouter>
   );
   // return (
