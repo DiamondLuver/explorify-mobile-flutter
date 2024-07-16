@@ -160,3 +160,7 @@ Thumbs.db
 data
 
 migrations/*.py
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
