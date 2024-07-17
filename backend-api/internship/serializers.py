@@ -15,7 +15,8 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
 class InternshipPostSerialzer(serializers.ModelSerializer):
     class Meta: 
         model = InternshipPost
-        fields =('internship_post_id','job_title','category','company_name','location','job_description','job_requirement','salary','job_type','job_duration','qualification','status')
+   
+        fields =('user','internship_post_id','job_title','location','job_description','job_requirement','job_type','salary','job_duration','qualification','status','deadline')
         internship_post_id = serializers.IntegerField(required=False)
-
+        user = serializers.TimeField(required=False)
 

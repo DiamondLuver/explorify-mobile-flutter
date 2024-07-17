@@ -9,21 +9,34 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 const EditJob = () => {
 
+  const jobTypeChoices = [
+    { value: "Full-time", label: "Full-time" },
+    { value: "Part-time", label: "Part-time" },
+    { value: "Contract", label: "Contract" },
+    { value: "Internship", label: "Internship" }
+  ];
+  
+  const statusChoices = [
+    { value: "Open", label: "Open" },
+    { value: "Closed", label: "Closed" },
+    { value: "Filled", label: "Filled" }
+  ];
+
+  
   const { jobId } = useParams();
   const navigate = useNavigate();
 
   const [jobData, setJobData] = useState({
     job_title: '',
-    category: '',
-    company_name: '',
     location: '',
     job_description: '',
     job_requirement: '',
     salary: '',
-    job_type: '',
+    job_type: 'Full-Time',
     job_duration: '',
     qualification: '',
-    status: '',
+    status: 'Open',
+    deadline: '', // Ensure you include all fields required by the serializer
   });
 
   const [message, setMessage] = useState(null);
@@ -83,11 +96,10 @@ const EditJob = () => {
   return (
     <>
 
-    <Header/>
-      {/* Edit button/link */}
+<Header />
       <section className="bg-white dark:bg-gray-900 mt-8">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-          <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit Job</h2>
+          <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Eidt job post</h2>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4 mb-4 sm:grid-cols-2">
               <div>
@@ -104,34 +116,7 @@ const EditJob = () => {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Job category
-                </label>
-                <input
-                  type="text"
-                  name="category"
-                  value={jobData.category}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Web development"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="company_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Company name 
-                </label>
-                <input
-                  type="text"
-                  name="company_name"
-                  value={jobData.company_name}
-                  onChange={handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Google"
-                  required
-                />
-              </div>
+
               <div>
                 <label htmlFor="qualification" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Qualification
@@ -146,9 +131,10 @@ const EditJob = () => {
                   required
                 />
               </div>
+
               <div>
                 <label htmlFor="job_duration" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Job duration 
+                  Job duration
                 </label>
                 <input
                   type="text"
@@ -160,20 +146,26 @@ const EditJob = () => {
                   required
                 />
               </div>
+
               <div>
                 <label htmlFor="job_type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Job type
                 </label>
-                <input
-                  type="text"
+                <select
                   name="job_type"
                   value={jobData.job_type}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Full-time"
                   required
-                />
+                >
+                  {jobTypeChoices.map((choice) => (
+                    <option key={choice.value} value={choice.value}>
+                      {choice.label}
+                    </option>
+                  ))}
+                </select>
               </div>
+
               <div>
                 <label htmlFor="salary" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Salary
@@ -184,25 +176,53 @@ const EditJob = () => {
                   value={jobData.salary}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="$100 - $200 "
+                  placeholder="$1000 - $2000"
                   required
                 />
               </div>
+
               <div>
                 <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Status
                 </label>
-                <input
-                  type="text"
+                <select
                   name="status"
                   value={jobData.status}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Open"
                   required
-                />
+                >
+                  {statusChoices.map((choice) => (
+                    <option key={choice.value} value={choice.value}>
+                      {choice.label}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+
             </div>
+
+
+            <div className="grid gap-4 mb-4 sm:grid-cols-1">
+            <div>
+  <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+    Deadline
+  </label>
+  <input
+    type="date"
+    name="deadline"
+    id="deadline"
+    value={jobData.deadline}
+    onChange={handleChange}
+    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+    
+    required
+  />
+</div>
+            </div>
+
+
             <div className="grid gap-4 mb-4 sm:grid-cols-1">
               <div>
                 <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -214,11 +234,12 @@ const EditJob = () => {
                   value={jobData.location}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5"
-                  placeholder="123 Main St, City"
+                  placeholder="1234 Main St"
                   required
                 />
               </div>
             </div>
+
             <div className="sm:col-span-2">
               <label htmlFor="job_description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Description
@@ -233,6 +254,7 @@ const EditJob = () => {
                 placeholder="Write description here"
               ></textarea>
             </div>
+
             <div className="sm:col-span-2 pt-5">
               <label htmlFor="job_requirement" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Requirement
@@ -260,6 +282,7 @@ const EditJob = () => {
                 placeholder="Write requirements here"
               />
             </div>
+
             {message && (
               <div className="mt-4">
                 <p className={`text-sm ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
@@ -267,24 +290,25 @@ const EditJob = () => {
                 </p>
               </div>
             )}
-              <div class="flex items-center space-x-4 pt-5">
-                <button
-                    type="submit"
-                    className="text-white bg-[#F27C1C] hover:bg-[#ce6918] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    disabled={loading}
-                  >
-                    {loading ? 'Submitting...' : 'Update'}
-                  </button>
 
-                  <Link to="/job/table">
-
-                  <button type="button" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                  Cancel
+            <div className="flex items-center space-x-4 pt-5">
+              <button
+                type="submit"
+                className="text-white bg-[#F27C1C] hover:bg-[#ce6918] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Add new'}
               </button>
 
-              </Link>  
-          </div>
-
+              <Link to="/job/table">
+                <button
+                  type="button"
+                  className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                >
+                  Cancel
+                </button>
+              </Link>
+            </div>
           </form>
         </div>
       </section>

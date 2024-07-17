@@ -33,7 +33,7 @@ const JobTable = () => {
                                             </div>
                                         </th>
                                         <th scope="col" className="px-4 py-3">Position</th>
-                                        <th scope="col" className="px-4 py-3">Specialization</th>
+                                        <th scope="col" className="px-4 py-3">Job type</th>
                                         <th scope="col" className="px-4 py-3">Salary</th>
                                         <th scope="col" className="px-4 py-3">Duration</th>
                                         <th scope="col" className="px-4 py-3">Job Type</th>
@@ -54,11 +54,10 @@ const JobTable = () => {
                                                 {job.job_title}
                                             </td>
                                             <td className="px-4 py-2">
-                                                <span className="bg-amber-100 text-amber-400 text-xs font-medium px-2 py-0.5 rounded-full dark:bg-primary-900 dark:text-primary-300">{job.category}</span>
+                                                <span className="bg-amber-100 text-amber-400 text-xs font-medium px-2 py-0.5 rounded-full dark:bg-primary-900 dark:text-primary-300">{job.job_type}</span>
                                             </td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{job.salary}</td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{job.job_duration}</td>
-                                            <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{job.job_type}</td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{job.status}</td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div className="flex items-center">
