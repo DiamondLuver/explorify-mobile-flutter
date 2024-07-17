@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/artical/artical_screen.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
-import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:provider/provider.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -10,8 +10,8 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-      extendBody: true, 
+    return Scaffold(
+      extendBody: true,
       bottomNavigationBar: Material(
         elevation: 8,
         borderRadius: const BorderRadius.only(
@@ -29,14 +29,14 @@ class NavigationMenu extends StatelessWidget {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 1,
-                blurRadius: 8, 
+                blurRadius: 8,
                 offset: const Offset(0, 3),
               ),
             ],
           ),
           child: NavigationBar(
             height: 60,
-            backgroundColor: Colors.transparent,  
+            backgroundColor: Colors.transparent,
             selectedIndex: context.watch<NavigationProvider>().selectedIndex,
             onDestinationSelected: (index) {
               if (index == 3) {
@@ -49,8 +49,11 @@ class NavigationMenu extends StatelessWidget {
             },
             destinations: const [
               NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-              NavigationDestination(icon: Icon(IconData(0xe0a2, fontFamily: 'MaterialIcons')), label: 'Article'),
-              NavigationDestination(icon: Icon(Icons.history), label: 'History'),
+              NavigationDestination(
+                  icon: Icon(IconData(0xe0a2, fontFamily: 'MaterialIcons')),
+                  label: 'Article'),
+              NavigationDestination(
+                  icon: Icon(Icons.history), label: 'History'),
               NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
             ],
           ),
@@ -80,7 +83,7 @@ class NavigationProvider with ChangeNotifier {
   final List<Widget> screens = [
     const HomeScreen(),
     const ArticleScreen(),
-    Container(color: Colors.yellow),
+    const HistoryScreen(),
     const ProfileScreen(),
   ];
 
