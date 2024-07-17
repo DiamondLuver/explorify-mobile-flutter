@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';   // install this package
-import { googleLogin } from "../services/auth";
+import { googleLogin } from "../services/googleAuth";
 import axios from 'axios';
 function GoogleLoginButton() {
     

@@ -86,6 +86,7 @@ class InternshipApplication(models.Model):
 
 class InternshipPost(models.Model):
     internship_post_id = models.BigAutoField(primary_key=True)
+    thumbnail = models.ImageField(blank=True, null=True)    
     job_title = models.CharField(max_length=255, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -139,17 +140,3 @@ class InternshipPost(models.Model):
             self.active = False
             
         return super().save(*args, **kwargs)
-
-class JobPoster(models.Model):
-    job_poster_id = models.BigAutoField(primary_key=True)
-    company = models.ForeignKey(
-        CompanyProfile, models.DO_NOTHING, blank=True, null=True
-    )
-    # username = models.CharField(max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "Job Poster"
-        verbose_name_plural = "Job Posters"
-        db_table = "job_poster"

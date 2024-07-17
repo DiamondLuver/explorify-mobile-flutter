@@ -1,16 +1,25 @@
-# middleware.py
-
 import uuid
 import time
 from django.http import JsonResponse
-from rest_framework import status
-from rest_framework.response import Response
+from django.urls import resolve
 
-class TraceIDMiddleware:
+class URLPatternMiddlewareMixin:
+    def should_process(self, request):
+        # Define URL patterns to include/exclude
+        excluded_patterns = ['admin']  # Add more patterns as needed
+
+        # Check if the current request's URL pattern is in the excluded patterns
+        current_url_name = resolve(request.path_info).url_name
+        return not any(pattern in request.path for pattern in excluded_patterns)
+
+class TraceIDMiddleware(URLPatternMiddlewareMixin):
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
+        if not self.should_process(request):
+            return self.get_response(request)
+
         response = self.get_response(request)
 
         # Generate a unique trace ID
@@ -21,12 +30,14 @@ class TraceIDMiddleware:
 
         return response
 
-
-class CustomErrorHandlerMiddleware:
+class CustomErrorHandlerMiddleware(URLPatternMiddlewareMixin):
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
+        if not self.should_process(request):
+            return self.get_response(request)
+
         response = self.get_response(request)
         return self.process_response(request, response)
 
@@ -48,14 +59,14 @@ class CustomErrorHandlerMiddleware:
         return error_response(message="Unauthorized", status_code=401)
 
     def handle_server_error(self, request, response):
-        return error_response(message="Internal Server Error",data=None, status_code=500)
+        return error_response(message="Server Error", status_code=500)
 
 def error_response(message, data=None, status_code=500):
-        response_data = {
-            "status": "error",
-            "status_code": status_code,
-            "message": message,
-            "data": data,
-            
-        }
-        return JsonResponse(response_data, status=status_code)
+    response_data = {
+        "status": "error",
+        "status_code": status_code,
+        "message": message,
+        "data": data,
+    }
+    return JsonResponse(response_data, status=status_code)
+ 

@@ -19,16 +19,18 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop("password", None)
-        social_registration = validated_data.pop('social_registration', False)
+        social_registration = validated_data.pop("social_registration", False)
         instance = self.Meta.model(**validated_data)
-        
+
         if password:
             instance.set_password(password)
-        
+
         instance.is_active = True
         instance.save()
-        
+
         return instance
+
+
 class LoginSerializer(serializers.Serializer):
     username_or_email = serializers.CharField(required=True)
     password = serializers.CharField(max_length=128, write_only=True)
@@ -56,6 +58,8 @@ class LoginSerializer(serializers.Serializer):
 
         data["user"] = user
         return data
+
+
 class ImageUploadSerializer(serializers.Serializer):
     image_file = serializers.ImageField()
 
@@ -77,7 +81,7 @@ class CompanyProfileRegistrationSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=128)
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
-    company_pic = serializers.ImageField()
+    # company_pic = serializers.ImageField(required=False)
 
     class Meta:
         model = CompanyProfile
@@ -93,7 +97,7 @@ class CompanyProfileRegistrationSerializer(serializers.ModelSerializer):
             "company_type",
             "specialization",
             "company_website",
-            "company_pic",
+            # "company_pic",
         ]
 
     def create(self, validated_data):
@@ -104,9 +108,11 @@ class CompanyProfileRegistrationSerializer(serializers.ModelSerializer):
         }
         user = User.objects.create_user(**user_data, is_active=False)
 
-        company_pic = validated_data.pop("company_pic", None)
+        # company_pic = validated_data.pop("company_pic", None)
         company_profile = CompanyProfile.objects.create(
-            user=user, company_pic=company_pic, **validated_data
+            user=user, 
+            # company_pic=company_pic, 
+            **validated_data
         )
 
         return company_profile
@@ -130,7 +136,7 @@ class ChangePasswordSerializer(serializers.Serializer):
     confirm_new_password = serializers.CharField(required=True, write_only=True)
 
     def validate_old_password(self, value):
-        user = self.context['request'].user
+        user = self.context["request"].user
         if not user.check_password(value):
             raise serializers.ValidationError(_("Old password is incorrect."))
         return value
@@ -141,15 +147,17 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
     def validate(self, attrs):
-        if attrs['new_password'] != attrs['confirm_new_password']:
+        if attrs["new_password"] != attrs["confirm_new_password"]:
             raise serializers.ValidationError(_("New passwords do not match."))
-        elif attrs['new_password'] == attrs['old_password']:
-            raise serializers.ValidationError(_("Please input new different passwords."))
+        elif attrs["new_password"] == attrs["old_password"]:
+            raise serializers.ValidationError(
+                _("Please input new different passwords.")
+            )
         return attrs
 
     def save(self, **kwargs):
-        user = self.context['request'].user
-        user.set_password(self.validated_data['new_password'])
+        user = self.context["request"].user
+        user.set_password(self.validated_data["new_password"])
         user.save()
         return user
 

@@ -9,12 +9,13 @@ class CV(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=255, null=True)
     job_title = models.CharField(max_length=255, null=True)
-    user_company = models.ForeignKey("UserCompany", null=True, on_delete=models.CASCADE)
+    user_companies = models.ManyToManyField("UserCompany", blank=True)
     user_education = models.ManyToManyField("UserEducation", blank=True)
     user_skill = models.ManyToManyField("Skill", blank=True)
     user_major = models.ManyToManyField("Major", blank=True)
     user_language = models.ManyToManyField("Language", blank=True)
     user_award = models.ManyToManyField("UserAward", blank=True)
+    references = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -76,6 +77,8 @@ class UserCompany(models.Model):
     user_company_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=128, blank=True)
+    position = models.CharField(max_length=255, null=True)
+    description = models.TextField(null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -112,11 +115,9 @@ class School(models.Model):
 class UserEducation(models.Model):
     user_education_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    school = models.ForeignKey("School", on_delete=models.PROTECT, null=True)
-    education_level = models.ForeignKey(
-        "EducationLevel", on_delete=models.PROTECT, null=True
-    )
-    major = models.ForeignKey("Major", on_delete=models.PROTECT, null=True)
+    school = models.CharField(max_length=255, null=True)
+    education_level = models.CharField(max_length=200, null=True)
+    major = models.CharField(max_length=100, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)

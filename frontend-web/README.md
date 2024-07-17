@@ -82,15 +82,34 @@ This will build and run the Docker container, exposing the application at [http:
 ## Project Structure
 
 ```
-sample-react-vite/
-├── public/          # Public assets
-├── src/             # Source files
-│   ├── components/  # React components
-│   ├── App.jsx      # Main application component
-│   └── index.jsx    # Entry point
-├── .gitignore       # Git ignore file
-├── package.json     # npm package configuration
-└── README.md        # This file
+/frontend-web/
+│
+├── /public/                # Static files
+│   ├── index.html          # Main HTML file
+│   └── favicon.ico         # Favicon
+│
+├── /src/                                   # Source files
+│   ├── /assets/                            # Static assets (images, fonts, etc.)
+│   ├── /components/                        # Reusable components
+│   ├── /context/                           # Context providers
+│   ├── /pages/                             # Page components (views)
+│   ├── /routes/                            # Route
+│       ├── /ProtectedRouteComponent.jsx/   # component to check for protected routes
+│       ├── /publicRoutes.jsx/              # List of public routes
+│       ├── /protectedRoutes.jsx/           # List of protected routes
+│       ├── /Routes.jsx/                    # Logic to combine routes
+│   ├── /services/          # API calls and services or put in pages folders
+│   ├── /styles/            # Global styles or CSS modules
+│   ├── /utils/             # Utility functions (axiosInstance use from here)
+│   ├── App.jsx             # Main app component
+│   ├── index.jsx           # Entry point
+│
+├── .env                     # Environment variables
+├── .gitignore               # Git ignore file
+├── package.json             # Dependencies and scripts
+├── vite.config.js           # Vite configuration
+└── README.md                # Project documentation
+
 ```
 
 ## License

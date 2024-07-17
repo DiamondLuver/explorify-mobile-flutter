@@ -10,8 +10,8 @@ import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_notification.dart';
 import 'package:frontend_mobile/screens/home/widgets/home_appBar.dart';
-import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
+import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
 import 'package:frontend_mobile/widget/custom_container.dart';
@@ -39,8 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   const HomeAppBar(),
                   Config.spaceMedium,
                   // -- Search --
-                  SearchContainer(
-                    text: AppText.enText['search-text']!,
+                  // SearchContainer(
+                  //   text: AppText.enText['search-text']!,
+                  // ),
+                  // -- Search --
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteManager.search);
+                    },
+                    child: Hero(
+                      tag: 'search-bar',
+                      child: SearchContainer(
+                        text: AppText.enText['search-text'] ?? 'Search...',
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -122,4 +134,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

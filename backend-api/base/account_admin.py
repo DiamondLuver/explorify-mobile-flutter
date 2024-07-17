@@ -64,7 +64,7 @@ class CustomUserAdmin(UserAdmin):
         (_("Personal info"), {"fields": ("first_name", "last_name", "email", "role")}),
         (
             _("Additional Information"),
-            {"fields": ("location", "school", "headline", "last_login")},
+            {"fields": ("headline", "last_login")},
         ),
         (
             _("Permissions"),
@@ -96,9 +96,7 @@ class CustomUserAdmin(UserAdmin):
                     "first_name",
                     "last_name",
                     "email",
-                    "location",
-                    "school",
-                    "headline",
+                   "headline",
                     "last_login",
                 )
             },
