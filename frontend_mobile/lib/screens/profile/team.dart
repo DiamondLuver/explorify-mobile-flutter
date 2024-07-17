@@ -64,9 +64,9 @@ class _TeamScreenState extends State<TeamScreen> {
                     children: [
                       _buildTeamMemberBox(
                         context,
-                        'Dan Wilson',
-                        'Senior Community Manager',
-                        '+1234567892',
+                        'Un Sreypich',
+                        'Mobile & Web Developer',
+                        '+855 96 400 3848',
                         AppImage.pichImg,
                       ),
                       _buildTeamMemberBox(
