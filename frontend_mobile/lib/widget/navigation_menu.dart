@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/artical/artical_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class NavigationProvider with ChangeNotifier {
   int _selectedIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    Container(color: Colors.red),
+    const ArticleScreen(),
     Container(color: Colors.yellow),
     const ProfileScreen(),
   ];

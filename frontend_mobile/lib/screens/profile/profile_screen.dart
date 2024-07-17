@@ -4,6 +4,7 @@ import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
+import 'package:frontend_mobile/screens/profile/faq_screen.dart';
 import 'package:frontend_mobile/screens/profile/widget/custom_divider.dart';
 import 'package:frontend_mobile/screens/profile/widget/listing.dart';
 import 'package:frontend_mobile/screens/profile/widget/profile_appBar.dart';
@@ -172,7 +173,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: 16.0,
                             color: AppColor.grey,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FAQScreen()),
+                            );
+                          },
                         ),
                         const CustomDivider(),
                         ProfileSetting(
