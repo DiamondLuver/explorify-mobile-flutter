@@ -269,7 +269,7 @@ class _FAQScreenState extends State<FAQScreen> {
                           item.headerText,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                         iconColor: Colors.amber, // Set icon color to black
@@ -289,7 +289,7 @@ class _FAQScreenState extends State<FAQScreen> {
                             contentPadding: EdgeInsets.only(left: 20),
                             title: Text(
                               item.expandedText,
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 14),
                             ),
                           ),
                         ],

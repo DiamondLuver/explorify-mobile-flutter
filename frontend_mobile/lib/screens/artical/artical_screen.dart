@@ -170,7 +170,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 18,
           ),
         ),
       ),
@@ -242,7 +242,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           ? Color.fromARGB(255, 250, 86, 4)
                           : Colors.black,
                       fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                      fontSize: 16,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -337,7 +337,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             "${item['title']}",
                             style: TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -354,7 +354,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       "${item['category']}",
                       style: TextStyle(
                         color: Colors.grey[800],
-                        fontSize: 15,
+                        fontSize: 12,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -374,7 +374,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             "Read more ",
                             style: TextStyle(
                               color: Colors.grey[900],
-                              fontSize: 18,
+                              fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
                           ),

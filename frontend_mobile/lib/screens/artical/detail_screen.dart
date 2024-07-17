@@ -72,7 +72,7 @@ class DetailsScreen extends StatelessWidget {
                             "${item['title']}",
                             style: TextStyle(
                               color: Color.fromARGB(255, 21, 11, 61),
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -100,7 +100,7 @@ class DetailsScreen extends StatelessWidget {
                       "${item['category'] ?? 'No description available.'}",
                       style: TextStyle(
                           color: Color.fromARGB(255, 242, 124, 28),
-                          fontSize: 18),
+                          fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),
@@ -109,7 +109,7 @@ class DetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
                       "${item['description'] ?? 'No description available.'}",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),
