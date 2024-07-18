@@ -11,8 +11,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController _nameController =
-      TextEditingController(); // controller for Name input
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
@@ -281,6 +281,56 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ],
                   ),
                   //Email
+                  SizedBox(
+                    height: 10,
+                  ),
+                  //Country
+                  Title(
+                    color: AppColor.black,
+                    child: Text(
+                      "Country",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColor.black), // Match text style
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _countryController, // Assign the controller
+                    decoration: InputDecoration(
+                      hintText: "Enter Your Country",
+                      hintStyle:
+                          TextStyle(color: Colors.black.withOpacity(0.7)),
+
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 7), // Adjust padding values
+                      enabledBorder: OutlineInputBorder(
+                        // Custom border style
+                        borderRadius:
+                            BorderRadius.circular(15), // Rounded corners
+                        borderSide: BorderSide(
+                          color:
+                              AppColor.grey.withOpacity(0.5), // Use theme color
+                          width: 2.0, // Adjust border thickness
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        // Style for focused state
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: AppColor.grey
+                              .withOpacity(0.5), // Use accent color
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.black), // Match text style
+                  ),
                   SizedBox(
                     height: 10,
                   ),

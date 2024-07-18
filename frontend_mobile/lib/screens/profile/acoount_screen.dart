@@ -54,12 +54,15 @@ class _AccountScreenState extends State<AccountScreen> {
               leadingIconColor: Colors.black,
               title: Row(
                 children: [
-                  Text(
-                    "Account Detail",
-                    style: TextStyle(
-                      color: AppColor.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: EdgeInsets.only(left: 60),
+                    child: Text(
+                      "Account Detail",
+                      style: TextStyle(
+                        color: AppColor.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   )
                 ],

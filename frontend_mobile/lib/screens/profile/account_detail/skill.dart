@@ -75,12 +75,15 @@ class _SkillScreenState extends State<SkillScreen> {
             leadingIconColor: Colors.black,
             title: Row(
               children: [
-                Text(
-                  "Skill",
-                  style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.only(left: 90),
+                  child: Text(
+                    "Skill",
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 )
               ],

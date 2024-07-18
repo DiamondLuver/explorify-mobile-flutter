@@ -22,12 +22,15 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
             const CustomAccountAppBar(
               showBackArrow: true,
               leadingIconColor: Colors.black,
-              title: Text(
-                'Language',
-                style: TextStyle(
-                  color: AppColor.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              title: Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: Text(
+                  'Language',
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

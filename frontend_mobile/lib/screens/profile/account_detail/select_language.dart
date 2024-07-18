@@ -72,12 +72,15 @@ class _UserLanguageScreenState extends State<UserLanguageScreen> {
             leadingIconColor: Colors.black,
             title: Row(
               children: [
-                Text(
-                  "Language",
-                  style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.only(left: 80),
+                  child: Text(
+                    "Language",
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 )
               ],

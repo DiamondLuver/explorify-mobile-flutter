@@ -18,14 +18,14 @@ class ProfileAppBar extends StatelessWidget {
           CustomProfileAppBar(
             showBackArrow: false,
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //SizedBox(width: 2),
                 Text(
                   "Your Profile",
                   style: Theme.of(context)
                       .textTheme
-                      .titleLarge!
+                      .headlineMedium!
                       .copyWith(color: AppColor.white),
                 ),
               ],

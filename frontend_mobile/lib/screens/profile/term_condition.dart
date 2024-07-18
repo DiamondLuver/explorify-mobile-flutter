@@ -25,12 +25,15 @@ class _TermAndConditionScreenState extends State<TermAndConditionScreen> {
                 const CustomAccountAppBar(
                   showBackArrow: true,
                   leadingIconColor: Colors.black,
-                  title: Text(
-                    "Terms and Conditions",
-                    style: TextStyle(
-                      color: AppColor.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  title: Padding(
+                    padding: EdgeInsets.only(left: 30),
+                    child: Text(
+                      "Terms and Conditions",
+                      style: TextStyle(
+                        color: AppColor.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

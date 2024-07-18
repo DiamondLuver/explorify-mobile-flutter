@@ -26,12 +26,15 @@ class _WorkExperinceScreenState extends State<WorkExperinceScreen> {
                   leadingIconColor: Colors.black,
                   title: Row(
                     children: [
-                      Text(
-                        "Work Experience",
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: Text(
+                          "Work Experience",
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       )
                     ],

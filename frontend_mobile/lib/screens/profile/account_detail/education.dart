@@ -26,12 +26,15 @@ class _EduInfoState extends State<EduInfo> {
                   leadingIconColor: Colors.black,
                   title: Row(
                     children: [
-                      Text(
-                        "Education Information",
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.only(left: 80),
+                        child: Text(
+                          "Education Information",
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       )
                     ],

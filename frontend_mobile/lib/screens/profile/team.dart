@@ -21,10 +21,10 @@ class _TeamScreenState extends State<TeamScreen> {
             const CustomAccountAppBar(
               showBackArrow: true,
               leadingIconColor: Colors.black,
-              title: Align(
-                alignment: Alignment.center,
+              title: Padding(
+                padding: EdgeInsets.only(left: 80),
                 child: Text(
-                  "Language",
+                  "Our Team",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColor.black,

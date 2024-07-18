@@ -21,12 +21,15 @@ class LanguageScreen extends StatelessWidget {
                   
                   showBackArrow: true,
                   leadingIconColor: Colors.black,
-                  title: Text(
-                    languageLogic.lang.language,
-                    style: const TextStyle(
-                      color: AppColor.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  title: Padding(
+                    padding: EdgeInsets.only(left: 80),
+                    child: Text(
+                      languageLogic.lang.language,
+                      style: const TextStyle(
+                        color: AppColor.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 );

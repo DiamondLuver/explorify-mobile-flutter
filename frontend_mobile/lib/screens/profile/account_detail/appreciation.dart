@@ -26,12 +26,15 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                   leadingIconColor: Colors.black,
                   title: Row(
                     children: [
-                      Text(
-                        "Appreciation",
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.only(left: 80),
+                        child: Text(
+                          "Appreciation",
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
