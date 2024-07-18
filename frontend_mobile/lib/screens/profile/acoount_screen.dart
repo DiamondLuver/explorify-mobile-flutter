@@ -132,17 +132,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           subTitle:
                               'Manager at Amazon Inc (Jan 2015 - Feb 2022)',
                         ),
-                        SizedBox(height: 30.0),
-                        ProfileInfoBox(
-                          icon: Icons.work,
-                          title: 'Resume',
-                          onTrailingTap: () {
-                            Navigator.popAndPushNamed(
-                                context, RouteManager.languageMainScreen);
-                          },
-                          subTitle:
-                              'Manager at Amazon Inc (Jan 2015 - Feb 2022)',
-                        ),
                         SizedBox(
                           height: 30,
                         ),
@@ -156,6 +145,5 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
       ),
     );
-    
   }
 }

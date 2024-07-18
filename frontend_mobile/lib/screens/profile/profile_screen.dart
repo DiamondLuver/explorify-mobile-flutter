@@ -92,6 +92,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                         ),
                         const CustomDivider(),
+                        ProfileSetting(
+                          icon: Icon(Icons.work_outline).icon ?? Icons.error,
+                          title: 'Resume',
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16.0,
+                            color: AppColor.grey,
+                          ),
+                          onTap: () {
+                            Navigator.popAndPushNamed(
+                                context, RouteManager.resumeScreen);
+                          },
+                        ),
+                        const CustomDivider(),
                       ],
                     ),
                   )

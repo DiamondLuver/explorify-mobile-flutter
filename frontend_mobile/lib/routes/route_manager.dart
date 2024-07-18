@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/company/list_company_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/resume_screen.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
@@ -64,6 +65,7 @@ class RouteManager {
   static const String addAppreciationScreen = '/profile/addAppreciation';
   static const String languageScreen = '/profile/language';
   static const String teamScreen = '/profile/team';
+  static const String resumeScreen = '/profile/resume';
   static const String listCompanyScreen = '/company/list_company';
   static const String search = '/search';
 
@@ -138,6 +140,8 @@ class RouteManager {
             builder: (context) => const ListCompanyScreen());
       case search:
         return MaterialPageRoute(builder: (context) => const SearchScreen());
+      case resumeScreen:
+        return MaterialPageRoute(builder: (context) => const CVScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }
