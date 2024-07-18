@@ -27,7 +27,7 @@ class _EduInfoState extends State<EduInfo> {
                   title: Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 80),
+                        padding: EdgeInsets.only(left: 40),
                         child: Text(
                           "Education Information",
                           style: TextStyle(
