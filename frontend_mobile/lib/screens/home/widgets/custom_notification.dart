@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/routes/route_manager.dart';
 
 class CustomIcon extends StatelessWidget {
   const CustomIcon({
@@ -17,7 +17,9 @@ class CustomIcon extends StatelessWidget {
     return Stack(
       children: [
         InkWell(
-          onTap: onPressed,
+          onTap: () {
+            Navigator.pushNamed(context, RouteManager.notificationScreen);
+          },
           borderRadius: BorderRadius.circular(200),
           child: Container(
             height: 54,

@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/artical/artical_screen.dart';
 import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
@@ -11,53 +14,55 @@ class NavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: Material(
-        elevation: 8,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white, // Background color for navigation bar
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
+      bottomNavigationBar: NavigationBar(
+        height: 60,
+        elevation: 0,
+        selectedIndex: context.watch<NavigationProvider>().selectedIndex,
+        onDestinationSelected: (index) {
+          if (index == 3) {
+            // Navigate to the profile screen using Navigator.pushNamed
+            // Navigator.pushNamed(context, '/profile');
+            context.read<NavigationProvider>().updateSelectedIndex(3);
+          } else {
+            // Update the selected index for other destinations
+            context.read<NavigationProvider>().updateSelectedIndex(index);
+          }
+          //context.read<NavigationProvider>().updateSelectedIndex(index);
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            selectedIcon: Icon(
+              Icons.home_rounded,
+              color: AppColor.primary,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
           ),
-          child: NavigationBar(
-            height: 60,
-            backgroundColor: Colors.transparent,
-            selectedIndex: context.watch<NavigationProvider>().selectedIndex,
-            onDestinationSelected: (index) {
-              if (index == 3) {
-                // Navigate to the profile screen using Navigator.pushNamed
-                Navigator.pushNamed(context, '/profile');
-              } else {
-                // Update the selected index for other destinations
-                context.read<NavigationProvider>().updateSelectedIndex(index);
-              }
-            },
-            destinations: const [
-              NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-              NavigationDestination(
-                  icon: Icon(IconData(0xe0a2, fontFamily: 'MaterialIcons')),
-                  label: 'Article'),
-              NavigationDestination(
-                  icon: Icon(Icons.history), label: 'History'),
-              NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-            ],
+          NavigationDestination(
+            icon: Icon(Icons.edit_document),
+            label: 'Article',
+            selectedIcon: Icon(
+              Icons.edit_document,
+              color: AppColor.primary,
+            ),
           ),
-        ),
+          NavigationDestination(
+            icon: Icon(Icons.history),
+            label: 'History',
+            selectedIcon: Icon(
+              Icons.history,
+              color: AppColor.primary,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+            selectedIcon: Icon(
+              Icons.person,
+              color: AppColor.primary,
+            ),
+          ),
+        ],
       ),
       body: Consumer<NavigationProvider>(
         builder: (context, provider, child) {

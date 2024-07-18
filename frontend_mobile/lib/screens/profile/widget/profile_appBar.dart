@@ -16,7 +16,7 @@ class ProfileAppBar extends StatelessWidget {
       child: Column(
         children: [
           CustomProfileAppBar(
-            showBackArrow: true,
+            showBackArrow: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -38,8 +38,8 @@ class ProfileAppBar extends StatelessWidget {
                 onPressed: () {},
                 icon: Image.asset(
                   "assets/images/profile_img.png",
-                  width: 64,
-                  height: 64,
+                  width: 78,
+                  height: 82,
                 ),
               ),
               SizedBox(width: 10),
@@ -65,7 +65,7 @@ class ProfileAppBar extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 2,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,14 +92,14 @@ class ProfileAppBar extends StatelessWidget {
                   SizedBox(width: 60),
                   InkWell(
                     onTap: () {
-                      Navigator.popAndPushNamed(
+                      Navigator.pushNamed(
                           context, RouteManager.editProfileScreen);
                     },
                     borderRadius: BorderRadius.circular(
                         20.0), // Adjust the radius as needed
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 2.0),
+                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                       decoration: BoxDecoration(
                         color: Colors.white
                             .withOpacity(0.2), // Transparent white color
@@ -116,7 +116,7 @@ class ProfileAppBar extends StatelessWidget {
                                 .bodyLarge!
                                 .copyWith(color: AppColor.white),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 6),
                           const Icon(
                             Icons.edit,
                             color: AppColor.white,

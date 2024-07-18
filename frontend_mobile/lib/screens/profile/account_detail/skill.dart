@@ -76,7 +76,7 @@ class _SkillScreenState extends State<SkillScreen> {
             title: Row(
               children: [
                 Text(
-                  "Language",
+                  "Skill",
                   style: TextStyle(
                     color: AppColor.black,
                     fontSize: 20,

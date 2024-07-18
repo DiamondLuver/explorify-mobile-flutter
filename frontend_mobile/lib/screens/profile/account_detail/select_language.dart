@@ -11,7 +11,7 @@ class UserLanguageScreen extends StatefulWidget {
 }
 
 class _UserLanguageScreenState extends State<UserLanguageScreen> {
-  final List<String> _languages = [
+  final List<String> allSkills = [
     'English',
     'Spanish',
     'French',
@@ -23,24 +23,38 @@ class _UserLanguageScreenState extends State<UserLanguageScreen> {
     'Portuguese',
     'Italian'
   ];
-  List<String> _filteredLanguages = [];
+
+  List<String> filteredSkills = [];
+  List<String> selectedSkills = [];
+  String searchTerm = '';
 
   @override
   void initState() {
     super.initState();
-    _filteredLanguages = _languages;
+    filteredSkills = allSkills;
   }
 
-  void _filterLanguages(String query) {
+  void updateSearchTerm(String value) {
     setState(() {
-      if (query.isEmpty) {
-        _filteredLanguages = _languages;
-      } else {
-        _filteredLanguages = _languages
-            .where((language) =>
-                language.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+      searchTerm = value;
+      filteredSkills = allSkills
+          .where(
+              (skill) => skill.toLowerCase().contains(searchTerm.toLowerCase()))
+          .toList();
+    });
+  }
+
+  void selectSkill(String skill) {
+    setState(() {
+      if (!selectedSkills.contains(skill)) {
+        selectedSkills.add(skill);
       }
+    });
+  }
+
+  void removeSkill(String skill) {
+    setState(() {
+      selectedSkills.remove(skill);
     });
   }
 
@@ -48,94 +62,82 @@ class _UserLanguageScreenState extends State<UserLanguageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-                AppImage.upperStyle), // Ensure AppImage.upperStyle is valid
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(
+              AppImage.upperStyle), // Ensure AppImage.upperStyle is valid
+          const CustomAccountAppBar(
+            showBackArrow: true,
+            leadingIconColor: Colors.black,
+            title: Row(
               children: [
-                const CustomAccountAppBar(
-                  showBackArrow: true,
-                  leadingIconColor: Colors.black,
-                  title: Row(
-                    children: [
-                      Text(
-                        "Language",
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
+                Text(
+                  "Language",
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                const SizedBox(height: 12),
-                // Combined Search and List Container
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColor.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
-                          border: Border.all(color: AppColor.primary),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.search,
-                                size: 17,
-                                color: AppColor.primary,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: SizedBox(
-                                  child: TextField(
-                                    onChanged: _filterLanguages,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Search...',
-                                      border: InputBorder.none,
-                                      hintStyle:
-                                          TextStyle(color: AppColor.midGrey),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 510, // Adjust height as needed
-                        child: ListView.builder(
-                          itemCount: _filteredLanguages.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(_filteredLanguages[index]),
-                              onTap: () {
-                                print('Selected: ${_filteredLanguages[index]}');
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                )
               ],
             ),
-          ],
-        ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                TextField(
+                  onChanged: updateSearchTerm,
+                  decoration: InputDecoration(
+                    labelText: 'Search skills',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    prefixIcon: const Icon(Icons.search),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: selectedSkills
+                      .map((skill) => Chip(
+                            label: Text(skill),
+                            onDeleted: () => removeSkill(skill),
+                          ))
+                      .toList(),
+                ),
+                //const SizedBox(height: 16.0),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView.builder(
+                itemCount: filteredSkills.length,
+                itemBuilder: (context, index) {
+                  final skill = filteredSkills[index];
+                  return ListTile(
+                    title: Text(skill),
+                    onTap: () => selectSkill(skill),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: ElevatedButton(
+              onPressed: () {
+                // Implement save functionality here
+              },
+              child: const Text('Save'),
+            ),
+          ),
+        ],
       ),
     );
   }

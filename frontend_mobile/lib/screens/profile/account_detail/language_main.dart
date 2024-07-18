@@ -57,7 +57,7 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                           color: AppColor.primary,
                         ),
                         onPressed: () {
-                          Navigator.popAndPushNamed(
+                          Navigator.pushNamed(
                               context, RouteManager.userLanguageScreen);
                         },
                       ),
@@ -106,7 +106,7 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                                       color: AppColor.primary,
                                     ),
                                     onPressed: () {
-                                      Navigator.popAndPushNamed(context,
+                                      Navigator.pushNamed(context,
                                           RouteManager.editLanguageScreen);
                                     },
                                   ),
@@ -183,7 +183,7 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                                       color: AppColor.primary,
                                     ),
                                     onPressed: () {
-                                      Navigator.popAndPushNamed(context,
+                                      Navigator.pushNamed(context,
                                           RouteManager.editLanguageScreen);
                                     },
                                   ),

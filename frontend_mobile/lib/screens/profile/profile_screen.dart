@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.accountScreen);
                           },
                         ),
@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.languageScreen);
                           },
                         ),
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.changePasswordScreen);
                           },
                         ),
@@ -188,11 +188,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FAQScreen()),
-                            );
+                            Navigator.pushNamed(
+                                context, RouteManager.termAndConditionScreen);
                           },
                         ),
                         const CustomDivider(),
@@ -206,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.teamScreen);
                           },
                         ),
@@ -216,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: 'Logout',
                           trailing: null,
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.loginScreen);
                           },
                         ),
