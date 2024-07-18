@@ -25,12 +25,12 @@ import 'package:frontend_mobile/screens/profile/change_password.dart';
 import 'package:frontend_mobile/screens/profile/edit_profile.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/education.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/select_language.dart';
+import 'package:frontend_mobile/screens/profile/faq_screen.dart';
 import 'package:frontend_mobile/screens/profile/language.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/work_experince.dart';
 import 'package:frontend_mobile/screens/profile/team.dart';
 import 'package:frontend_mobile/screens/search/search_screen.dart';
-import 'package:frontend_mobile/screens/profile/term_condition.dart';
 import 'package:frontend_mobile/widget/navigation_menu.dart';
 
 class RouteManager {
@@ -150,8 +150,7 @@ class RouteManager {
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
       case termAndConditionScreen:
-        return MaterialPageRoute(
-            builder: (context) => const TermAndConditionScreen());
+        return MaterialPageRoute(builder: (context) => const FAQScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }
