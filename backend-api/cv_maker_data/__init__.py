@@ -1,1 +1,0 @@
-default_app_config = 'cv_maker_data.apps.BaseConfig'
