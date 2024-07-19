@@ -19,7 +19,7 @@ final List<IconData> buttonIcon = [
 final List<String> title = [
   "Upskill",
   "Design",
-  "Softkill",
+  "Softskill",
   "Backend",
   "Developer",
 ];
@@ -125,7 +125,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     return Column(
       children: [
         Text(
-          'Articals',
+          'Article',
           style: TextStyle(
             letterSpacing: 0.5,
             color: Colors.white,
